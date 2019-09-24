@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, NgZone } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { BackendapiService } from "../../../service/backendapi.service";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+// import { BackendapiService } from "../../../service/backendapi.service";
+// import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 @Component({
   selector: "app-header",
@@ -10,16 +10,12 @@ import { Router } from "@angular/router";
   encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent implements OnInit {
-  submitted: false;
-  userForm: FormGroup;
+  // submitted: false;
+  // userForm: FormGroup;
 
   closeResult: string;
   constructor(
-    private modalService: NgbModal,
-    private api: BackendapiService,
-    public fb: FormBuilder,
-    private router: Router,
-    private ngZone: NgZone
+    private modalService: NgbModal // private api: BackendapiService, // public fb: FormBuilder, // private router: Router, // private ngZone: NgZone
   ) {
     // this.mainFrom();
   }
@@ -41,20 +37,20 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    this.submitted;
-    if (!this.userForm.valid) {
-      return false;
-    } else {
-      this.api.registerUser(this.userForm.value).subscribe(
-        res => {
-          console.log("Employee successfully created!");
-          this.ngZone.run(() => this.router.navigateByUrl("/employees-list"));
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
-  }
+  // onSubmit() {
+  //   this.submitted;
+  //   if (!this.userForm.valid) {
+  //     return false;
+  //   } else {
+  //     this.api.registerUser(this.userForm.value).subscribe(
+  //       res => {
+  //         console.log("Employee successfully created!");
+  //         this.ngZone.run(() => this.router.navigateByUrl("/employees-list"));
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       }
+  //     );
+  //   }
+  // }
 }
