@@ -10,10 +10,9 @@ import { Observable } from "rxjs";
   providedIn: "root"
 })
 export class BackendapiService {
-  constructor(private http: HttpClient) {}
-
-  registerUser(data): Observable<any> {
-    const url = `${environment.baseUrl}/create`;
-    return this.http.post(url, data);
-  }
+  // constructor(private http: HttpClient) {}
+  // registerUser(data): Observable<any> {
+  //   const url = `${environment.baseUrl}/create`;
+  //   return this.http.post(url, data);
+  // }
 }
