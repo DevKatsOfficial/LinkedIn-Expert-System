@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const { validate, User } = require('../models/usersM')
-
+const { Expert } = require('../../expert/models/expertM');
 module.exports.register = async (req, res) => {
     const result = validate(req.body);
     if (result.error) {
@@ -23,8 +23,12 @@ module.exports.register = async (req, res) => {
         projectNumber: req.body.projectNumber,
         password: await bcrypt.hash(req.body.password, salt)
     });
-    register.save();
-
+    const output = await register.save();
+    const expert = await Expert.create({
+        userId: output._id,
+        linkedin_url: req.body.linkedInUrl
+    })
+    await expert.save();
     res.json({ message: 'Successfully registered!...' });
 
 
