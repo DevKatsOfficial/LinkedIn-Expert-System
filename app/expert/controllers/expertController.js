@@ -31,9 +31,9 @@ module.exports.getExpert = async (req, res) => {
     res.json(expert);
 }
 module.exports.SearchExpert = async (req, res) => {
-    const expert = await Expert.find({ "skills.name": { $regex: req.body.skill, $options: 'i' } }, { skills: { $elemMatch: { name: { $regex: req.body.skill, $options: 'i' } } } }).select('skills.name introduction');
+    const expert = await Expert.find({ "introduction.first_name": req.body.first_name, "introduction.last_name": req.body.last_name, "introduction.location_name": { $regex: req.body.country, $options: 'i' } });
     if (!expert) {
-        return res.status(400).json({ message: "Expert Not Found!" });
+        return res.status(400).json({ message: "Expert Not Found!" })
     }
     res.json(expert);
 }
