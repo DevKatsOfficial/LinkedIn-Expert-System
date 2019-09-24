@@ -4,14 +4,17 @@ const expertController = require('../controllers/expertController')
 
 
 
-router.post('/create',
-    expertController.create)
+// router.post('/create',
+//     expertController.create)
 
 router.get('/:expertId',
     expertController.getExpert)
 
 router.post('/get/bySkills',
-    expertController.getExpertBySkill)
+    expertController.SearchExpert)
+
+router.put('/',
+    expertController.update)
 
 
 

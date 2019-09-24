@@ -2,23 +2,27 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users"
+    },
+    linkedin_url: {
+        type: String
+    },
+    linkedin_scrap_date: {
+        type: Date,
+        default: null
+    },
     introduction: {
-        name: String,
-        background_image: String,
+        last_name: String,
         public_identifier: String,
         picture: String,
         headline: String,
-        industry_name: String,
         location_name: String,
         first_name: String
     },
     summary: {
-        text: String,
-        attached_summary: [{
-            url: String,
-            description: String,
-            title: String
-        }]
+        text: String
     },
     experiences: [{
         company_logo: String,
@@ -35,12 +39,7 @@ const schema = new mongoose.Schema({
                 month: String,
                 year: String
             }
-        },
-        attached_details: [{
-            url: String,
-            description: String,
-            title: String
-        }]
+        }
     }],
     educations: [{
         school_logo: String,
@@ -56,12 +55,7 @@ const schema = new mongoose.Schema({
             end: {
                 year: String
             }
-        },
-        attached_details: [{
-            url: String,
-            description: String,
-            title: String
-        }]
+        }
     }],
     certifications: [{
         institute_logo: String,
