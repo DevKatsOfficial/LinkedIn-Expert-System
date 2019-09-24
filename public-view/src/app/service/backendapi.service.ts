@@ -11,8 +11,9 @@ import { Observable } from "rxjs";
 })
 export class BackendapiService {
   constructor(private http: HttpClient) {}
+
   expertSearch(data): Observable<any> {
-    const url = `${environment.baseUrl}/expert`;
+    const url = `${environment.baseUrl}/expert/search`;
     return this.http.post(url, data);
   }
 }

@@ -22,15 +22,12 @@
         <a class="nav-link" href="#">Profile</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">link</a>
+        <a class="nav-link" href="#">{{ currentUser?.name }}</a>
       </li>
     </ul>
     <div class="offset-md-0 login">
-      <button class="btn btn-primary " (click)="loginModal(content)">
-        login
-      </button>
-      <button class="btn btn-primary " (click)="signModal(signup)">
-        signup
+      <button class="btn btn-primary " (click)="logout()">
+        Logout
       </button>
     </div>
   </div>
