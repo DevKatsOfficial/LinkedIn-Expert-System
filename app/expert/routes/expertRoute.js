@@ -10,7 +10,7 @@ const expertController = require('../controllers/expertController')
 router.get('/:expertId',
     expertController.getExpert)
 
-router.post('/get/bySkills',
+router.post('/search',
     expertController.SearchExpert)
 
 router.put('/',
