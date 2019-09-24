@@ -33,10 +33,11 @@
           <div class="login-inner-form">
             <div class="details">
               <h3>Sign into your account</h3>
-              <form action="../index.html" method="GET">
+              <form id="loginform" #f="ngForm" (ngSubmit)="loginUser(f.value)">
                 <div class="form-group">
                   <input
                     type="email"
+                    ngModel
                     name="email"
                     class="input-text"
                     placeholder="Email Address"
@@ -45,7 +46,8 @@
                 <div class="form-group">
                   <input
                     type="password"
-                    name="Password"
+                    ngModel
+                    name="password"
                     class="input-text"
                     placeholder="Password"
                   />

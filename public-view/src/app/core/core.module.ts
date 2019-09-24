@@ -9,6 +9,22 @@ import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, FormsModule, HttpClientModule]
+  imports: [CommonModule, FormsModule, HttpClientModule],
+  exports: [FormsModule],
+  providers: [
+    LocalStorageService,
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }
+  ]
 })
-export class CoreModule {}
+export class CoreModule {
+  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
+    if (parentModule) {
+      throw new Error("CoreModule is already loaded. Import only in AppModule");
+    }
+  }
+}

@@ -1,15 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+
+import { AuthService } from "../core/services/auth.service";
+import { LocalStorageService } from "../core/services/local-storage.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
+  constructor(
+    private authService: AuthService,
+    private localStorageService: LocalStorageService,
+    private router: Router
+  ) {}
 
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit() {}
+  loginUser(data) {
+    console.log(data);
+    this.authService.login(data).subscribe(res => {
+      if (res.token) {
+        this.localStorageService.token = res.token;
+        this.router.navigate(["/"]);
+      }
+    });
   }
-
 }
