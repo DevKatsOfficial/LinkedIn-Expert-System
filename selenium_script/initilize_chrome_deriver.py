@@ -3,11 +3,13 @@ import sys
 import time
 from random import randint
 sys.path.append(os.path.abspath("."))
+
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 
 import config
 from parse_html.linkedin_user_profile import parse_and_save_expert_profile
@@ -16,7 +18,13 @@ from utilities.extract_data import get_attr_value_from_html_soup, xpath_soup
 
 def initialize_chrome():
     """This method is used to initialize chrome driver"""
-    driver = webdriver.Chrome(executable_path=r"./chromedriver")
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    driver_path = os.path.abspath("") + '/selenium_script/chromedriver'
+    driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
+    # driver = webdriver.Chrome(executable_path="/home/shaheryar/Documents/LinkedIn-Expert-System/selenium_script/chromedriver")
     return driver
 
 
