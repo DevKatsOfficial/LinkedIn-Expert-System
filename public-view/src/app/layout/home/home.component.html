@@ -220,7 +220,7 @@
                                                     alt=""></a>
                                         </div>
                                         <div class="brows-job-position">
-                                            <h3><a href="#">{{search.introduction.headline}}}</a></h3>
+                                            <h3><a href="#">{{search.introduction.headline}}</a></h3>
                                             <p>
                                                 <span>Autodesk</span><span class="brows-job-sallery"><i
                                                         class="fa fa-money"></i>$750 - 800</span>
@@ -231,16 +231,16 @@
                                 </div>
                                 <div class="col-md-4 col-sm-4">
                                     <div class="brows-job-location">
-                                        <p><i class="fa fa-map-marker"></i>QBL Park, C40</p>
+                                        <p><i class="fa fa-map-marker"></i>{{search.introduction.location_name}}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-2 col-sm-2">
                                     <div class="brows-job-link">
-                                        <a href="#" class="btn btn-default">View Profile</a>
+                                        <a href="#" class="btn btn-default" [routerLink]="['/profile-details',search._id]">View Profile</a>
                                     </div>
                                 </div>
                             </div>
-                            <span class="tg-themetag tg-featuretag">Premium</span>
+                           
                         </article>
                     </div>
     

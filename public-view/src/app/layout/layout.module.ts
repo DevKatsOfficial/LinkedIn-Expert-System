@@ -7,13 +7,15 @@ import { LayoutComponent } from "./layout.component";
 import { HeaderComponent } from "./shared/header/header.component";
 import { FooterComponent } from "./shared/footer/footer.component";
 import { HomeComponent } from "./home/home.component";
+import { ProfileDetailsComponent } from './profile-details/profile-details.component';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileDetailsComponent
   ],
   imports: [CommonModule, LayoutRoutingModule, FormsModule]
 })

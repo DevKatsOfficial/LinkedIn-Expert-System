@@ -17,4 +17,8 @@ export class BackendapiService {
     const url = `${environment.baseUrl}/expert/search`;
     return this.http.post(url, data);
   }
+  getOne(id: string): Observable<any> {
+    const url = `${environment.baseUrl}/expert/`;
+    return this.http.get<any>(url + id);
+  }
 }
