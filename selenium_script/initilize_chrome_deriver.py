@@ -1,6 +1,8 @@
+import os
+import sys
 import time
 from random import randint
-
+sys.path.append(os.path.abspath("."))
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
