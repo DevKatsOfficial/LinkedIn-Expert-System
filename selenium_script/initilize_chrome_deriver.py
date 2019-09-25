@@ -8,6 +8,7 @@ from selenium.webdriver.common.keys import Keys
 
 import config
 from parse_html.linkedin_user_profile import parse_and_save_expert_profile
+from utilities.extract_data import get_attr_value_from_html_soup, xpath_soup
 
 
 def initialize_chrome():
@@ -247,9 +248,47 @@ def skills_endorsements_section():
         pass
 
 
+def get_xpath_of_projects_and_publications(soup_obj):
+    xpath_data = {}
+    if not isinstance(soup_obj, BeautifulSoup):
+        soup_obj = BeautifulSoup(soup_obj, "html.parser")
+    PROJECT_SECTION_SELECTOR_FOR_XPATH = {
+        "section": {"tag": "section", "class": "projects", "fetch_method": "find"},
+        "svg": {"tag": "svg",  "fetch_method": "find"}
+    }
+    project_section = get_attr_value_from_html_soup(soup_obj, PROJECT_SECTION_SELECTOR_FOR_XPATH['section'])
+    if project_section:
+        svg_element = get_attr_value_from_html_soup(project_section,  PROJECT_SECTION_SELECTOR_FOR_XPATH['svg'])
+        if svg_element:
+            xpath_data['projects_html'] = xpath_soup(svg_element)
+    PUBLICATIONS_SECTION_SELECTOR_FOR_XPATH = {
+        "section": {"tag": "section", "class": "publications", "fetch_method": "find"},
+        "svg": {"tag": "svg",  "fetch_method": "find"}
+    }
+    publications_section = get_attr_value_from_html_soup(soup_obj, PUBLICATIONS_SECTION_SELECTOR_FOR_XPATH['section'])
+    if publications_section:
+        svg_element = get_attr_value_from_html_soup(publications_section,  PUBLICATIONS_SECTION_SELECTOR_FOR_XPATH['svg'])
+        if svg_element:
+            xpath_data['publications_html'] = xpath_soup(svg_element)
+    return xpath_data
+
+
 def open_accomplishments_section_and_return_html_dict():
     html_data = {'main_html': driver.page_source}
     try:
+        # xpath_data = get_xpath_of_projects_and_publications(driver.page_source)
+        # for k, v in xpath_data.items():
+        #     svg = driver.find_element_by_xpath(v)
+        #     try:
+        #         actions = ActionChains(driver)
+        #         actions.move_to_element(svg).perform()
+        #         actions.click()
+        #         svg.send_keys(Keys.RETURN)
+        #         time.sleep(8)
+        #         html_data[k] = driver.page_source
+        #     except Exception as e:
+        #         pass
+        # return html_data
         obj = driver.find_element_by_xpath("//*[contains(text(), 'Accomplishments')]")
         flag = True
         while flag:
@@ -287,7 +326,11 @@ def open_accomplishments_section_and_return_html_dict():
                         flag = True
             file_name = ""
             flag = True
+            count = 0
             while flag:
+                if count >=5:
+                    break
+                count +=1
                 file_name = ""
                 if svg.text.startswith("Language\n"):
                     file_name = "language_html"
@@ -300,6 +343,8 @@ def open_accomplishments_section_and_return_html_dict():
                     file_name = "organization"
                 if svg.text.startswith("Projects\n"):
                     file_name = "projects_html"
+                if svg.text.startswith("Courses\n"):
+                    file_name = "courses_html"
                 svg = svg.find_element_by_xpath("..")
                 if file_name:
                     flag = False
