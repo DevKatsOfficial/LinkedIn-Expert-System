@@ -422,7 +422,7 @@ for _url in config.SAMPLE_LINKEDIN_PROFILES_TO_PARSE:
     except Exception as e:
         with open('exception_logs.log', 'a+') as f:
             f.write(str(e))
-    time.sleep(randint(300, 1200))
+    time.sleep(randint(300, 600))
 
 
 quit_browser(driver)
