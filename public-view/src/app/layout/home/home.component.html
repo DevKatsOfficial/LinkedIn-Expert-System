@@ -2,20 +2,27 @@
 <section class="bottom-search-form">
   <div class="container">
     <div class="row">
-      <form class="bt-form">
+      <form class="bt-form" 
+         id="registerform"
+                #f="ngForm"
+                (ngSubmit)="searchExperts(f.value)"
+      >
         <div class="row">
           <div class="col-md-4 col-sm-6">
             <input
               type="text"
               class="form-control"
+              ngModel
+              name="first_name"
+
               placeholder="First Name"
             />
           </div>
           <div class="col-md-4 col-sm-6">
-            <input type="text" class="form-control" id="companies" placeholder="Last Name" />
+            <input type="text" class="form-control" id="companies" ngModel name="last_name" placeholder="Last Name" />
           </div>
           <div class="col-md-4 col-sm-6">
-            <input type="text" class="form-control" id="location" placeholder="Search Free Words" />
+            <input type="text" class="form-control" id="location" ngModel name="country" placeholder="Search Free Words" />
           </div>
           <div class="col-md-4 col-sm-6">
             <input type="text" class="form-control" id="cempl" placeholder="Current Employer" />
@@ -196,7 +203,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>We found 477 matches Expert, you are watching 7 to 27</h2>
+                    <h2 *ngFor="let search of searchvalue">we have found {{search.lenght}} Expert</h2>
                 </div>
             </div>
             <div class="row">
@@ -205,15 +212,15 @@
                     <!-- Single Job List -->
                     <div class="item-click">
                         <article>
-                            <div class="brows-job-list">
+                            <div class="brows-job-list" *ngFor="let search of searchvalue">
                                 <div class="col-md-6 col-sm-6">
                                     <div class="item-fl-box">
                                         <div class="brows-job-company-img">
-                                            <a href="job-detail.html"><img src="assets\img\com-1.jpg" class="img-responsive"
+                                            <a href="#"><img src="{{search.introduction.picture}}" class="img-responsive"
                                                     alt=""></a>
                                         </div>
                                         <div class="brows-job-position">
-                                            <h3><a href="job-apply-detail.html">Digital Marketing Manager</a></h3>
+                                            <h3><a href="#">{{search.introduction.headline}}}</a></h3>
                                             <p>
                                                 <span>Autodesk</span><span class="brows-job-sallery"><i
                                                         class="fa fa-money"></i>$750 - 800</span>
@@ -237,7 +244,7 @@
                         </article>
                     </div>
     
-                    <!-- Single Job List -->
+                    <!-- Single Job List
                     <div class="item-click">
                         <article>
                             <div class="brows-job-list">
@@ -269,10 +276,10 @@
                                 </div>
                             </div>
                         </article>
-                    </div>
+                    </div> -->
     
                     <!-- Single Job List -->
-                    <div class="item-click">
+                    <!-- <div class="item-click">
                         <article>
                             <div class="brows-job-list">
                                 <div class="col-md-6 col-sm-6">
@@ -304,10 +311,10 @@
                             </div>
                             <span class="tg-themetag tg-featuretag">Premium</span>
                         </article>
-                    </div>
+                    </div> -->
     
                     <!-- Single Job List -->
-                    <div class="item-click">
+                    <!-- <div class="item-click">
                         <article>
                             <div class="brows-job-list">
                                 <div class="col-md-6 col-sm-6">
@@ -338,10 +345,10 @@
                                 </div>
                             </div>
                         </article>
-                    </div>
+                    </div> -->
     
                     <!-- Single Job List -->
-                    <div class="item-click">
+                    <!-- <div class="item-click">
                         <article>
                             <div class="brows-job-list">
                                 <div class="col-md-6 col-sm-6">
@@ -373,10 +380,10 @@
                             </div>
                             <span class="tg-themetag tg-featuretag">Premium</span>
                         </article>
-                    </div>
+                    </div> -->
     
                     <!-- Single Job List -->
-                    <div class="item-click">
+                    <!-- <div class="item-click">
                         <article>
                             <div class="brows-job-list">
                                 <div class="col-md-6 col-sm-6">
@@ -407,10 +414,10 @@
                                 </div>
                             </div>
                         </article>
-                    </div>
+                    </div> -->
     
                     <!-- Single Job List -->
-                    <div class="item-click">
+                    <!-- <div class="item-click">
                         <article>
                             <div class="brows-job-list">
                                 <div class="col-md-6 col-sm-6">
@@ -442,7 +449,7 @@
                             </div>
                             <span class="tg-themetag tg-featuretag">Premium</span>
                         </article>
-                    </div>
+                    </div> -->
     
                 </div>
             </div>

@@ -13,6 +13,7 @@ export class BackendapiService {
   constructor(private http: HttpClient) {}
 
   expertSearch(data): Observable<any> {
+    console.log(data);
     const url = `${environment.baseUrl}/expert/search`;
     return this.http.post(url, data);
   }
