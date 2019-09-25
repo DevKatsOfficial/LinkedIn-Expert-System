@@ -1,4 +1,5 @@
 import time
+from random import randint
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -387,24 +388,26 @@ validate site load successfully
 if driver.current_url.__contains__("login"):
     login(username=config.USERNAME, password=config.PASSWORD)
 time.sleep(6)
-_url = config.SAMPLE_LINKEDIN_PROFILE_TO_PARSE
-load_site(url=_url)
-time.sleep(10)
-scroll_to_bottom()
-scroll_to_top()
-time.sleep(4)
-click_see_more_summary()
-time.sleep(4)
-click_show_more_experiences()
-time.sleep(4)
-click_all_see_more()
-time.sleep(4)
-click_show_more_edu()
-time.sleep(4)
-click_all_show_more()
-click_show_more_skill()
-skills_endorsements_section()
-html_data = open_accomplishments_section_and_return_html_dict()
-time.sleep(2)
+for _url in config.SAMPLE_LINKEDIN_PROFILES_TO_PARSE:
+    load_site(url=_url)
+    time.sleep(10)
+    scroll_to_bottom()
+    scroll_to_top()
+    time.sleep(4)
+    click_see_more_summary()
+    time.sleep(4)
+    click_show_more_experiences()
+    time.sleep(4)
+    click_all_see_more()
+    time.sleep(4)
+    click_show_more_edu()
+    time.sleep(4)
+    click_all_show_more()
+    click_show_more_skill()
+    skills_endorsements_section()
+    html_data = open_accomplishments_section_and_return_html_dict()
+    time.sleep(2)
+    parse_and_save_expert_profile(**html_data, linkedin_url=_url)
+    time.sleep(randint(600, 1200))
+
 quit_browser(driver)
-parse_and_save_expert_profile(**html_data, linkedin_url=_url)
