@@ -51,7 +51,8 @@ def parse_and_save_expert_profile(main_html='', publications_html='', projects_h
         'skills': skills,
         'projects': projects,
         'publications': publications,
-        'scrap_datetime': datetime.utcnow()
+        'scrap_datetime': datetime.utcnow(),
+        'linkedin_url': linkedin_url
     }
     try:
         if not expert_model_id:
