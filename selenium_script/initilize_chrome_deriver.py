@@ -2,6 +2,7 @@ import time
 from random import randint
 
 from bs4 import BeautifulSoup
+from func_timeout import func_timeout, func_set_timeout
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
@@ -388,7 +389,10 @@ validate site load successfully
 if driver.current_url.__contains__("login"):
     login(username=config.USERNAME, password=config.PASSWORD)
 time.sleep(6)
-for _url in config.SAMPLE_LINKEDIN_PROFILES_TO_PARSE:
+
+
+@func_set_timeout(300)
+def load_and_parse_profile(_url):
     load_site(url=_url)
     time.sleep(10)
     scroll_to_bottom()
@@ -408,6 +412,15 @@ for _url in config.SAMPLE_LINKEDIN_PROFILES_TO_PARSE:
     html_data = open_accomplishments_section_and_return_html_dict()
     time.sleep(2)
     parse_and_save_expert_profile(**html_data, linkedin_url=_url)
-    time.sleep(randint(600, 1200))
+
+
+for _url in config.SAMPLE_LINKEDIN_PROFILES_TO_PARSE:
+    try:
+        load_and_parse_profile(_url)
+    except Exception as e:
+        with open('exception_logs.log', 'a+') as f:
+            f.write(str(e))
+    time.sleep(randint(300, 1200))
+
 
 quit_browser(driver)
