@@ -1,6 +1,8 @@
+import os
+import sys
 import time
 from random import randint
-
+sys.path.append(os.path.abspath("."))
 from bs4 import BeautifulSoup
 from func_timeout import func_timeout, func_set_timeout
 from selenium import webdriver
