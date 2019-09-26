@@ -6,11 +6,12 @@ PORT = '27017'
 MONGO_URI = "mongodb://{}:{}/".format(HOST, PORT)
 DATABASE_NAME = 'linkedin'
 SAMPLE_LINKEDIN_PROFILES_TO_PARSE = [
+    "https://www.linkedin.com/in/shashank-saxena-659b497/",
+    "https://www.linkedin.com/in/ehsaan-israr-812991aa/",
     "https://www.linkedin.com/in/davidwolpa/",
     "https://www.linkedin.com/in/bharatpindoria/",
     "https://www.linkedin.com/in/waynesharpe/",
     "https://www.linkedin.com/in/chrisblackct/",
-    "https://www.linkedin.com/in/shashank-saxena-659b497/",
     "https://www.linkedin.com/in/kenneth-soonhyuck-jung-97a58845/",
     "https://www.linkedin.com/in/thomasschmitz1972/",
     "https://www.linkedin.com/in/markusgleim/",

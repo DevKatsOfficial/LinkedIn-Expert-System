@@ -100,8 +100,19 @@ def click_show_more_experiences():
         time.sleep(2)
         actions.move_to_element(more_edu_buttons).perform()
         actions.click()
-        time.sleep(2)
+        time.sleep(4)
         actions.perform()
+    except Exception:
+        pass
+    try:
+        more_edu_buttons = driver.find_elements_by_xpath("//*[contains(text(), 'more roles')]")
+        for more_edu_button in more_edu_buttons:
+            actions = ActionChains(driver)
+            time.sleep(2)
+            actions.move_to_element(more_edu_button).perform()
+            actions.click()
+            time.sleep(2)
+            actions.perform()
     except Exception:
         pass
 
