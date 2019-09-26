@@ -1,7 +1,5 @@
-from collections import defaultdict
-
 import config
-from utilities.extract_data import get_attr_value_from_html_soup, get_param_from_url
+from utilities.extract_data import get_attr_value_from_html_soup
 
 CATEGORY_NAME = 'experience'
 
@@ -62,7 +60,7 @@ def get_user_experience_data(html_soup, identifier_data_mapping):
                     user_experience_tag, config.EXPERIENCE_SECTION_SELECTORS['item_company_name']
                 ),
                 'description': get_attr_value_from_html_soup(
-                    user_experience_tag, config.EXPERIENCE_SECTION_SELECTORS['item_description']
+                    same_company_experience, config.EXPERIENCE_SECTION_SELECTORS['same_company_description']
                 ),
                 'location_name': get_attr_value_from_html_soup(
                     same_company_experience, config.EXPERIENCE_SECTION_SELECTORS['same_company_location_name']

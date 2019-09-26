@@ -246,6 +246,10 @@ db.linkedin_config.insert(
             "same_company_location_name": {"class": "pv-entity__location", "fetch_method": "find",
                                         "inner_details": {"tag": "span", "not_class": "visually-hidden", "type": "text",  "fetch_method": "find_all", "attribute_to_pick": "text"}
                                        },
+            "same_company_description": {"class": "pv-entity__description", "fetch_method": "find",
+                                        "inner_details": {"tag": "span", "not_class": "lt-line-clamp__ellipsis", "type": "text",
+                                                          "fetch_method": "find_all", "attribute_to_pick": "text"}
+                                        },
             "item_description": {"class": "pv-entity__description", "fetch_method": "find",
                                  "inner_details": {"tag": "span", "class": "lt-line-clamp__raw-line", "fetch_method": "find", "type": "text", "attribute_to_pick": "text"}},
             "attached_links_list": {"class": "pv-treasury-list-preview__treasury-item-link", "type": "treasury_item", "fetch_method": "find_all"}

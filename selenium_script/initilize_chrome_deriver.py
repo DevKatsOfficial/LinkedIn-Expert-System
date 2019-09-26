@@ -24,8 +24,8 @@ def initialize_chrome():
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
     driver_path = os.path.abspath("") + '/selenium_script/chromedriver'
-    driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
-    # driver = webdriver.Chrome(executable_path=driver_path)
+    # driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
+    driver = webdriver.Chrome(executable_path=driver_path)
     return driver
 
 
@@ -326,7 +326,7 @@ validate site load successfully
 """
 
 if driver.current_url.__contains__("login"):
-    login(username=config.USERNAME, password=config.PASSWORD)
+    login(username="ehsaan.xiq@gmail.com", password="quality1!")
 time.sleep(6)
 
 
