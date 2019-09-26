@@ -22,7 +22,6 @@ SAMPLE_LINKEDIN_PROFILES_TO_PARSE = [
     "https://www.linkedin.com/in/jeff-schuck-1931a11/",
     "https://www.linkedin.com/in/ram-prayaga-400aa51/",
     "https://www.linkedin.com/in/sahibyar/",
-    "https://www.linkedin.com/in/ehsaan-israr-812991aa/",
     "https://www.linkedin.com/in/katjamayer/",
 ]
 

@@ -25,7 +25,7 @@ def initialize_chrome():
     chrome_options.add_argument('--disable-dev-shm-usage')
     driver_path = os.path.abspath("") + '/selenium_script/chromedriver'
     driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
-    # driver = webdriver.Chrome(executable_path="/home/shaheryar/Documents/LinkedIn-Expert-System/selenium_script/chromedriver")
+    # driver = webdriver.Chrome(executable_path=driver_path)
     return driver
 
 
@@ -264,107 +264,36 @@ def get_xpath_of_projects_and_publications(soup_obj):
     xpath_data = {}
     if not isinstance(soup_obj, BeautifulSoup):
         soup_obj = BeautifulSoup(soup_obj, "html.parser")
-    PROJECT_SECTION_SELECTOR_FOR_XPATH = {
-        "section": {"tag": "section", "class": "projects", "fetch_method": "find"},
-        "svg": {"tag": "svg",  "fetch_method": "find"}
-    }
-    project_section = get_attr_value_from_html_soup(soup_obj, PROJECT_SECTION_SELECTOR_FOR_XPATH['section'])
+    project_section = get_attr_value_from_html_soup(soup_obj, config.PROJECTS_SECTION_SELECTORS['section'])
     if project_section:
-        svg_element = get_attr_value_from_html_soup(project_section,  PROJECT_SECTION_SELECTOR_FOR_XPATH['svg'])
-        if svg_element:
-            xpath_data['projects_html'] = xpath_soup(svg_element)
-    PUBLICATIONS_SECTION_SELECTOR_FOR_XPATH = {
-        "section": {"tag": "section", "class": "publications", "fetch_method": "find"},
-        "svg": {"tag": "svg",  "fetch_method": "find"}
-    }
-    publications_section = get_attr_value_from_html_soup(soup_obj, PUBLICATIONS_SECTION_SELECTOR_FOR_XPATH['section'])
+        button_element = get_attr_value_from_html_soup(project_section,  config.PROJECTS_SECTION_SELECTORS['expand_button'])
+        if button_element:
+            xpath_data['projects_html'] = xpath_soup(button_element)
+    publications_section = get_attr_value_from_html_soup(soup_obj, config.PUBLICATIONS_SECTION_SELECTORS['section'])
     if publications_section:
-        svg_element = get_attr_value_from_html_soup(publications_section,  PUBLICATIONS_SECTION_SELECTOR_FOR_XPATH['svg'])
-        if svg_element:
-            xpath_data['publications_html'] = xpath_soup(svg_element)
+        button_element = get_attr_value_from_html_soup(publications_section,  config.PUBLICATIONS_SECTION_SELECTORS['expand_button'])
+        if button_element:
+            xpath_data['publications_html'] = xpath_soup(button_element)
     return xpath_data
 
 
 def open_accomplishments_section_and_return_html_dict():
     html_data = {'main_html': driver.page_source}
     try:
-        # xpath_data = get_xpath_of_projects_and_publications(driver.page_source)
-        # for k, v in xpath_data.items():
-        #     svg = driver.find_element_by_xpath(v)
-        #     try:
-        #         actions = ActionChains(driver)
-        #         actions.move_to_element(svg).perform()
-        #         actions.click()
-        #         svg.send_keys(Keys.RETURN)
-        #         time.sleep(8)
-        #         html_data[k] = driver.page_source
-        #     except Exception as e:
-        #         pass
-        # return html_data
-        obj = driver.find_element_by_xpath("//*[contains(text(), 'Accomplishments')]")
-        flag = True
-        while flag:
-            inner_html = obj.get_attribute("innerHTML")
-            if ("Projects" in inner_html or
-                "Honors" in inner_html or
-                "Awards" in inner_html or
-                "Publications" in inner_html or
-                "Language" in inner_html or
-                "Organization" in inner_html):
-                flag = False
-            obj = obj.find_element_by_xpath("..")
-        # return obj
-
-        svgs = obj.find_elements_by_tag_name("svg")
-        count = 1
-        for svg in svgs:
+        xpath_data = get_xpath_of_projects_and_publications(driver.page_source)
+        for k, v in xpath_data.items():
             try:
+                button = driver.find_element_by_xpath(v)
                 actions = ActionChains(driver)
-                actions.move_to_element(svg).perform()
+                actions.move_to_element(button).perform()
                 actions.click()
-                svg.send_keys(Keys.RETURN)
+                button.send_keys(Keys.RETURN)
                 time.sleep(8)
-            except:
-                flag = True
-                while flag:
-                    try:
-                        flag = False
-                        svg = svg.find_element_by_xpath("..")
-                        actions = ActionChains(driver)
-                        actions.move_to_element(svg).perform()
-                        actions.click()
-                        svg.send_keys(Keys.RETURN)
-                    except :
-                        flag = True
-            file_name = ""
-            flag = True
-            count = 0
-            while flag:
-                if count >=5:
-                    break
-                count +=1
-                file_name = ""
-                if svg.text.startswith("Language\n"):
-                    file_name = "language_html"
-
-                if svg.text.startswith("Honors & Awards\n"):
-                    file_name = "honors_html"
-                if svg.text.startswith("Publications\n"):
-                    file_name = "publications_html"
-                if svg.text.startswith("Organization\n"):
-                    file_name = "organization"
-                if svg.text.startswith("Projects\n"):
-                    file_name = "projects_html"
-                if svg.text.startswith("Courses\n"):
-                    file_name = "courses_html"
-                svg = svg.find_element_by_xpath("..")
-                if file_name:
-                    flag = False
-            html_data[file_name] = driver.page_source
+                html_data[k] = driver.page_source
+            except Exception as e:
+                pass
         return html_data
     except Exception as e:
-        import traceback
-        traceback.print_exc()
         return html_data
 
 

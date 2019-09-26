@@ -155,7 +155,9 @@ db.linkedin_config.insert(
             "item_link": {"class": "pv-accomplishment-entity__external-source", "fetch_method": "find", "attribute_to_pick": "href", "type": "_text"},
             "item_time_range": {"class": "pv-accomplishment-entity__date", "fetch_method": "find",  "filter_outer_text_only": true},
             "item_publisher": {"class": "pv-accomplishment-entity__publisher", "fetch_method": "find", "filter_outer_text_only": true, "separator": "\n"},
-            "item_description": {"class": "pv-accomplishment-entity__description", "fetch_method": "find", "filter_outer_text_only": true, "separator": "\n"}
+            "item_description": {"class": "pv-accomplishment-entity__description", "fetch_method": "find", "filter_outer_text_only": true, "separator": "\n"},
+            "section": {"tag": "section", "class": "publications", "fetch_method": "find"},
+            "expand_button": {"tag": "button", "class": "pv-accomplishments-block__expand", "fetch_method": "find"}
         }
     }
 )
@@ -169,7 +171,9 @@ db.linkedin_config.insert(
             "item_name": {"class": "pv-accomplishment-entity__title", "fetch_method": "find", "filter_outer_text_only": true},
             "item_link": {"class": "pv-accomplishment-entity__external-source", "fetch_method": "find", "attribute_to_pick": "href", "type": "_text"},
             "item_time_range": {"class": "pv-accomplishment-entity__date", "fetch_method": "find",  "type": "month_year_time_range",  "attribute_to_pick": "text"},
-            "item_description": {"class": "pv-accomplishment-entity__description", "fetch_method": "find", "filter_outer_text_only": true, "separator": "\n"}
+            "item_description": {"class": "pv-accomplishment-entity__description", "fetch_method": "find", "filter_outer_text_only": true, "separator": "\n"},
+            "section": {"tag": "section", "class": "projects", "fetch_method": "find"},
+            "expand_button": {"tag": "button", "class": "pv-accomplishments-block__expand", "fetch_method": "find"}
         }
     }
 )
