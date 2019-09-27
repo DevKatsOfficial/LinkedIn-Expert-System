@@ -5,7 +5,7 @@ from random import randint
 sys.path.append(os.path.abspath("."))
 
 from bs4 import BeautifulSoup
-from func_timeout import func_timeout, func_set_timeout
+from func_timeout import func_timeout, FunctionTimedOut
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
@@ -95,7 +95,7 @@ def click_show_more_experiences():
     :return:
     """
     try:
-        more_edu_buttons = driver.find_element_by_xpath("//*[contains(text(), 'more experiences')]")
+        more_edu_buttons = driver.find_element_by_xpath("//*[contains(text(), 'more experience')]")
         actions = ActionChains(driver)
         time.sleep(2)
         actions.move_to_element(more_edu_buttons).perform()
@@ -104,8 +104,15 @@ def click_show_more_experiences():
         actions.perform()
     except Exception:
         pass
+
+
+def click_show_more_experiences_roles():
+    """
+    This method find element having more experiences text and perform click operation to see detail
+    :return:
+    """
     try:
-        more_edu_buttons = driver.find_elements_by_xpath("//*[contains(text(), 'more roles')]")
+        more_edu_buttons = driver.find_elements_by_xpath("//*[contains(text(), 'more role')]")
         for more_edu_button in more_edu_buttons:
             actions = ActionChains(driver)
             time.sleep(2)
@@ -341,7 +348,6 @@ if driver.current_url.__contains__("login"):
 time.sleep(6)
 
 
-@func_set_timeout(300)
 def load_and_parse_profile(_url):
     load_site(url=_url)
     time.sleep(10)
@@ -351,6 +357,11 @@ def load_and_parse_profile(_url):
     click_see_more_summary()
     time.sleep(4)
     click_show_more_experiences()
+    # sometimes experiences are more
+    click_show_more_experiences()
+    click_show_more_experiences()
+    # load experience roles
+    click_show_more_experiences_roles()
     time.sleep(4)
     click_all_see_more()
     time.sleep(4)
@@ -366,7 +377,9 @@ def load_and_parse_profile(_url):
 
 for _url in config.SAMPLE_LINKEDIN_PROFILES_TO_PARSE:
     try:
-        load_and_parse_profile(_url)
+        func_timeout(300, load_and_parse_profile, args=(_url,))
+    except FunctionTimedOut:
+        pass
     except Exception as e:
         with open('exception_logs.log', 'a+') as f:
             f.write(str(e))
