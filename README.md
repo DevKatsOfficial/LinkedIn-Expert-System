@@ -7,6 +7,13 @@ Install mongodb Server For Databases download it from official website
 
 Check Public_view Folder For angular
 
+If You want to change port or database name go into 
+
+```
+Gointo-->config-->-development.json
+
+```
+
 ```
 Install Node js and  angular packages run this command
 
