@@ -11,24 +11,30 @@ If You want to change port or database name go into
 
 ```
 Gointo-->config-->-development.json
-
 ```
 
 ```
 Install Node js and  angular packages run this command
+```
 
+```
 npm install
+```
 
 For Starting node Server write this command
 
+```
 node server
+```
 
 For starting Angular server write this command
 
+```
 ng serve --o
+```
 
 Starting mongodb 
 
 starting from bin file 
 
-```
+
