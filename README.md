@@ -1,4 +1,4 @@
-# LinkedIn-Expert-System
+# LinkedIn-Expert-System (Backend And Frontend)
 A project of expert system using data from LinkedIn.
 
 Install Nodejs and download it from official website
