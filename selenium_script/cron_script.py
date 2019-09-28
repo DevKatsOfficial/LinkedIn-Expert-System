@@ -1,3 +1,5 @@
+import os
+import sys
 import time
 from datetime import timedelta, datetime, time as datetime_time
 from random import randint
@@ -13,6 +15,7 @@ from selenium_script.initilize_chrome_deriver import load_and_parse_profile, ini
 MAX_ONE_DAY_PROFILES = 500
 experts_parsed_count_model = config.db.experts_parsed_count
 
+sys.path.append(os.path.abspath("."))
 
 def parse_new_profiles_on_priority(driver, already_parsed_profiles_count):
     config.config_logger.debug('parsing new profiles started')
