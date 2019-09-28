@@ -348,6 +348,38 @@ def login(driver, username=config.USERNAME, password=config.PASSWORD):
     config.config_logger.debug('URL after login: {}'.format(driver.current_url))
     if driver.current_url.contains('www.linkedin.com/authwall'):
         config.config_logger.error('Not able to login')
+        perform_another_login(driver)
+        raise ValueError()
+    else:
+        config.config_logger.debug('linkedIn login Done')
+
+
+def perform_another_login(driver, username=config.USERNAME, password=config.PASSWORD):
+    """
+    TO DO: don't login if user is already login
+    TO DO: Send email in case web show recaptcha
+    :param driver:
+    :param username:
+    :param password:
+    :return:
+    """
+    try:
+        driver.find_element_by_xpath(u'//a[text()="Sign in"]').click()
+    except Exception:
+        config.config_logger.exception('Exception occured while clicking on sign In')
+
+    username_field = driver.find_element_by_id("login-email")
+    password_field = driver.find_element_by_id("login-password")
+
+    username_field.send_keys(username)
+    password_field.send_keys(password)
+
+    soup = BeautifulSoup(driver.page_source, features="html.parser")
+
+    driver.find_element_by_xpath("//form").submit()
+    config.config_logger.debug('URL after login: {}'.format(driver.current_url))
+    if driver.current_url.contains('www.linkedin.com/authwall'):
+        config.config_logger.error('Not able to login')
         raise ValueError()
     else:
         config.config_logger.debug('linkedIn login Done')
