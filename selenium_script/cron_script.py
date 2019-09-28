@@ -13,6 +13,7 @@ from selenium_script.initilize_chrome_deriver import load_and_parse_profile, ini
 MAX_ONE_DAY_PROFILES = 500
 experts_parsed_count_model = config.db.experts_parsed_count
 
+
 def parse_new_profiles_on_priority(driver, already_parsed_profiles_count):
     config.config_logger.debug('parsing new profiles started')
     new_profiles = db.experts.find({
@@ -23,6 +24,7 @@ def parse_new_profiles_on_priority(driver, already_parsed_profiles_count):
             break
         _url = new_profile.get('linkedin_url')
         if _url:
+            _url = _url.strip().strip('/').strip('#').strip('/')
             try:
                 func_timeout(300, load_and_parse_profile, args=(driver, _url, new_profile.get('_id', None)))
             except FunctionTimedOut:

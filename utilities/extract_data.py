@@ -61,7 +61,11 @@ def get_processed_value_based_on_type(value, data_type):
         try:
             start_range, end_range = value.split('–')
             start_range, end_range = start_range.strip(), end_range.strip()
-            start_month, start_year = start_range.split()
+            try:
+                start_month, start_year = start_range.split()
+            except ValueError:
+                start_year = start_range
+                start_month = None
             value = {
                 'start': {
                     'month': start_month,
@@ -69,7 +73,11 @@ def get_processed_value_based_on_type(value, data_type):
                 }
             }
             if end_range.lower() != 'present':
-                end_month, end_year = end_range.split()
+                try:
+                    end_month, end_year = end_range.split()
+                except ValueError:
+                    end_year = end_range
+                    end_month = None
                 value.update({
                     'end': {
                         'month': end_month,

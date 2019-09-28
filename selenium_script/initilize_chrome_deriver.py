@@ -316,6 +316,7 @@ def open_accomplishments_section_and_return_html_dict(driver):
                 actions.click()
                 button.send_keys(Keys.RETURN)
                 time.sleep(8)
+                click_all_show_more(driver)
                 html_data[k] = driver.page_source
             except Exception as e:
                 pass
