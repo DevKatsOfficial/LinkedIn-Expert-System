@@ -1,8 +1,12 @@
 import os
+import traceback
 from datetime import datetime
 
+import pymongo
 from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
+from datetime import timedelta, datetime, time as datetime_time
+
 
 import config
 from parse_html.certification import get_user_certifications_data
@@ -17,10 +21,12 @@ from parse_html.summary import get_user_summary_data
 from parse_html.volunteer_experience import get_user_volunteer_experience_data
 
 experts_model = config.db.experts
+experts_parsed_count_model = config.db.experts_parsed_count
 
 
 def parse_and_save_expert_profile(main_html='', publications_html='', projects_html='',
                                   expert_model_id=None, linkedin_url='', **kwargs):
+    config.config_logger.debug('selenium function done. Now parsing by BS4 to save in db started')
     projects_html_soup = publications_html_soup = html_soup = BeautifulSoup(main_html, "html.parser")
     if publications_html:
         publications_html_soup = BeautifulSoup(publications_html, "html.parser")
@@ -61,5 +67,15 @@ def parse_and_save_expert_profile(main_html='', publications_html='', projects_h
         if isinstance(expert_model_id, str):
             expert_model_id = ObjectId(expert_model_id)
         experts_model.update_one({"_id": expert_model_id}, {"$set": user_profile_data})
+        config.config_logger.debug('{} saved in db'.format(linkedin_url))
+        try:
+            experts_parsed_count_model.update_one(
+                {'date': datetime.combine(datetime.utcnow().today(), datetime_time())},
+                {"$inc": {"count": 1}},
+                upsert=True
+            )
+        except Exception:
+            config.config_logger.exception('Error occurred')
     except Exception:
+        config.config_logger.exception('Error occurred')
         experts_model.insert_one(user_profile_data)

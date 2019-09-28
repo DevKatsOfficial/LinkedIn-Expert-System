@@ -43,6 +43,14 @@ def get_user_education_data(html_soup, identifier_data_mapping):
         #     attached_data = identifier_data_mapping.get(entity_identifier_value, None)
         #     if attached_data:
         #         education_data['attached_details'].append(attached_data)
-        user_educations.append(education_data)
+        if any([
+                education_data['school_name'],
+                education_data['degree_name'],
+                education_data['field_of_study'],
+                education_data['description'],
+                education_data['degree_grade'],
+                education_data['time_period'],
+        ]):
+            user_educations.append(education_data)
 
     return user_educations

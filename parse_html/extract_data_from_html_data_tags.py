@@ -130,7 +130,7 @@ def get_dict_of_entities_identifier_and_processed_value(data_tags,
                             entities_identifier_and_processed_value[entity_identifier_value] = entity_processed_value
         except Exception as e:
             pass
-            # traceback.print_exc()
+            # config.config_logger.exception('Error occurred')
     return entities_identifier_and_processed_value
 
 

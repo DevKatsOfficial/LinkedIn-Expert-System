@@ -42,6 +42,6 @@ def get_user_intro_data(html_soup, identifier_data_mapping, linkedin_url):
         ),
         "location_name": user_location,
         "headline": headline,
-        "public_identifier": os.path.basename(linkedin_url.strip().strip('/'))
+        "public_identifier": os.path.basename(linkedin_url)
     }
     return intro_data

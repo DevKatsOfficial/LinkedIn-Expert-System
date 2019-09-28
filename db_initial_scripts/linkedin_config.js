@@ -321,3 +321,7 @@ db.linkedin_config.insert(
         }
     }
 )
+
+db.createCollection("experts_parsed_count", { capped : true, size : 280000000, max : 1000000 } );
+
+db.experts_parsed_count.createIndex(  { "date": 1 }, { unique: true } );

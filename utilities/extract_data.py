@@ -10,6 +10,7 @@ from urllib import parse
 
 from bs4 import NavigableString
 
+import config
 from utilities.s3_util import upload_image_on_s3_from_url
 
 
@@ -32,7 +33,7 @@ def get_nested_key_value_of_data_dict(data_dict, attributes_list=None):
             value = value.get(attribute, None)
         return value
     except Exception as e:
-        traceback.print_exc()
+        config.config_logger.exception('Error occurred')
         return None
 
 
@@ -82,17 +83,21 @@ def get_processed_value_based_on_type(value, data_type):
                 value = {'month': value}
             value = {'start': value, 'end': value}
     elif data_type == 'year_time_range':
-        start_year, end_year = value.split('–')
+        value_list = value.split('–')
+        if len(value_list) > 1:
+            start_year, end_year = value_list[0], value_list[1]
+        else:
+            start_year, end_year = value_list[0], value_list[0]
         start_year, end_year = start_year.strip(), end_year.strip()
         value = {
             'start': {
-                'year': start_year
+                'year': start_year or None
             }
         }
         if end_year.lower() != 'present':
             value.update({
                 'end': {
-                    'year': end_year
+                    'year': end_year or None
                 }
             })
     return value
@@ -193,7 +198,7 @@ def get_attr_value_from_html_soup(html_soup, tag_details):
         else:
             return filtered_soup_obj
     except Exception as e:
-        traceback.print_exc()
+        config.config_logger.exception('Error occurred')
 
 
 def xpath_soup(element):
