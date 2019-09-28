@@ -1,3 +1,5 @@
+import logging
+logging.basicConfig(level=logging.DEBUG)
 import os
 import sys
 import time
@@ -342,20 +344,27 @@ load_site()
 ToDo: recaptcha handling
 validate site load successfully
 """
-
+logging.info('Initialization start')
 if driver.current_url.__contains__("login"):
+    logging.info('Performing login')
     login(username=config.USERNAME, password=config.PASSWORD)
 time.sleep(6)
 
 
 def load_and_parse_profile(_url):
+    logging.info('Loading site....')
     load_site(url=_url)
+    logging.info('Site Load')
     time.sleep(10)
+    logging.info('Scrolling from top to bottom')
     scroll_to_bottom()
+    logging.info('Scrolling from bottom to top')
     scroll_to_top()
     time.sleep(4)
+    logging.info('Loading summary')
     click_see_more_summary()
     time.sleep(4)
+    logging.info('Loading Show more')
     click_show_more_experiences()
     # sometimes experiences are more
     click_show_more_experiences()
@@ -363,24 +372,32 @@ def load_and_parse_profile(_url):
     # load experience roles
     click_show_more_experiences_roles()
     time.sleep(4)
+    logging.info('Loading see more')
     click_all_see_more()
     time.sleep(4)
+    logging.info('Loading education and etc')
     click_show_more_edu()
     time.sleep(4)
     click_all_show_more()
     click_show_more_skill()
     skills_endorsements_section()
+    logging.info('Loading done')
+    logging.info('parser in action')
     html_data = open_accomplishments_section_and_return_html_dict()
     time.sleep(2)
+    logging.info('save data in database')
     parse_and_save_expert_profile(**html_data, linkedin_url=_url)
 
 
 for _url in config.SAMPLE_LINKEDIN_PROFILES_TO_PARSE:
     try:
+        logging.info('loading........'+ _url)
         func_timeout(300, load_and_parse_profile, args=(_url,))
     except FunctionTimedOut:
+        logging.error('error on url........' + _url)
         pass
     except Exception as e:
+        logging.error(e)
         with open('exception_logs.log', 'a+') as f:
             f.write(str(e))
     time.sleep(randint(300, 600))
