@@ -31,10 +31,20 @@ sudo apt-get update
 sudo apt-get install google-chrome-stable
 ```
 
-Change `SAMPLE_LINKEDIN_PROFILE_TO_PARSE` value with URL of linkedIn profile to parse in `config.py` and then run `selenium_script/initilize_chrome_deriver.py`
+Checkout to project repo
+
+Run `nohup selenium_script/cron_script.py &`
+
+To view progress, check logger file
+```shell script
+tail -f ../parsing_info.log
+```
+
 
 After that check parsed data in mongo db experts collection. Use following commands in mongo shell.
 ```
 use linkedin;
 db.getCollection("experts").find({});
 ```
+
+
