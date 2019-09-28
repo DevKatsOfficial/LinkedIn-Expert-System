@@ -3,7 +3,7 @@ A project of expert system using data from LinkedIn.
 
 Install Nodejs and download it from official website
 Install mongodb Server For Databases download it from official website
-
+Check Public_view Folder For angular
 
 ```
 Install Node js and  angular packages run this command
