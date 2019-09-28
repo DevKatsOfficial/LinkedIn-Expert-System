@@ -87,13 +87,8 @@ def parse_profiles():
         already_parsed_profiles_count = 0
     if already_parsed_profiles_count < MAX_ONE_DAY_PROFILES:
         load_site(driver)
-        config.config_logger.debug('linkedIn login site loaded')
         if driver.current_url.__contains__("login"):
-            try:
-                login(driver, username=config.USERNAME, password=config.PASSWORD)
-                config.config_logger.debug('linkedIn login Done')
-            except NoSuchElementException:
-                config.config_logger.debug('linkedIn account cannot login')
+            login(driver, username=config.USERNAME, password=config.PASSWORD)
         time.sleep(6)
         parse_new_and_old_profiles_recursively(driver, already_parsed_profiles_count)
     quit_browser(driver)

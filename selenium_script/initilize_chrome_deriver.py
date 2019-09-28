@@ -36,6 +36,8 @@ def load_site(driver, url=config.ORIGIN_SITE_LOGIN_URL):
     :return:  updated driver after page loading in browser
     """
     driver.get(url)
+    if driver.current_url == config.ORIGIN_SITE_LOGIN_URL:
+        config.config_logger.debug('Login page loaded')
     return driver
 
 
@@ -343,6 +345,12 @@ def login(driver, username=config.USERNAME, password=config.PASSWORD):
     soup = BeautifulSoup(driver.page_source, features="html.parser")
 
     driver.find_element_by_xpath("//form").submit()
+    config.config_logger.debug('URL after login: {}'.format(driver.current_url))
+    if driver.current_url.contains('www.linkedin.com/authwall'):
+        config.config_logger.error('Not able to login')
+        raise ValueError()
+    else:
+        config.config_logger.debug('linkedIn login Done')
 
 """
 ToDo: recaptcha handling
