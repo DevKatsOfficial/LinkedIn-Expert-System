@@ -346,10 +346,9 @@ def login(driver, username=config.USERNAME, password=config.PASSWORD):
 
     driver.find_element_by_xpath("//form").submit()
     config.config_logger.debug('URL after login: {}'.format(driver.current_url))
-    if driver.current_url.contains('www.linkedin.com/authwall'):
+    if driver.current_url.__contains__('www.linkedin.com/authwall') or driver.current_url.__contains__('www.linkedin.com/checkpoint/'):
         config.config_logger.error('Not able to login')
         perform_another_login(driver)
-        raise ValueError()
     else:
         config.config_logger.debug('linkedIn login Done')
 
