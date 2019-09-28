@@ -386,6 +386,9 @@ def load_and_parse_profile(_url):
     html_data = open_accomplishments_section_and_return_html_dict()
     time.sleep(2)
     logging.info('save data in database')
+    Html_file= open("profile_html","w")
+    Html_file.write(html_data["main_html"])
+    Html_file.close()
     parse_and_save_expert_profile(**html_data, linkedin_url=_url)
 
 
