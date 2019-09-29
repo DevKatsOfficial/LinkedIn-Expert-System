@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+from datetime import datetime
 from random import randint
 sys.path.append(os.path.abspath("."))
 
@@ -13,7 +14,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
 import config
-from parse_html.linkedin_user_profile import parse_and_save_expert_profile
+from parse_html.linkedin_user_profile import parse_and_save_expert_profile, insert_and_update_expert_data
 from utilities.extract_data import get_attr_value_from_html_soup, xpath_soup
 
 
@@ -393,6 +394,16 @@ def load_and_parse_profile(driver, _url, expert_model_id):
     config.config_logger.debug('parsing {}'.format(_url))
     load_site(driver, url=_url)
     time.sleep(10)
+    if driver.current_url.__contains__("www.linkedin.com/in/unavailable/"):
+        user_profile_data = {
+            'scrap_datetime': datetime.utcnow(),
+            'linkedin_url': _url
+        }
+        insert_and_update_expert_data(expert_model_id=expert_model_id, user_profile_data=user_profile_data, linkedin_url=_url)
+        return
+    if not driver.current_url.__contains__(_url):
+        config.config_logger.error('Not user profile loaded.')
+        return
     scroll_to_bottom(driver)
     scroll_to_top(driver)
     time.sleep(4)

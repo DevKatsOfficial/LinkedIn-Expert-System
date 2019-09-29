@@ -24,6 +24,24 @@ experts_model = config.db.experts
 experts_parsed_count_model = config.db.experts_parsed_count
 
 
+def insert_and_update_expert_data(expert_model_id=None, user_profile_data=None, linkedin_url=None):
+    try:
+        if not expert_model_id:
+            raise ValueError()
+        if isinstance(expert_model_id, str):
+            expert_model_id = ObjectId(expert_model_id)
+        experts_model.update_one({"_id": expert_model_id}, {"$set": user_profile_data})
+        config.config_logger.debug('{} saved in db'.format(linkedin_url))
+        experts_parsed_count_model.update_one(
+            {'date': datetime.combine(datetime.utcnow().today(), datetime_time())},
+            {"$inc": {"count": 1}},
+            upsert=True
+        )
+    except Exception:
+        config.config_logger.exception('Error occurred')
+        experts_model.insert_one(user_profile_data)
+
+
 def parse_and_save_expert_profile(main_html='', publications_html='', projects_html='',
                                   expert_model_id=None, linkedin_url='', **kwargs):
     config.config_logger.debug('selenium function done. Now parsing by BS4 to save in db started')
@@ -61,21 +79,4 @@ def parse_and_save_expert_profile(main_html='', publications_html='', projects_h
         'scrap_datetime': datetime.utcnow(),
         'linkedin_url': linkedin_url
     }
-    try:
-        if not expert_model_id:
-            raise ValueError()
-        if isinstance(expert_model_id, str):
-            expert_model_id = ObjectId(expert_model_id)
-        experts_model.update_one({"_id": expert_model_id}, {"$set": user_profile_data})
-        config.config_logger.debug('{} saved in db'.format(linkedin_url))
-        try:
-            experts_parsed_count_model.update_one(
-                {'date': datetime.combine(datetime.utcnow().today(), datetime_time())},
-                {"$inc": {"count": 1}},
-                upsert=True
-            )
-        except Exception:
-            config.config_logger.exception('Error occurred')
-    except Exception:
-        config.config_logger.exception('Error occurred')
-        experts_model.insert_one(user_profile_data)
+    insert_and_update_expert_data(expert_model_id=expert_model_id, user_profile_data=user_profile_data, linkedin_url=linkedin_url)
