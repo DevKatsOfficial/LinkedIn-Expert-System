@@ -31,17 +31,26 @@ module.exports.getExpert = async (req, res) => {
     res.json(expert);
 }
 module.exports.SearchExpert = async (req, res) => {
-    const expert = await Expert.find({ "introduction.first_name": req.body.first_name, "introduction.last_name": req.body.last_name, "introduction.location_name": { $regex: req.body.country, $options: 'i' } });
-    if (!expert) {
+    if (req.body.country) {
+        const expert = await Expert.find({ $or: [{ "introduction.first_name": req.body.first_name }, { "introduction.last_name": req.body.last_name }, { "introduction.location_name": { $regex: req.body.country, $options: 'i' } }] });
+        if (expert.length < 1) {
+            return res.status(400).json({ message: "Expert Not Found!" })
+        }
+        return res.json(expert);
+    }
+    const expert = await Expert.find({ $or: [{ "introduction.first_name": req.body.first_name }, { "introduction.last_name": req.body.last_name }] });
+    if (expert.length < 1) {
         return res.status(400).json({ message: "Expert Not Found!" })
     }
     res.json(expert);
+
 }
 
 module.exports.update = async (req, res) => {
-    const expert = await Expert.findOneAndUpdate({ linkedin_url: req.body.linkedin_url },
+    const expert = await Expert.findOneAndUpdate({ userId: req.body.userId },
         {
             $set: {
+                linkedin_scrap_date: req.body.scrap_datetime,
                 introduction: req.body.introduction,
                 summary: req.body.summary,
                 experiences: req.body.experiences,
