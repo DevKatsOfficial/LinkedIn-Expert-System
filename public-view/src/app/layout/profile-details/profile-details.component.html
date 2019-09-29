@@ -72,7 +72,7 @@
                                 <h4 class="trim-edu-title">{{edu.school_name}}<span class="title-est">{{edu.time_period.start.year}} -{{edu.time_period.end.year}}</span>
                                 </h4>
                                 <strong>{{edu.degree_name}} {{edu.field_of_study}}</strong>
-                                <p>{{edu.description}}</p>
+                                <p *ngIf="edu.description">{{edu.description}}</p>
                             </div>
                         </li>
 
