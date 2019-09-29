@@ -33,8 +33,17 @@ For starting Angular server write this command
 ng serve --o
 ```
 
-Starting mongodb 
+Change mongodb connection string 
 
-starting from bin file 
+For server side 
+
+```
+config->there are there files change the db connection string
+
+```
+
+
+
+
 
 
