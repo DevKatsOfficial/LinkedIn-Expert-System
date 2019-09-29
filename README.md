@@ -38,7 +38,7 @@ Change mongodb connection string
 For server side 
 
 ```
-config->there are there files change the db connection 
+config->there are there files change the db connection string
 
 ```
 
