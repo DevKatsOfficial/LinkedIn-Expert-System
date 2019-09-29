@@ -401,9 +401,6 @@ def load_and_parse_profile(driver, _url, expert_model_id):
         }
         insert_and_update_expert_data(expert_model_id=expert_model_id, user_profile_data=user_profile_data, linkedin_url=_url)
         return
-    if not driver.current_url.__contains__(_url):
-        config.config_logger.error('Not user profile loaded.')
-        return
     scroll_to_bottom(driver)
     scroll_to_top(driver)
     time.sleep(4)
