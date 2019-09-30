@@ -3,6 +3,7 @@ import traceback
 from datetime import datetime
 
 import pymongo
+import requests
 from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
 from datetime import timedelta, datetime, time as datetime_time
@@ -24,26 +25,35 @@ experts_model = config.db.experts
 experts_parsed_count_model = config.db.experts_parsed_count
 
 
-def insert_and_update_expert_data(expert_model_id=None, user_profile_data=None, linkedin_url=None):
+def insert_and_update_expert_data(expert_model_id=None, user_profile_data=None, linkedin_url=None, user_id=None):
     try:
-        if not expert_model_id:
-            raise ValueError()
-        if isinstance(expert_model_id, str):
-            expert_model_id = ObjectId(expert_model_id)
-        experts_model.update_one({"_id": expert_model_id}, {"$set": user_profile_data})
-        config.config_logger.debug('{} saved in db'.format(linkedin_url))
-        experts_parsed_count_model.update_one(
-            {'date': datetime.combine(datetime.utcnow().today(), datetime_time())},
-            {"$inc": {"count": 1}},
-            upsert=True
+        try:
+            experts_parsed_count_model.update_one(
+                {'date': datetime.combine(datetime.utcnow().today(), datetime_time())},
+                {"$inc": {"count": 1}},
+                upsert=True
+            )
+        except Exception:
+            config.config_logger.exception('Error occurred on inserting count of parsed profiles')
+        user_profile_data.update({
+            "_id": str(expert_model_id),
+            "userId": str(expert_model_id),
+            "scrap_datetime": str(user_profile_data['scrap_datetime'])
+        })
+        response = requests.put(
+            'http://13.59.139.111:5000/api/expert',
+            data=user_profile_data,
+            headers={"Content-Type": "application/json"}
         )
+        response = response.json()
+        config.config_logger.debug('For URL {}, API RESPONSE: \n {}'.format(linkedin_url, response))
     except Exception:
-        config.config_logger.exception('Error occurred')
+        config.config_logger.exception('Error occurred wile inserting parsed data in db')
         experts_model.insert_one(user_profile_data)
 
 
 def parse_and_save_expert_profile(main_html='', publications_html='', projects_html='',
-                                  expert_model_id=None, linkedin_url='', **kwargs):
+                                  expert_model_id=None, linkedin_url='', user_id='', **kwargs):
     config.config_logger.debug('selenium function done. Now parsing by BS4 to save in db started')
     projects_html_soup = publications_html_soup = html_soup = BeautifulSoup(main_html, "html.parser")
     if publications_html:
@@ -79,4 +89,4 @@ def parse_and_save_expert_profile(main_html='', publications_html='', projects_h
         'scrap_datetime': datetime.utcnow(),
         'linkedin_url': linkedin_url
     }
-    insert_and_update_expert_data(expert_model_id=expert_model_id, user_profile_data=user_profile_data, linkedin_url=linkedin_url)
+    insert_and_update_expert_data(expert_model_id=expert_model_id, user_profile_data=user_profile_data, linkedin_url=linkedin_url, user_id=user_id)

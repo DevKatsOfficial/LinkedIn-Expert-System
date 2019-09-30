@@ -25,8 +25,8 @@ def initialize_chrome():
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
     driver_path = os.path.abspath("") + '/selenium_script/chromedriver'
-    driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
-    # driver = webdriver.Chrome(executable_path=driver_path)
+    # driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
+    driver = webdriver.Chrome(executable_path=driver_path)
     return driver
 
 
@@ -390,7 +390,7 @@ validate site load successfully
 """
 
 
-def load_and_parse_profile(driver, _url, expert_model_id):
+def load_and_parse_profile(driver, _url, expert_model_id, user_id):
     config.config_logger.debug('parsing {}'.format(_url))
     load_site(driver, url=_url)
     time.sleep(10)
@@ -399,7 +399,7 @@ def load_and_parse_profile(driver, _url, expert_model_id):
             'scrap_datetime': datetime.utcnow(),
             'linkedin_url': _url
         }
-        insert_and_update_expert_data(expert_model_id=expert_model_id, user_profile_data=user_profile_data, linkedin_url=_url)
+        insert_and_update_expert_data(expert_model_id=expert_model_id, user_profile_data=user_profile_data, linkedin_url=_url, user_id=user_id)
         return
     scroll_to_bottom(driver)
     scroll_to_top(driver)
@@ -420,6 +420,6 @@ def load_and_parse_profile(driver, _url, expert_model_id):
     skills_endorsements_section(driver)
     html_data = open_accomplishments_section_and_return_html_dict(driver)
     time.sleep(2)
-    parse_and_save_expert_profile(**html_data, linkedin_url=_url, expert_model_id=expert_model_id)
+    parse_and_save_expert_profile(**html_data, linkedin_url=_url, expert_model_id=expert_model_id, user_id=user_id)
 
 

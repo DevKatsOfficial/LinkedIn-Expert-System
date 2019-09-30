@@ -29,7 +29,7 @@ def parse_new_profiles_on_priority(driver, already_parsed_profiles_count):
         if _url:
             _url = _url.strip().strip('/').strip('#').strip('/')
             try:
-                func_timeout(300, load_and_parse_profile, args=(driver, _url, new_profile.get('_id', None)))
+                func_timeout(300, load_and_parse_profile, args=(driver, _url, new_profile.get('_id', None), new_profile.get('userId', None)))
             except FunctionTimedOut:
                 pass
             except Exception as e:
@@ -52,7 +52,7 @@ def refresh_old_profiles(driver, already_parsed_profiles_count):
         if _url:
             _url = _url.strip().strip('/').strip('#').strip('/')
             try:
-                func_timeout(300, load_and_parse_profile, args=(driver, _url, profile_to_refresh.get('_id', None)))
+                func_timeout(300, load_and_parse_profile, args=(driver, _url, profile_to_refresh.get('_id', None), profile_to_refresh.get('userId', None)))
             except FunctionTimedOut:
                 pass
             except Exception as e:
