@@ -1,3 +1,4 @@
+import json
 import os
 import traceback
 from datetime import datetime
@@ -41,8 +42,7 @@ def insert_and_update_expert_data(expert_model_id=None, user_profile_data=None, 
             "scrap_datetime": str(user_profile_data['scrap_datetime'])
         })
         response = requests.put(url='http://13.59.139.111:5000/api/expert',
-                                json={'body': user_profile_data},
-                                headers={'content-type': 'application/json'})
+                                json=json.loads(json.dumps(user_profile_data)))
         response = response.json()
         config.config_logger.debug('For URL {}, API RESPONSE: \n {}'.format(linkedin_url, response))
     except Exception:

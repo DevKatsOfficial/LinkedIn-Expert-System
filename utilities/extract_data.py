@@ -205,7 +205,10 @@ def get_attr_value_from_html_soup(html_soup, tag_details):
                     value = getattr(filtered_soup_obj, 'attrs', {}).get(attribute_to_pick, '') or getattr(filtered_soup_obj, attribute_to_pick, '')
             value = value and value.strip()
             try:
-                return get_processed_value_based_on_type(value, data_type).encode("ascii", "ignore").decode("utf-8").replace('\n', ' ')
+                temp = get_processed_value_based_on_type(value, data_type)
+                if isinstance(temp, str):
+                    temp = temp.encode("ascii", "ignore").decode("utf-8").replace('\n', ' ')
+                return temp
             except Exception:
                 config.config_logger.exception('Error occurred')
                 return get_processed_value_based_on_type(value, data_type)
