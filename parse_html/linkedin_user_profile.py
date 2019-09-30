@@ -40,11 +40,9 @@ def insert_and_update_expert_data(expert_model_id=None, user_profile_data=None, 
             "userId": str(user_id),
             "scrap_datetime": str(user_profile_data['scrap_datetime'])
         })
-        response = requests.put(
-            'http://13.59.139.111:5000/api/expert',
-            data=user_profile_data,
-            headers={"Content-Type": "application/json"}
-        )
+        response = requests.put(url='http://13.59.139.111:5000/api/expert',
+                                json={'body': user_profile_data},
+                                headers={'content-type': 'application/json'})
         response = response.json()
         config.config_logger.debug('For URL {}, API RESPONSE: \n {}'.format(linkedin_url, response))
     except Exception:
