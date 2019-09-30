@@ -195,14 +195,20 @@ def get_attr_value_from_html_soup(html_soup, tag_details):
                     if not_class_name in v.attrs.get('class', []):
                         continue
                     values_list.append(getattr(v, attribute_to_pick, '') or getattr(v, 'attrs', {}).get(attribute_to_pick, ''))
+                # ############################################## replace with \n
                 value = '\n'.join(values_list)
             else:
                 if attribute_to_pick == 'text':
+                    # ############################################## replace with \n
                     value = filtered_soup_obj.get_text(separator='\n')
                 else:
                     value = getattr(filtered_soup_obj, 'attrs', {}).get(attribute_to_pick, '') or getattr(filtered_soup_obj, attribute_to_pick, '')
             value = value and value.strip()
-            return get_processed_value_based_on_type(value, data_type)
+            try:
+                return get_processed_value_based_on_type(value, data_type).encode("ascii", "ignore").decode("utf-8").replace('\n', ' ')
+            except Exception:
+                config.config_logger.exception('Error occurred')
+                return get_processed_value_based_on_type(value, data_type)
         else:
             return filtered_soup_obj
     except Exception as e:

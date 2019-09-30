@@ -37,7 +37,7 @@ def insert_and_update_expert_data(expert_model_id=None, user_profile_data=None, 
             config.config_logger.exception('Error occurred on inserting count of parsed profiles')
         user_profile_data.update({
             "_id": str(expert_model_id),
-            "userId": str(expert_model_id),
+            "userId": str(user_id),
             "scrap_datetime": str(user_profile_data['scrap_datetime'])
         })
         response = requests.put(
