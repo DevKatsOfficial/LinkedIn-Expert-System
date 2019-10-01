@@ -17,14 +17,14 @@
     <div class="ur-detail-wrap top-lay">
       <div class="ur-detail-box">
         <div class="ur-thumb">
-          <img src="{{expert.introduction.picture}}" class="img-responsive" alt="" />
+          <img src="{{introduction.picture}}" class="img-responsive" alt="" />
         </div>
         <div class="ur-caption">
-          <h4 class="ur-title">{{expert.introduction.first_name}} {{expert.introduction.last_name}}</h4>
+          <h4 class="ur-title">{{introduction.first_name}} {{introduction.last_name}}</h4>
           <p class="ur-location">
-            <i class="ti-location-pin mrg-r-5"></i>{{expert.introduction.location_name}}
+            <i class="ti-location-pin mrg-r-5"></i>{{introduction.location_name}}
           </p>
-          <span class="ur-designation">{{expert.introduction.headline}}</span>
+          <span class="ur-designation">{{introduction.headline}}</span>
           <div class="rateing">
             <i class="fa fa-star filled"></i>
             <i class="fa fa-star filled"></i>
@@ -67,7 +67,7 @@
                         labore et dolore magna aliqua.</p> -->
                     <ul class="trim-edu-list">
 
-                        <li  *ngFor="let edu of education">
+                        <li  *ngFor="let edu of educations">
                             <div class="trim-edu" >
                                 <h4 class="trim-edu-title">{{edu.school_name}}<span class="title-est">{{edu.time_period.start.year}} -{{edu.time_period.end.year}}</span>
                                 </h4>
@@ -84,10 +84,12 @@
                     <h2 class="detail-title">Work & Experience</h2>
                     <ul class="trim-edu-list">
 
-                    <li *ngFor="let exp of experience">
-                        <div class="trim-edu">
-                            <h4 class="trim-edu-title">{{exp.company_name}}<span class="title-est">{{exp.time_period.start.year}}
-                                    </span>
+                    <li *ngFor="let exp of experiences">
+                        <div class="trim-edu" >
+                            <h4 class="trim-edu-title">{{exp.company_name}}
+                                <span class="title-est">
+                                    {{exp.time_period.start.year}}
+                                </span>
                             </h4>
                             <strong>{{exp.position_name}} </strong>
                             <p></p>
@@ -136,7 +138,7 @@
                     <h2 class="detail-title">Certifications</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore et dolore magna aliqua.</p>
-                    <div class="item-click" *ngFor="let cert of certifications">
+                    <div class="item-click" *ngFor="let cert of certification">
                         <article>
                             <div class="brows-job-list">
                                 <div class="col-md-12 col-sm-6">

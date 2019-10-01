@@ -7,15 +7,15 @@ import { Router, ActivatedRoute } from "@angular/router";
   styleUrls: ["./profile-details.component.css"]
 })
 export class ProfileDetailsComponent implements OnInit {
-  expert: [];
-  experience: [];
-  education: [];
+  experts: [];
+  experiences: [];
+  educations: [];
   projects: [];
   publications: [];
   volunteer_experiences: [];
   certifications: [];
   skills: [];
-
+  introduction: { first_name };
   constructor(
     private tem: BackendapiService,
     private route: ActivatedRoute,
@@ -26,17 +26,15 @@ export class ProfileDetailsComponent implements OnInit {
     this.route.paramMap.subscribe(param => {
       if (param && param.keys.length > 0 && param.has("id")) {
         this.tem.getOne(param.get("id")).subscribe(res => {
-          console.log(res.educations);
-          this.expert = res;
           this.certifications = res.certifications;
-          this.education = res.educations;
-          this.experience = res.experiences;
+          this.educations = res.educations;
+          this.experiences = res.experiences;
           this.publications = res.publications;
           this.volunteer_experiences = res.volunteer_experiences;
           this.projects = res.projects;
           this.skills = res.skills;
-
-          console.log(this.certifications);
+          this.introduction = res.introduction;
+          console.log(this.introduction.first_name);
         });
       } else {
         this.router.navigate(["/"]);
