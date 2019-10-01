@@ -1,13 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { BackendapiService } from "../../service/backendapi.service";
 import { Router, ActivatedRoute } from "@angular/router";
+
 @Component({
   selector: "app-profile-details",
   templateUrl: "./profile-details.component.html",
   styleUrls: ["./profile-details.component.css"]
 })
 export class ProfileDetailsComponent implements OnInit {
-  experts: [];
+  expert: {};
   experiences: [];
   educations: [];
   projects: [];
@@ -15,7 +16,7 @@ export class ProfileDetailsComponent implements OnInit {
   volunteer_experiences: [];
   certifications: [];
   skills: [];
-  introduction: { first_name };
+  // introduction: {};
   constructor(
     private tem: BackendapiService,
     private route: ActivatedRoute,
@@ -26,6 +27,8 @@ export class ProfileDetailsComponent implements OnInit {
     this.route.paramMap.subscribe(param => {
       if (param && param.keys.length > 0 && param.has("id")) {
         this.tem.getOne(param.get("id")).subscribe(res => {
+          this.expert = res;
+          console.log(this.certifications);
           this.certifications = res.certifications;
           this.educations = res.educations;
           this.experiences = res.experiences;
@@ -33,8 +36,8 @@ export class ProfileDetailsComponent implements OnInit {
           this.volunteer_experiences = res.volunteer_experiences;
           this.projects = res.projects;
           this.skills = res.skills;
-          this.introduction = res.introduction;
-          console.log(this.introduction.first_name);
+
+          // this.introduction = res.introduction;
         });
       } else {
         this.router.navigate(["/"]);
