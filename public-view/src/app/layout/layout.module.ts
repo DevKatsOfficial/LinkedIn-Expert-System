@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import { AngularFontAwesomeModule } from "angular-font-awesome";
 
 import { LayoutRoutingModule } from "./layout-routing.module";
 import { LayoutComponent } from "./layout.component";
@@ -18,11 +17,6 @@ import { ProfileDetailsComponent } from "./profile-details/profile-details.compo
     HomeComponent,
     ProfileDetailsComponent
   ],
-  imports: [
-    CommonModule,
-    LayoutRoutingModule,
-    AngularFontAwesomeModule,
-    FormsModule
-  ]
+  imports: [CommonModule, LayoutRoutingModule, FormsModule]
 })
 export class LayoutModule {}
