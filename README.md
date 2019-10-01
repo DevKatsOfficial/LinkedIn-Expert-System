@@ -42,7 +42,11 @@ config->there are there files change the db connection string
 
 ```
 
+change the path of api in angular file having path 
 
+```
+Public_view-->src-->app-->core-->service-->authservice and then there is 2 connection string and plz change it
+```
 
 
 
