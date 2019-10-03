@@ -11,7 +11,9 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-    <a class="navbar-brand" href="#">Expert Search</a>
+    <a class="navbar-brand" routerLink="/"
+      ><img src="../../../../assets/img/stag-logov2.jpg" width="200px"
+    /></a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
         <a class="nav-link" href="#"
@@ -22,15 +24,12 @@
         <a class="nav-link" href="#">Profile</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">link</a>
+        <a class="nav-link" href="#">{{ currentUser?.name }}</a>
       </li>
     </ul>
     <div class="offset-md-0 login">
-      <button class="btn btn-primary " (click)="loginModal(content)">
-        login
-      </button>
-      <button class="btn btn-primary " (click)="signModal(signup)">
-        signup
+      <button class="btn btn-primary " (click)="logout()">
+        Logout
       </button>
     </div>
   </div>

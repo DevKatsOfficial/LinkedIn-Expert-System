@@ -11,8 +11,14 @@ import { Observable } from "rxjs";
 })
 export class BackendapiService {
   constructor(private http: HttpClient) {}
+
   expertSearch(data): Observable<any> {
-    const url = `${environment.baseUrl}/expert`;
+    console.log(data);
+    const url = `${environment.baseUrl}/expert/search`;
     return this.http.post(url, data);
+  }
+  getOne(id: string): Observable<any> {
+    const url = `${environment.baseUrl}/expert/`;
+    return this.http.get<any>(url + id);
   }
 }
