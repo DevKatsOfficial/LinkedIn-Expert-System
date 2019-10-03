@@ -50,7 +50,7 @@ module.exports.update = async (req, res) => {
     const expert = await Expert.findOneAndUpdate({ userId: req.body.userId },
         {
             $set: {
-                linkedin_scrap_date: req.body.scrap_datetime,
+                scrap_datetime: req.body.scrap_datetime,
                 introduction: req.body.introduction,
                 summary: req.body.summary,
                 experiences: req.body.experiences,
