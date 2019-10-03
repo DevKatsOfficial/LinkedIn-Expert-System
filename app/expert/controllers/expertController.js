@@ -1,4 +1,4 @@
-const { Expert } = require('../models/expertM')
+const { Expert } = require("../models/expertM");
 
 // module.exports.create = async (req, res) => {
 //     // const result = validate(req.body);
@@ -29,7 +29,7 @@ module.exports.getExpert = async (req, res) => {
         return res.status(400).json({ message: "Expert Not Found!" });
     }
     res.json(expert);
-}
+};
 module.exports.SearchExpert = async (req, res) => {
     if (req.body.country) {
         const expert = await Expert.find({ $or: [{ "introduction.first_name": req.body.first_name }, { "introduction.last_name": req.body.last_name }, { "introduction.location_name": { $regex: req.body.country, $options: 'i' } }] });
@@ -65,5 +65,5 @@ module.exports.update = async (req, res) => {
     if (!expert) {
         return res.status(400).json({ message: "Expert Not Found!" });
     }
-    res.json({ message: 'Successfully updated!...' });
-}
+    res.json({ message: "Successfully updated!..." });
+};
