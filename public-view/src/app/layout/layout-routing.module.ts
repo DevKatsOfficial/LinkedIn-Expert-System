@@ -3,7 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { LayoutComponent } from "./layout.component";
 import { HomeComponent } from "./home/home.component";
 import { ProfileDetailsComponent } from "./profile-details/profile-details.component";
-
+import { ProjectComponent } from "./project/project.component";
 const routes: Routes = [
   {
     path: "",
@@ -11,7 +11,8 @@ const routes: Routes = [
     children: [
       { path: "", component: HomeComponent },
       { path: "home", loadChildren: "./home/home.module#HomeModule" },
-      { path: "profile-details/:id", component: ProfileDetailsComponent }
+      { path: "profile-details/:id", component: ProfileDetailsComponent },
+      { path: "project", component: ProjectComponent }
     ]
   }
 ];
