@@ -19,6 +19,7 @@ app.use(morgan("tiny"));
 require("./app/users/routesDefinations/userRouteDef")(app);
 require("./app/media/routesDefinations/mediaRoutesDefs")(app);
 require("./app/expert/routesDefinations/expertRouteDef")(app);
+require("./app/project/routesDefinations/projectRouteDef")(app);
 
 app.use(error); //this is the error handler for all promise rejections in the server.
 

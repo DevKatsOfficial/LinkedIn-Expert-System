@@ -9,7 +9,7 @@ const schema = new mongoose.Schema({
     linkedin_url: {
         type: String
     },
-    linkedin_scrap_date: {
+    scrap_datetime: {
         type: Date,
         default: null
     },

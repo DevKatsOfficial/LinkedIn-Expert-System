@@ -24,43 +24,46 @@ const { Expert } = require("../models/expertM");
 //     res.json({ message: 'Successfully Saved!...' });
 // }
 module.exports.getExpert = async (req, res) => {
-  const expert = await Expert.findById(req.params.expertId);
-  if (!expert) {
-    return res.status(400).json({ message: "Expert Not Found!" });
-  }
-  res.json(expert);
+    const expert = await Expert.findById(req.params.expertId);
+    if (!expert) {
+        return res.status(400).json({ message: "Expert Not Found!" });
+    }
+    res.json(expert);
 };
 module.exports.SearchExpert = async (req, res) => {
-  const expert = await Expert.find({
-    "introduction.first_name": req.body.first_name,
-    "introduction.last_name": req.body.last_name,
-    "introduction.location_name": { $regex: req.body.country, $options: "i" }
-  });
-  if (!expert) {
-    return res.status(400).json({ message: "Expert Not Found!" });
-  }
-  res.json(expert);
-};
+    if (req.body.country) {
+        const expert = await Expert.find({ $or: [{ "introduction.first_name": req.body.first_name }, { "introduction.last_name": req.body.last_name }, { "introduction.location_name": { $regex: req.body.country, $options: 'i' } }] });
+        if (expert.length < 1) {
+            return res.status(400).json({ message: "Expert Not Found!" })
+        }
+        return res.json(expert);
+    }
+    const expert = await Expert.find({ $or: [{ "introduction.first_name": req.body.first_name }, { "introduction.last_name": req.body.last_name }] });
+    if (expert.length < 1) {
+        return res.status(400).json({ message: "Expert Not Found!" })
+    }
+    res.json(expert);
+
+}
 
 module.exports.update = async (req, res) => {
-  const expert = await Expert.findOneAndUpdate(
-    { linkedin_url: req.body.linkedin_url },
-    {
-      $set: {
-        introduction: req.body.introduction,
-        summary: req.body.summary,
-        experiences: req.body.experiences,
-        educations: req.body.educations,
-        certifications: req.body.certifications,
-        volunteer_experiences: req.body.volunteer_experiences,
-        skills: req.body.skills,
-        projects: req.body.projects,
-        publications: req.body.publications
-      }
+    const expert = await Expert.findOneAndUpdate({ userId: req.body.userId },
+        {
+            $set: {
+                scrap_datetime: req.body.scrap_datetime,
+                introduction: req.body.introduction,
+                summary: req.body.summary,
+                experiences: req.body.experiences,
+                educations: req.body.educations,
+                certifications: req.body.certifications,
+                volunteer_experiences: req.body.volunteer_experiences,
+                skills: req.body.skills,
+                projects: req.body.projects,
+                publications: req.body.publications
+            }
+        });
+    if (!expert) {
+        return res.status(400).json({ message: "Expert Not Found!" });
     }
-  );
-  if (!expert) {
-    return res.status(400).json({ message: "Expert Not Found!" });
-  }
-  res.json({ message: "Successfully updated!..." });
+    res.json({ message: "Successfully updated!..." });
 };
