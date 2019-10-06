@@ -44,7 +44,10 @@ def load_site(driver, _url=config.ORIGIN_SITE_LOGIN_URL, expert_model=None, upda
     driver.get(_url)
     time.sleep(10)
     config.config_logger.debug('Now page loaded: {} loaded'.format(_url))
-    if driver.current_url.__contains__("www.linkedin.com/in/unavailable/") or 'linkedin.com' not in driver.current_url:
+    if driver.current_url == config.ORIGIN_SITE_LOGIN_URL:
+        config.config_logger.debug('Login URL case')
+        perform_login(driver, config.USERNAME, config.PASSWORD, retry_count=retry_count)
+    elif driver.current_url.__contains__("www.linkedin.com/in/unavailable/") or 'linkedin.com' not in driver.current_url:
         config.config_logger.debug('Profile not available: {}'.format(_url))
         update_scrap_date_in_expert_model(expert_model)
         raise ValueError()
@@ -63,11 +66,10 @@ def load_site(driver, _url=config.ORIGIN_SITE_LOGIN_URL, expert_model=None, upda
             config.config_logger.debug('Some security page come on server')
             not_able_to_login_email(config.USERNAME, config.PASSWORD, data=driver.page_source, _url=driver.current_url)
             raise config.StopLinkedinParsingError()
-    elif driver.current_url.__contains__('www.linkedin.com/authwall'):
+    elif driver.current_url.__contains__('www.linkedin.com/authwall') or 'linkedin.com/login' in driver.current_url:
         retry_count += 1
         if retry_count < 5:
-            perform_another_login(driver)
-            load_site(driver, _url=_url, expert_model=expert_model, update_case=update_case, retry_count=retry_count)
+            perform_login(driver, config.USERNAME, config.PASSWORD, retry_count=retry_count)
         else:
             raise ValueError('Not able to open account on server')
 
@@ -386,12 +388,11 @@ def login(driver, username=config.USERNAME, password=config.PASSWORD):
     config.config_logger.debug('URL after login: {}'.format(driver.current_url))
     if driver.current_url.__contains__('www.linkedin.com/authwall') or driver.current_url.__contains__('www.linkedin.com/checkpoint/'):
         config.config_logger.error('Not able to login')
-        perform_another_login(driver)
     else:
         config.config_logger.debug('linkedIn login Done')
 
 
-def perform_another_login(driver, username=config.USERNAME, password=config.PASSWORD):
+def perform_login(driver, username=config.USERNAME, password=config.PASSWORD, retry_count=0):
     """
     TO DO: don't login if user is already login
     TO DO: Send email in case web show recaptcha
@@ -400,7 +401,7 @@ def perform_another_login(driver, username=config.USERNAME, password=config.PASS
     :param password:
     :return:
     """
-    config.config_logger.error('Trying to login via another method')
+    config.config_logger.error('Trying to enter login username and password')
     time.sleep(10)
     try:
         driver.find_element_by_xpath(u'//a[text()="Sign in"]').click()
@@ -421,11 +422,20 @@ def perform_another_login(driver, username=config.USERNAME, password=config.PASS
         username_field.send_keys(username)
         password_field.send_keys(password)
         driver.find_element_by_xpath("//form").submit()
+        config.config_logger.error('login username and password form submitted')
         time.sleep(10)
+        if 'linkedin.com/feed' in driver.current_url:
+            config.config_logger.debug('LinkedIn Login successfully')
+        else:
+            raise ValueError()
     except Exception:
         config.config_logger.exception('Exception During another login')
         not_able_to_login_email(username, password, driver.page_source, _url=driver.current_url)
-        raise config.StopLinkedinParsingError()
+        if retry_count >= 5:
+            raise config.StopLinkedinParsingError()
+        else:
+            load_site(driver, driver.current_url, retry_count=retry_count)
+
 
 
 """
