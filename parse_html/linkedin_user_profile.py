@@ -26,18 +26,31 @@ experts_model = config.db.experts
 experts_parsed_count_model = config.db.experts_parsed_count
 
 
-def update_scrap_date_in_expert_model(expert_model):
-    expert_model = expert_model or {}
-    linkedin_url = expert_model.get('introduction', {}).get('linkedin_url', '')
-    expert_model.update({
+def update_id_fields(expert_model_data):
+    for k, v in expert_model_data.items():
+        if isinstance(v, dict):
+            expert_model_data[k] = update_id_fields(v)
+        elif isinstance(v ,list):
+            for list_item in v:
+                if isinstance(list_item, dict):
+                    list_item = update_id_fields(list_item)
+        elif k in ["id", "_id", "userId", "scrap_datetime"]:
+            expert_model_data[k] = str(v)
+    return expert_model_data
+
+
+def update_scrap_date_in_expert_model(expert_model_data):
+    expert_model_data = expert_model_data or {}
+    linkedin_url = expert_model_data.get('introduction', {}).get('linkedin_url', '')
+    expert_model_data.update({
         'scrap_datetime': datetime.utcnow(),
         'linkedin_url': linkedin_url
     })
     insert_and_update_expert_data(
-        expert_model_id=expert_model.get('_id', ''),
-        user_profile_data=expert_model,
+        expert_model_id=expert_model_data.get('_id', ''),
+        user_profile_data=expert_model_data,
         linkedin_url=linkedin_url,
-        user_id=expert_model.get('userId')
+        user_id=expert_model_data.get('userId')
     )
 
 
@@ -45,7 +58,7 @@ def is_user_summary_updated(main_html, expert_model_obj):
     config.config_logger.debug('checking for user summary updated or not')
     html_soup = BeautifulSoup(main_html, "html.parser")
     old_intro = expert_model_obj.get('introduction', {})
-    linkedin_url = old_intro.get('linkedin_url', '')
+    linkedin_url = expert_model_obj.get('linkedin_url')
     intro = get_user_intro_data(html_soup, None, linkedin_url)
     return old_intro.get('headline', '').lower().strip() != intro.get('headline', '').lower().strip()
 
@@ -65,6 +78,7 @@ def insert_and_update_expert_data(expert_model_id=None, user_profile_data=None, 
             "userId": str(user_id),
             "scrap_datetime": str(user_profile_data['scrap_datetime'])
         })
+        user_profile_data = update_id_fields(user_profile_data)
         response = requests.put(url='http://13.59.139.111:5000/api/expert',
                                 json=json.loads(json.dumps(user_profile_data)))
         response = response.json()
