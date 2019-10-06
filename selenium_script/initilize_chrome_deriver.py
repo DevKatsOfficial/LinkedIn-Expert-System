@@ -388,7 +388,7 @@ def login(driver, username=config.USERNAME, password=config.PASSWORD):
     driver.find_element_by_xpath("//form").submit()
     config.config_logger.debug('URL after login: {}'.format(driver.current_url))
     if driver.current_url.__contains__('www.linkedin.com/authwall') or driver.current_url.__contains__('www.linkedin.com/checkpoint/'):
-        config.config_logger.error('Not able to login')
+        config.config_logger.debug('Not able to login')
     else:
         config.config_logger.debug('linkedIn login Done')
 
@@ -402,8 +402,24 @@ def perform_login(driver, username=config.USERNAME, password=config.PASSWORD, re
     :param password:
     :return:
     """
-    config.config_logger.error('Trying to enter login username and password')
-    time.sleep(10)
+    config.config_logger.debug('Retry Count: {}'.format(retry_count))
+    if retry_count > 1:
+        try:
+            toast_close_buttons = driver.find_elements(by=By.CLASS_NAME, value='artdeco-toast-dismiss')
+            for btn in toast_close_buttons:
+                try:
+                    actions = ActionChains(driver)
+                    actions.move_to_element(btn).perform()
+                    btn.send_keys(Keys.RETURN)
+                    time.sleep(randint(2, 5))
+                    config.config_logger.debug('closing toast')
+                except Exception:
+                    pass
+        except Exception:
+            config.config_logger.exception('closing toast')
+
+    config.config_logger.debug('Trying to enter login username and password')
+    time.sleep(randint(5, 10))
     try:
         driver.find_element_by_xpath(u'//a[text()="Sign in"]').click()
     except Exception:
@@ -421,10 +437,19 @@ def perform_login(driver, username=config.USERNAME, password=config.PASSWORD, re
             password_field = driver.find_element_by_id("password")
 
         username_field.send_keys(username)
+        time.sleep(randint(2, 5))
         password_field.send_keys(password)
-        driver.find_element_by_xpath("//form").submit()
-        config.config_logger.error('login username and password form submitted')
-        time.sleep(10)
+        time.sleep(randint(2, 5))
+        try:
+            sign_in_button = driver.find_element_by_xpath("//*[contains(text(), 'Sign in')]")
+            actions = ActionChains(driver)
+            actions.move_to_element(sign_in_button).perform()
+            actions.click()
+            actions.perform()
+        except Exception as e:
+            driver.find_element_by_xpath("//form").submit()
+        time.sleep(randint(5, 10))
+        config.config_logger.debug('login username and password form submitted. Now new URL is: {}'.format(driver.current_url))
         if 'linkedin.com/feed' in driver.current_url:
             config.config_logger.debug('LinkedIn Login successfully')
         else:
