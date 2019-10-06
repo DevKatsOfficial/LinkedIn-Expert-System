@@ -401,8 +401,15 @@ def perform_another_login(driver, username=config.USERNAME, password=config.PASS
 
     send_capcha_email(username, password, driver.page_source, _url=driver.current_url)
 
-    username_field = driver.find_element_by_id("login-email")
-    password_field = driver.find_element_by_id("login-password")
+    try:
+        username_field = driver.find_element_by_id("login-email")
+    except Exception as e:
+        username_field = driver.find_element_by_id("username")
+
+    try:
+        password_field = driver.find_element_by_id("login-password")
+    except Exception as e:
+        password_field = driver.find_element_by_id("password")
 
     username_field.send_keys(username)
     password_field.send_keys(password)

@@ -9,6 +9,7 @@ import config
 
 
 def send_capcha_email(linkedin_username, linkedin_password, data, _url):
+    config.config_logger.debug('Building email to send')
     mail_title = 'LinkedIn Scrapper | CAPTCHA Occured'
     message = """
     CAPCTHA has Occured on LinkedIn Account\n
@@ -43,6 +44,7 @@ def send_email(subject, text_body='', html_attahment='', receipients=None, _url=
         # Email client can usually download this automatically as attachment
         part = MIMEBase("application", "octet-stream")
         part.set_payload(html_attahment)
+        config.config_logger.debug('attaching HTML')
 
     # Encode file in ASCII characters to send by email
     encoders.encode_base64(part)
@@ -62,3 +64,4 @@ def send_email(subject, text_body='', html_attahment='', receipients=None, _url=
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
         server.login(sender_email, password)
         server.sendmail(sender_email, ', '.join(receipients), text)
+        config.config_logger.debug('sending email to: {}'.format(', '.join(receipients)))
