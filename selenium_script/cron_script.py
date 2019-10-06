@@ -5,7 +5,7 @@ import time
 from datetime import timedelta, datetime, time as datetime_time
 from random import randint
 
-from func_timeout import func_timeout, FunctionTimedOut
+from func_timeout import func_timeout as f_timeout, FunctionTimedOut
 from selenium.common.exceptions import NoSuchElementException
 
 import config
@@ -29,7 +29,7 @@ def parse_new_profiles_on_priority(driver, already_parsed_profiles_count):
         if _url:
             _url = _url
             try:
-                func_timeout(
+                f_timeout(
                     300, load_and_parse_profile,
                     args=(driver, _url, new_profile.get('_id', None), new_profile.get('userId', None)),
                     kwargs={'expert_model': new_profile, 'update_case': False}
@@ -59,7 +59,7 @@ def refresh_old_profiles(driver, already_parsed_profiles_count):
         if _url:
             _url = _url
             try:
-                func_timeout(
+                f_timeout(
                     300, load_and_parse_profile,
                     args=(driver, _url, profile_to_refresh.get('_id', None), profile_to_refresh.get('userId', None)),
                     kwargs={'expert_model': profile_to_refresh, 'update_case': True}
