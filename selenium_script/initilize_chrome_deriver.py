@@ -4,6 +4,9 @@ import time
 from datetime import datetime
 from random import randint
 
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 from utilities.email_utils import send_capcha_email, not_able_to_login_email
 
 sys.path.append(os.path.abspath("."))
@@ -67,7 +70,7 @@ def load_site(driver, _url=config.ORIGIN_SITE_LOGIN_URL, expert_model=None, upda
             config.config_logger.debug('Some security page come on server')
             not_able_to_login_email(config.USERNAME, config.PASSWORD, data=driver.page_source, _url=driver.current_url)
             raise config.StopLinkedinParsingError()
-    elif driver.current_url.__contains__('www.linkedin.com/authwall') or 'linkedin.com/login' in driver.current_url:
+    elif driver.current_url.__contains__('www.linkedin.com/authwall') or '/login' in driver.current_url:
         if retry_count <= 5:
             perform_login(driver, config.USERNAME, config.PASSWORD, retry_count=retry_count)
         else:
@@ -460,7 +463,17 @@ def perform_login(driver, username=config.USERNAME, password=config.PASSWORD, re
             actions.move_to_element(sign_in_button).perform()
             actions.click()
             actions.perform()
-        time.sleep(randint(5, 10))
+        time.sleep(randint(1, 3))
+        try:
+            WebDriverWait(driver, 3).until(EC.alert_is_present(),
+                                            'Timed out waiting for PA creation ' +
+                                            'confirmation popup to appear.')
+
+            alert = driver.switch_to.alert
+            alert.accept()
+            config.config_logger.debug("form submit alert accepted")
+        except TimeoutException:
+            config.config_logger.debug("no alert exists")
         config.config_logger.debug('login username and password form submitted. Now new URL is: {}'.format(driver.current_url))
         if 'linkedin.com/feed' in driver.current_url:
             config.config_logger.debug('LinkedIn Login successfully')
