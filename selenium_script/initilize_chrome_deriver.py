@@ -428,26 +428,38 @@ def perform_login(driver, username=config.USERNAME, password=config.PASSWORD, re
     try:
         try:
             username_field = driver.find_element_by_id("login-email")
+            config.config_logger.debug('login-email field found')
         except Exception as e:
-            username_field = driver.find_element_by_id("username")
+            try:
+                username_field = driver.find_element_by_id("username")
+                config.config_logger.debug('username field found')
+            except Exception:
+                username_field = driver.find_element(by=By.NAME, value='session_key')
+                config.config_logger.debug('session_key field found')
 
         try:
             password_field = driver.find_element_by_id("login-password")
+            config.config_logger.debug('login-password field found')
         except Exception as e:
-            password_field = driver.find_element_by_id("password")
+            try:
+                password_field = driver.find_element_by_id("password")
+                config.config_logger.debug('password field found')
+            except Exception:
+                password_field = driver.find_element(by=By.NAME, value='session_password')
+                config.config_logger.debug('session_password field found')
 
         username_field.send_keys(username)
         time.sleep(randint(2, 5))
         password_field.send_keys(password)
         time.sleep(randint(2, 5))
         try:
+            driver.find_element_by_xpath("//form").submit()
+        except Exception as e:
             sign_in_button = driver.find_element_by_xpath("//*[contains(text(), 'Sign in')]")
             actions = ActionChains(driver)
             actions.move_to_element(sign_in_button).perform()
             actions.click()
             actions.perform()
-        except Exception as e:
-            driver.find_element_by_xpath("//form").submit()
         time.sleep(randint(5, 10))
         config.config_logger.debug('login username and password form submitted. Now new URL is: {}'.format(driver.current_url))
         if 'linkedin.com/feed' in driver.current_url:

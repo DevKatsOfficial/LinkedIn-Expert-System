@@ -46,7 +46,7 @@ def send_email(subject, text_body='', html_attahment='', receipients=None, _url=
     message = MIMEMultipart()
     message["From"] = sender_email
     message["To"] = ', '.join(receipients)
-    message["Subject"] = '{} - UTC time: {}'.format(subject, datetime.datetime.now())
+    message["Subject"] = '{} - UTC time: {}'.format(subject, datetime.datetime.utcnow())
 
     # Add body to email
     message.attach(MIMEText(text_body, "plain"))
