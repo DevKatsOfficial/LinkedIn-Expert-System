@@ -40,6 +40,7 @@ def load_site(driver, _url=config.ORIGIN_SITE_LOGIN_URL, expert_model=None, upda
     :param url:
     :return:  updated driver after page loading in browser
     """
+    time.sleep(10)
     driver.get(_url)
     if driver.current_url == _url:
         config.config_logger.debug('Requested page: {} loaded'.format(_url))
@@ -57,14 +58,12 @@ def load_site(driver, _url=config.ORIGIN_SITE_LOGIN_URL, expert_model=None, upda
             send_capcha_email(config.USERNAME, config.PASSWORD, data=driver.page_source, _url=_url)
             raise config.StopLinkedinParsingError('Capcha Come on server')
     elif driver.current_url.__contains__('www.linkedin.com/authwall'):
-        time.sleep(10)
         retry_count += 1
         if retry_count < 5:
             perform_another_login(driver)
             load_site(driver, _url=_url, expert_model=expert_model, update_case=update_case, retry_count=retry_count)
         else:
             raise ValueError('Not able to open account on server')
-    time.sleep(10)
     if update_case:
         if not is_user_summary_updated(driver.page_source, expert_model):
             update_scrap_date_in_expert_model(expert_model)
@@ -414,19 +413,10 @@ def perform_another_login(driver, username=config.USERNAME, password=config.PASS
         not_able_to_login_email(username, password, driver.page_source, _url=driver.current_url)
         raise ValueError()
 
-
     username_field.send_keys(username)
     password_field.send_keys(password)
 
-    soup = BeautifulSoup(driver.page_source, features="html.parser")
-
     driver.find_element_by_xpath("//form").submit()
-    config.config_logger.debug('URL after login: {}'.format(driver.current_url))
-    if driver.current_url.__contains__('www.linkedin.com/authwall') or driver.current_url.__contains__('www.linkedin.com/checkpoint/'):
-        config.config_logger.error('Not able to login')
-        raise ValueError()
-    else:
-        config.config_logger.debug('linkedIn login Done')
 
 """
 ToDo: recaptcha handling
