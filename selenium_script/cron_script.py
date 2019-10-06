@@ -35,8 +35,7 @@ def parse_new_profiles_on_priority(driver, already_parsed_profiles_count):
                     kwargs={'expert_model': new_profile, 'update_case': False}
                 )
             except config.StopLinkedinParsingError:
-                config.config_logger.exception('capcha like error come on server')
-                raise ValueError()
+                break
             except FunctionTimedOut:
                 pass
             except Exception as e:
@@ -65,8 +64,7 @@ def refresh_old_profiles(driver, already_parsed_profiles_count):
                     kwargs={'expert_model': profile_to_refresh, 'update_case': True}
                 )
             except config.StopLinkedinParsingError:
-                config.config_logger.exception('capcha like error come on server')
-                raise ValueError()
+                break
             except FunctionTimedOut:
                 pass
             except Exception as e:
