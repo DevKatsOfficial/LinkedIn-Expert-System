@@ -40,6 +40,7 @@ def load_site(driver, _url=config.ORIGIN_SITE_LOGIN_URL, expert_model=None, upda
     :param url:
     :return:  updated driver after page loading in browser
     """
+    retry_count += 1
     config.config_logger.debug('Going to load page: {}'.format(_url))
     driver.get(_url)
     time.sleep(10)
@@ -67,11 +68,11 @@ def load_site(driver, _url=config.ORIGIN_SITE_LOGIN_URL, expert_model=None, upda
             not_able_to_login_email(config.USERNAME, config.PASSWORD, data=driver.page_source, _url=driver.current_url)
             raise config.StopLinkedinParsingError()
     elif driver.current_url.__contains__('www.linkedin.com/authwall') or 'linkedin.com/login' in driver.current_url:
-        retry_count += 1
-        if retry_count < 5:
+        if retry_count <= 5:
             perform_login(driver, config.USERNAME, config.PASSWORD, retry_count=retry_count)
         else:
-            raise ValueError('Not able to open account on server')
+            config.config_logger.debug('Tried to login 5 times on server but not successfull')
+            raise config.StopLinkedinParsingError()
 
     if update_case:
         if not is_user_summary_updated(driver.page_source, expert_model):
