@@ -405,7 +405,7 @@ def perform_login(driver, username=config.USERNAME, password=config.PASSWORD, re
     :param password:
     :return:
     """
-    config.config_logger.debug('Retry Count: {}'.format(retry_count))
+    config.config_logger.debug('Try Count: {}'.format(retry_count))
     if retry_count > 1:
         try:
             toast_close_buttons = driver.find_elements(by=By.CLASS_NAME, value='artdeco-toast-dismiss')
