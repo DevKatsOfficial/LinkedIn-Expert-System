@@ -3,6 +3,9 @@ import sys
 import time
 from datetime import datetime
 from random import randint
+
+from utilities.email_utils import send_capcha_email
+
 sys.path.append(os.path.abspath("."))
 
 from bs4 import BeautifulSoup
@@ -14,7 +17,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
 import config
-from parse_html.linkedin_user_profile import parse_and_save_expert_profile, insert_and_update_expert_data
+from parse_html.linkedin_user_profile import (parse_and_save_expert_profile, insert_and_update_expert_data,
+                                              is_user_summary_updated, update_scrap_date_in_expert_model)
 from utilities.extract_data import get_attr_value_from_html_soup, xpath_soup
 
 
@@ -30,15 +34,41 @@ def initialize_chrome():
     return driver
 
 
-def load_site(driver, url=config.ORIGIN_SITE_LOGIN_URL):
+def load_site(driver, _url=config.ORIGIN_SITE_LOGIN_URL, expert_model=None, update_case=False, retry_count=0):
     """
     This method return updated driver object after loading of desired url
     :param url:
     :return:  updated driver after page loading in browser
     """
-    driver.get(url)
-    if driver.current_url == config.ORIGIN_SITE_LOGIN_URL:
-        config.config_logger.debug('Login page loaded')
+    driver.get(_url)
+    if driver.current_url == _url:
+        config.config_logger.debug('Requested page: {} loaded'.format(_url))
+    elif driver.current_url.__contains__("www.linkedin.com/in/unavailable/") or 'linkedin.com' not in driver.current_url:
+        update_scrap_date_in_expert_model(expert_model)
+        raise ValueError('Invalid profile: {}'.format(_url))
+    elif (
+            driver.current_url.__contains__('/checkpoint/challenge')
+            or driver.title.__contains__('Security Verification | LinkedIn')
+            or driver.find_elements_by_xpath("//*[contains(text(), 'Let's do a quick security check')]")
+    ):
+        html = BeautifulSoup(driver.page_source)
+        element = html.find(id='captcha-challenge')
+        if element:
+            send_capcha_email(config.USERNAME, config.PASSWORD, data=driver.page_source, _url=_url)
+            raise config.StopLinkedinParsingError('Capcha Come on server')
+    elif driver.current_url.__contains__('www.linkedin.com/authwall'):
+        time.sleep(10)
+        retry_count += 1
+        if retry_count < 5:
+            perform_another_login(driver)
+            load_site(driver, _url=_url, expert_model=expert_model, update_case=update_case)
+        else:
+            raise ValueError('Not able to open account on server')
+    time.sleep(10)
+    if update_case:
+        if not is_user_summary_updated(driver.page_source, expert_model):
+            update_scrap_date_in_expert_model(expert_model)
+            raise ValueError('Headline not changed. Skipping after updating scrap datetime')
     return driver
 
 
@@ -390,17 +420,9 @@ validate site load successfully
 """
 
 
-def load_and_parse_profile(driver, _url, expert_model_id, user_id):
+def load_and_parse_profile(driver, _url, expert_model_id, user_id, expert_model=None, update_case=False):
     config.config_logger.debug('parsing {}'.format(_url))
-    load_site(driver, url=_url)
-    time.sleep(10)
-    if driver.current_url.__contains__("www.linkedin.com/in/unavailable/"):
-        user_profile_data = {
-            'scrap_datetime': datetime.utcnow(),
-            'linkedin_url': _url
-        }
-        insert_and_update_expert_data(expert_model_id=expert_model_id, user_profile_data=user_profile_data, linkedin_url=_url, user_id=user_id)
-        return
+    load_site(driver, _url=_url, expert_model=expert_model, update_case=update_case)
     scroll_to_bottom(driver)
     scroll_to_top(driver)
     time.sleep(4)

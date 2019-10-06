@@ -26,6 +26,30 @@ experts_model = config.db.experts
 experts_parsed_count_model = config.db.experts_parsed_count
 
 
+def update_scrap_date_in_expert_model(expert_model):
+    expert_model = expert_model or {}
+    linkedin_url = expert_model.get('introduction', {}).get('linkedin_url', '')
+    expert_model.update({
+        'scrap_datetime': datetime.utcnow(),
+        'linkedin_url': linkedin_url
+    })
+    insert_and_update_expert_data(
+        expert_model_id=expert_model.get('_id', ''),
+        user_profile_data=expert_model,
+        linkedin_url=linkedin_url,
+        user_id=expert_model.get('userId')
+    )
+
+
+def is_user_summary_updated(main_html, expert_model_obj):
+    config.config_logger.debug('checking for user summary updated or not')
+    html_soup = BeautifulSoup(main_html, "html.parser")
+    old_intro = expert_model_obj.get('introduction', {})
+    linkedin_url = old_intro.get('linkedin_url', '')
+    intro = get_user_intro_data(html_soup, None, linkedin_url)
+    return old_intro.get('headline', '').lower().strip() != intro.get('headline', '').lower().strip()
+
+
 def insert_and_update_expert_data(expert_model_id=None, user_profile_data=None, linkedin_url=None, user_id=None):
     try:
         try:

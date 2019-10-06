@@ -276,6 +276,24 @@ db.linkedin_config.insert(
 )
 db.linkedin_config.insert(
     {
+        name: "GMAIL_EMAIL",
+        value: "sahib.yar.silverlight@gmail.com"
+    }
+)
+db.linkedin_config.insert(
+    {
+        name: "GMAIL_PASSWORD",
+        value: "sahib12345"
+    }
+)
+db.linkedin_config.insert(
+    {
+        name: "CAPCHA_EMAIL_LIST",
+        value: ['ehsaan.xiq.test@gmail.com', 'sahib.yar.silverlight@gmail.com', 'ashaheryar44@gmail.com']
+    }
+)
+db.linkedin_config.insert(
+    {
         name: "PROFILE_INTRO_SECTION_SELECTORS",
         value: {
             "summary_text": {

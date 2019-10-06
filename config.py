@@ -1,5 +1,5 @@
-import sys
 import logging
+import sys
 from logging.handlers import RotatingFileHandler
 
 from pymongo import MongoClient
@@ -25,3 +25,10 @@ client = MongoClient(MONGO_URI)
 db = client[DATABASE_NAME]
 for config in db.linkedin_config.find():
     setattr(sys.modules[__name__], config['name'], config['value'])
+
+
+class StopLinkedinParsingError(ValueError):
+    """
+    StopLinkedinParsingError when capcha come
+    """
+    pass
