@@ -396,7 +396,7 @@ def perform_another_login(driver, username=config.USERNAME, password=config.PASS
     try:
         driver.find_element_by_xpath(u'//a[text()="Sign in"]').click()
     except Exception:
-        config.config_logger.exception('Exception occured while clicking on sign In')
+        pass
 
     try:
         try:
@@ -408,15 +408,15 @@ def perform_another_login(driver, username=config.USERNAME, password=config.PASS
             password_field = driver.find_element_by_id("login-password")
         except Exception as e:
             password_field = driver.find_element_by_id("password")
+
+        username_field.send_keys(username)
+        password_field.send_keys(password)
+        driver.find_element_by_xpath("//form").submit()
     except Exception:
         config.config_logger.exception('Exception During another login')
         not_able_to_login_email(username, password, driver.page_source, _url=driver.current_url)
         raise ValueError()
 
-    username_field.send_keys(username)
-    password_field.send_keys(password)
-
-    driver.find_element_by_xpath("//form").submit()
 
 """
 ToDo: recaptcha handling
