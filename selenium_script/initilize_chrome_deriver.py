@@ -393,10 +393,13 @@ def perform_another_login(driver, username=config.USERNAME, password=config.PASS
     :param password:
     :return:
     """
+    time.sleep(10)
     try:
         driver.find_element_by_xpath(u'//a[text()="Sign in"]').click()
     except Exception:
         config.config_logger.exception('Exception occured while clicking on sign In')
+
+    send_capcha_email(username, password, driver.page_source, _url=driver.current_url)
 
     username_field = driver.find_element_by_id("login-email")
     password_field = driver.find_element_by_id("login-password")

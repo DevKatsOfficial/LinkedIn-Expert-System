@@ -33,7 +33,7 @@ sudo apt-get install google-chrome-stable
 
 Checkout to project repo
 
-Run `nohup selenium_script/cron_script.py &`
+Run `nohup python3 selenium_script/cron_script.py &`
 
 To view progress, check logger file
 ```shell script
