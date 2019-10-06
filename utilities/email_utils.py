@@ -23,6 +23,17 @@ def send_capcha_email(linkedin_username, linkedin_password, data, _url):
     send_email(mail_title, text_body=message, html_attahment=data, receipients=config.CAPCHA_EMAIL_LIST, _url=_url)
 
 
+def not_able_to_login_email(linkedin_username, linkedin_password, data, _url):
+    config.config_logger.debug('Building email to send')
+    mail_title = 'LinkedIn Scrapper | Cannot Login'
+    message = """
+    Cannot login on linkedin account.
+    
+    Might be html selectors updated. See Attached HTML for details
+    """.format(linkedin_username, linkedin_password)
+    send_email(mail_title, text_body=message, html_attahment=data, receipients=config.CAPCHA_EMAIL_LIST, _url=_url)
+
+
 def send_email(subject, text_body='', html_attahment='', receipients=None, _url=''):
     sender_email = config.GMAIL_EMAIL
     password = config.GMAIL_PASSWORD

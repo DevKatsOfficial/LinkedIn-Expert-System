@@ -4,7 +4,7 @@ import time
 from datetime import datetime
 from random import randint
 
-from utilities.email_utils import send_capcha_email
+from utilities.email_utils import send_capcha_email, not_able_to_login_email
 
 sys.path.append(os.path.abspath("."))
 
@@ -61,7 +61,7 @@ def load_site(driver, _url=config.ORIGIN_SITE_LOGIN_URL, expert_model=None, upda
         retry_count += 1
         if retry_count < 5:
             perform_another_login(driver)
-            load_site(driver, _url=_url, expert_model=expert_model, update_case=update_case)
+            load_site(driver, _url=_url, expert_model=expert_model, update_case=update_case, retry_count=retry_count)
         else:
             raise ValueError('Not able to open account on server')
     time.sleep(10)
@@ -399,17 +399,21 @@ def perform_another_login(driver, username=config.USERNAME, password=config.PASS
     except Exception:
         config.config_logger.exception('Exception occured while clicking on sign In')
 
-    send_capcha_email(username, password, driver.page_source, _url=driver.current_url)
-
     try:
-        username_field = driver.find_element_by_id("login-email")
-    except Exception as e:
-        username_field = driver.find_element_by_id("username")
+        try:
+            username_field = driver.find_element_by_id("login-email")
+        except Exception as e:
+            username_field = driver.find_element_by_id("username")
 
-    try:
-        password_field = driver.find_element_by_id("login-password")
-    except Exception as e:
-        password_field = driver.find_element_by_id("password")
+        try:
+            password_field = driver.find_element_by_id("login-password")
+        except Exception as e:
+            password_field = driver.find_element_by_id("password")
+    except Exception:
+        config.config_logger.exception('Exception During another login')
+        not_able_to_login_email(username, password, driver.page_source, _url=driver.current_url)
+        raise ValueError()
+
 
     username_field.send_keys(username)
     password_field.send_keys(password)
