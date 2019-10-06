@@ -51,7 +51,7 @@ def load_site(driver, _url=config.ORIGIN_SITE_LOGIN_URL, expert_model=None, upda
     elif (
             driver.current_url.__contains__('/checkpoint/challenge')
             or driver.title.__contains__('Security Verification | LinkedIn')
-            or driver.find_elements_by_xpath("//*[contains(text(), 'Let's do a quick security check')]")
+            or driver.find_elements_by_xpath("//*[contains(text(), 'do a quick security check')]")
     ):
         html = BeautifulSoup(driver.page_source)
         element = html.find(id='captcha-challenge')
