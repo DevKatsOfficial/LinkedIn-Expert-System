@@ -1,5 +1,7 @@
+import datetime
 import smtplib
 import ssl
+import time
 from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
@@ -44,7 +46,7 @@ def send_email(subject, text_body='', html_attahment='', receipients=None, _url=
     message = MIMEMultipart()
     message["From"] = sender_email
     message["To"] = ', '.join(receipients)
-    message["Subject"] = subject
+    message["Subject"] = '{} - UTC time: {}'.format(subject, datetime.datetime.now())
 
     # Add body to email
     message.attach(MIMEText(text_body, "plain"))
