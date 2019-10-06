@@ -42,7 +42,7 @@ def parse_new_profiles_on_priority(driver, already_parsed_profiles_count):
             except Exception as e:
                 with open('exception_logs.log', 'a+') as f:
                     f.write(str(e))
-            time.sleep(randint(300, 600))
+            time.sleep(randint(600, 900))
             already_parsed_profiles_count += 1
     config.config_logger.debug('parsing new profiles ended')
     return already_parsed_profiles_count
@@ -72,7 +72,7 @@ def refresh_old_profiles(driver, already_parsed_profiles_count):
             except Exception as e:
                 with open('exception_logs.log', 'a+') as f:
                     f.write(str(e))
-            time.sleep(randint(300, 600))
+            time.sleep(randint(600, 900))
             already_parsed_profiles_count += 1
             # after refresh each profile, check if new profile come then parse it first
             already_parsed_profiles_count = parse_new_profiles_on_priority(driver, already_parsed_profiles_count)
