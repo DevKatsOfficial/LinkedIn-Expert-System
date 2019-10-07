@@ -45,7 +45,9 @@ def send_email(subject, text_body='', html_attahment='', receipients=None, _url=
     # Create a multipart message and set headers
     message = MIMEMultipart()
     message["From"] = sender_email
-    message["To"] = ', '.join(receipients)
+    receipients_str = ', '.join(receipients)
+    config.config_logger.debug('message["To"]: {}'.format(receipients_str))
+    message["To"] = receipients_str
     message["Subject"] = '{} - UTC time: {}'.format(subject, datetime.datetime.utcnow())
 
     # Add body to email
@@ -77,4 +79,4 @@ def send_email(subject, text_body='', html_attahment='', receipients=None, _url=
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
         server.login(sender_email, password)
         server.sendmail(sender_email, receipients, text)
-        config.config_logger.debug('sending email to: {}'.format(receipients))
+        config.config_logger.debug('sending email to type: {}: value: {}'.format(type(receipients), receipients))
