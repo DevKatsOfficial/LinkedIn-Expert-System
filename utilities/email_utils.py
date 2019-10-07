@@ -61,17 +61,17 @@ def send_email(subject, text_body='', html_attahment='', receipients=None, _url=
         part.set_payload(html_attahment)
         config.config_logger.debug('attaching HTML')
 
-    # Encode file in ASCII characters to send by email
-    encoders.encode_base64(part)
+        # Encode file in ASCII characters to send by email
+        encoders.encode_base64(part)
 
-    # Add header as key/value pair to attachment part
-    part.add_header(
-        "Content-Disposition",
-        "attachment; filename={}.html".format(_url or 'linkedin'),
-    )
+        # Add header as key/value pair to attachment part
+        part.add_header(
+            "Content-Disposition",
+            "attachment; filename={}.html".format(_url or 'linkedin'),
+        )
 
-    # Add attachment to message and convert message to string
-    message.attach(part)
+        # Add attachment to message and convert message to string
+        message.attach(part)
     text = message.as_string()
 
     # Log in to server using secure context and send email
