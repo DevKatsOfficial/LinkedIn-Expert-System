@@ -76,5 +76,5 @@ def send_email(subject, text_body='', html_attahment='', receipients=None, _url=
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
         server.login(sender_email, password)
-        server.sendmail(sender_email, ', '.join(receipients), text)
-        config.config_logger.debug('sending email to: {}'.format(', '.join(receipients)))
+        server.sendmail(sender_email, receipients, text)
+        config.config_logger.debug('sending email to: {}'.format(receipients))
