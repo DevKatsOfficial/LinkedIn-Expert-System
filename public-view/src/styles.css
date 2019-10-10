@@ -10,19 +10,6 @@ Fonts
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,500,600,700');
 @import url('https://fonts.googleapis.com/css?family=Josefin+Slab:400,600,700');
 
-/*---------- Loader -----------*/
-.no-js #loader {
-    display: none;
-}
-
-.js #loader {
-    display: block;
-    position: absolute;
-    left: 100px;
-    top: 0;
-}
-
-
 /* ==========================================================================
 General Setting
 ========================================================================== */
@@ -7734,61 +7721,11 @@ text-align: center;
 .mng-company h4 {
     font-size: 18px;
 }
-/*-----------Manage Member 2 -------------*/
-.manage-resume-box {
-    text-align: center;
-}
-.manage-resume-picbox {
-    display: table;
-    margin: 20px auto;
-}
-.pagination>li>a, .pagination>li>span {
-    padding: 8px 14px;
-}
 
-/*------------Manage Company------------*/
-.mng-resume .mng-resume-pic {
-    margin: 20px auto;
-    display: table;
-}
-.mng-resume {
-    text-align: center;
-	border-left: none;
-    border-top: 3px solid #ffffff;
-}
 
-/*-----------Browse Company------------*/
-.brows-company {
-    text-align: center;
-	border-left:none;
-	border-top: 4px solid #ffffff;
-}
-.brows-company .brows-company-pic {
-    margin: 20px auto;
-    display: table;
-}
-.brows-company .brows-company-position p {
-    text-align: center;
-}
 
-/*------------Browse Resume--------------*/
-.brows-resume {
-    text-align: center;
-	border-left:none;
-	border-top: 4px solid #ffffff;
-}
-.brows-resume .brows-resume-pic {
-    margin: 20px auto;
-}
-.br-resume {
-    margin-bottom: 10px;
-}
-.brows-resume .browse-resume-exp span {
-    float: none;
-}
-.brows-resume .browse-resume-rate span {
-    text-align: center;
-}
+
+
 /*------detail page design -----*/
 .detail-pannel-footer-btn a.footer-btn {
 margin-left: 0;
@@ -7847,9 +7784,7 @@ padding-bottom: 30px;
 .banner-caption {
 padding: 20px 0px;
 }
-.wrap-search-filter{
 
-}
 .item-click article{
 padding-left:15px;
 padding-right:15px;
@@ -8117,111 +8052,6 @@ a.cl-box.pink {
 }
 
 
-
-/*----------- New Job Grid Style ---------------*/
-.job-instructor-layout {
-    background: #ffffff;
-    position: relative;
-    display: block;
-    border-radius:12px;
-	margin-top:30px;
-	box-shadow: 0 0 20px 0 rgba(62,28,131,0.1);
-	-webkit-box-shadow: 0 0 20px 0 rgba(62,28,131,0.1);
-	-moz-box-shadow: 0 0 20px 0 rgba(62,28,131,0.1);
-}
-.job-instructor-layout .popular {
-    position: absolute;
-    right:30px;
-	top:30px;
-}
-.job-instructor-layout .hot {
-    position: absolute;
-    left:30px;
-	top:30px;
-}
-.job-instructor-layout .new {
-    position: absolute;
-    left:30px;
-	top:30px;
-}
-.job-instructor-thumb {
-    display: table;
-    width: 100%;
-    padding:5em 0em 1em;
-	margin:0 auto;
-    border-radius: 8px;
-}
-.job-instructor-thumb img{
-	display: table;
-	margin:0 auto;
-	max-width:80px;
-	max-height:80px;
-}
-.job-instructor-content {
-    position: relative;
-    padding:2px 20px 15px;
-    display: table;
-	text-align:center;
-    width: 100%;
-}
-.instructor-title{
-	line-height:1.5;
-}
-.job-instructor-footer {
-    display: flex;
-	flex-wrap: wrap;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
-}
-.instructor-students{
-    flex: 1;
-}
-.instructor-scount {
-    margin: 0;
-    color: #ff8b00;
-}
-.instructor-corses span {
-    display: inline-block;
-    padding: 4px 14px;
-    background: #f1f4fb;
-    border-radius: 50px;
-    color: #8b91a0;
-	font-size: 14px;
-}
-.job-instructor-layout .tg-themetag {
-    top: 30px;
-}
-.full-time {
-	background:rgba(3, 165, 4,0.1);
-	color:#03a504;
-}
-.part-time {
-	background:rgba(246, 147, 30,0.1);
-	color:#f6931e;
-}
-.enternship {
-	background:rgba(210, 0, 1,0.1);
-	color:#d20001;
-}
-.freelanc {
-	background:rgba(38, 169, 225,0.1);
-	color:#26a9e1;
-}
-.job-instructor-layout .brows-job-type span {
-    position: absolute;
-    padding: 4px 15px;
-    top: 30px;
-    right: 10px;
-    line-height: 1.4;
-    font-size: 12px;
-    border-radius: 2px 0 0 2px;
-}
-
-.login .btn{
-    padding: 10px 30px;
-    margin-left: 10px;
-}
 
 
 
