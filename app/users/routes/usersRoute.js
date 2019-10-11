@@ -9,6 +9,9 @@ const userController = require('../controllers/userControllers')
 router.post('/register',
     registerController.register)
 
+router.post('/register/employee',
+    registerController.employeeRegister)
+
 
 router.post('/login',
     loginController.login)

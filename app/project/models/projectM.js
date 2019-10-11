@@ -6,7 +6,11 @@ const schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "users"
     },
-    name: {
+    projectName: {
+        type: String,
+        required: true
+    },
+    projectCode: {
         type: String,
         required: true
     },
@@ -14,17 +18,21 @@ const schema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    number: {
+    projectNumber: {
         type: String,
         required: true
     },
-    owner: {
-        text: String,
+    projectOwner: {
+        type: String,
         required: true
     },
-    team: [{
+    projectteam: {
+        type: String,
+        required: true
+    },
+    clientContacts: [{
         email: { type: String, required: true },
-        phoneNum: { type: String, required: true }
+        name: { type: String, required: true }
     }],
     clientName: {
         type: String,
@@ -32,12 +40,17 @@ const schema = new mongoose.Schema({
     },
     description: {
         type: String
+    },
+    projectStatus: {
+        type: Boolean,
+        required: true
     }
 
 });
 
 
 const Project = mongoose.model('projects', schema);
+module.exports.Project = Project;
 
 
 
@@ -57,4 +70,3 @@ const Project = mongoose.model('projects', schema);
 
 
 // module.exports.validate = validate;
-module.exports.Project = Project;

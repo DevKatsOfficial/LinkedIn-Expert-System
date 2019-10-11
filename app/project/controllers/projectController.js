@@ -8,13 +8,16 @@ module.exports.create = async (req, res) => {
     // }
     const project = await Project.create({
         // userId: req.body.userId,
-        name: req.body.name,
+        projectName: req.body.projectName,
+        projectCode: req.body.projectCode,
         date: req.body.date,
-        number: req.body.number,
-        owner: req.body.owner,
-        team: req.body.team,
+        projectNumber: req.body.projectNumber,
+        projectOwner: req.body.projectOwner,
+        projectteam: req.body.projectteam,
         clientName: req.body.clientName,
-        description: req.body.description
+        description: req.body.description,
+        clientContacts: req.body.clientContacts,
+        projectStatus: req.body.projectStatus
     });
     await project.save();
     res.json({ message: 'Successfully Created Project!...' });
