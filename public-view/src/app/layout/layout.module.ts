@@ -8,6 +8,9 @@ import { HeaderComponent } from "./shared/header/header.component";
 import { FooterComponent } from "./shared/footer/footer.component";
 import { HomeComponent } from "./home/home.component";
 import { ProfileDetailsComponent } from "./profile-details/profile-details.component";
+import { ProjectComponent } from './project/project.component';
+import { AllCallsComponent } from './all-calls/all-calls.component';
+import { ClientComponent } from './client/client.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { ProfileDetailsComponent } from "./profile-details/profile-details.compo
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    ProfileDetailsComponent
+    ProfileDetailsComponent,
+    ProjectComponent,
+    AllCallsComponent,
+    ClientComponent
   ],
   imports: [CommonModule, LayoutRoutingModule, FormsModule]
 })

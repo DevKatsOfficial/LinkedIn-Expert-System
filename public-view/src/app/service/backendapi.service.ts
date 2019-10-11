@@ -6,6 +6,7 @@ import {
   HttpErrorResponse
 } from "@angular/common/http";
 import { Observable } from "rxjs";
+
 @Injectable({
   providedIn: "root"
 })
@@ -20,5 +21,17 @@ export class BackendapiService {
   getOne(id: string): Observable<any> {
     const url = `${environment.baseUrl}/expert/`;
     return this.http.get<any>(url + id);
+  }
+  createProject(data): Observable<any> {
+    const url = `${environment.baseUrl}/project/create`;
+    return this.http.post(url, data);
+  }
+  getProject(id: string): Observable<any> {
+    const url = `${environment.baseUrl}/project/`;
+    return this.http.get(url + id);
+  }
+  putProject(id: string): Observable<any> {
+    const url = `${environment.baseUrl}/project/`;
+    return this.http.put(url, id);
   }
 }

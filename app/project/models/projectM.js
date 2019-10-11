@@ -1,5 +1,5 @@
-const Joi = require('joi');
-const mongoose = require('mongoose');
+const Joi = require("joi");
+const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
     userId: {
@@ -66,7 +66,5 @@ module.exports.Project = Project;
 //     };
 //     return Joi.validate(user, schema);
 // }
-
-
 
 // module.exports.validate = validate;
