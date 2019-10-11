@@ -1,3 +1,5 @@
+import { AllCallsComponent } from "./all-calls/all-calls.component";
+import { ClientComponent } from "./client/client.component";
 import { NgModule, ViewChildren } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { LayoutComponent } from "./layout.component";
@@ -12,7 +14,9 @@ const routes: Routes = [
       { path: "", component: HomeComponent },
       { path: "home", loadChildren: "./home/home.module#HomeModule" },
       { path: "profile-details/:id", component: ProfileDetailsComponent },
-      { path: "project", component: ProjectComponent }
+      { path: "project", component: ProjectComponent },
+      { path: "client", component: ClientComponent },
+      { path: "calls", component: AllCallsComponent }
     ]
   }
 ];

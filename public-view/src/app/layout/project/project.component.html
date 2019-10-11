@@ -2,7 +2,12 @@
 <section class="full-detail mt-5">
   <div class="container">
     <div class="row bottom-mrg extra-mrg">
-      <form class="form-row">
+      <form
+        class="form-row"
+        id="projectinfo"
+        #f="ngForm"
+        (ngSubmit)="createProfile(f.value)"
+      >
         <h2 class="detail-title col-md-12">Project Information</h2>
 
         <div class="col-md-6 col-sm-6">
@@ -10,6 +15,8 @@
             <span class="input-group-addon"><i class="fa fa-flag"></i></span>
             <input
               type="text"
+              name=""
+              ngModel
               class="form-control"
               placeholder="Project Name"
             />
