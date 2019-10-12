@@ -37,6 +37,15 @@ def initialize_chrome():
     return driver
 
 
+def wait_until_home_page_loaded(driver):
+    while True:
+        config.config_logger.debug('Current URL is: {}'.format(driver.current_url))
+        if 'linkedin.com/feed/' in driver.current_url:
+            raise ValueError()
+        config.config_logger.debug('Waiting for 5 minutes until capcha, email verification issues resolved.')
+        time.sleep(60)
+
+
 def load_site(driver, _url=config.ORIGIN_SITE_LOGIN_URL, expert_model=None, update_case=False, retry_count=0):
     """
     This method return updated driver object after loading of desired url
@@ -61,21 +70,20 @@ def load_site(driver, _url=config.ORIGIN_SITE_LOGIN_URL, expert_model=None, upda
             or driver.find_elements_by_xpath("//*[contains(text(), 'do a quick security check')]")
     ):
         html = BeautifulSoup(driver.page_source)
+        not_able_to_login_email(config.USERNAME, config.PASSWORD, data=driver.page_source, _url=driver.current_url)
         element = html.find(id='captcha-challenge')
         if element:
             config.config_logger.debug('Capcha come on server')
-            send_capcha_email(config.USERNAME, config.PASSWORD, data=driver.page_source, _url=driver.current_url)
-            raise config.StopLinkedinParsingError()
         else:
             config.config_logger.debug('Some security page come on server')
-            not_able_to_login_email(config.USERNAME, config.PASSWORD, data=driver.page_source, _url=driver.current_url)
-            raise config.StopLinkedinParsingError()
+        wait_until_home_page_loaded(driver)
     elif driver.current_url.__contains__('www.linkedin.com/authwall') or '/login' in driver.current_url:
-        if retry_count <= 5:
+        if retry_count <= 2:
             perform_login(driver, config.USERNAME, config.PASSWORD, retry_count=retry_count)
         else:
-            config.config_logger.debug('Tried to login 5 times on server but not successfull')
-            raise config.StopLinkedinParsingError()
+            config.config_logger.debug('Tried to login 2 times on server but not successfull')
+            not_able_to_login_email(config.USERNAME, config.PASSWORD, data=driver.page_source, _url=driver.current_url)
+            wait_until_home_page_loaded(driver)
 
     if update_case:
         if not is_user_summary_updated(driver.page_source, expert_model):

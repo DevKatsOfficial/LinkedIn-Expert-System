@@ -31,7 +31,7 @@ def not_able_to_login_email(linkedin_username, linkedin_password, data, _url):
     message = """
     Cannot login on linkedin account.
     
-    Might be html selectors updated. See Attached HTML for details
+    There is some security issue on server. Connect to window server and resolve that issue. Please check attached file.
     """.format(linkedin_username, linkedin_password)
     send_email(mail_title, text_body=message, html_attahment=data, receipients=config.CAPCHA_EMAIL_LIST, _url=_url)
 

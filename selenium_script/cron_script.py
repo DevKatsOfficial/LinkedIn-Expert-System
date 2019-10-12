@@ -63,13 +63,10 @@ def refresh_old_profiles(driver, already_parsed_profiles_count):
                     args=(driver, _url, profile_to_refresh.get('_id', None), profile_to_refresh.get('userId', None)),
                     kwargs={'expert_model': profile_to_refresh, 'update_case': True}
                 )
-            except config.StopLinkedinParsingError:
-                break
             except FunctionTimedOut:
                 pass
             except Exception as e:
-                with open('exception_logs.log', 'a+') as f:
-                    f.write(str(e))
+                config.config_logger.exception('Exception during profile parsing')
             time.sleep(randint(600, 900))
             already_parsed_profiles_count += 1
             # after refresh each profile, check if new profile come then parse it first
