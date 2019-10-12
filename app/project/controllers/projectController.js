@@ -14,7 +14,8 @@ module.exports.create = async (req, res) => {
         projectNumber: req.body.projectNumber,
         projectOwner: req.body.projectOwner,
         projectteam: req.body.projectteam,
-        clientName: req.body.clientName,
+        clientId: req.body.clientId,
+        employeeId: req.body.employeeId,
         description: req.body.description,
         clientContacts: req.body.clientContacts,
         projectStatus: req.body.projectStatus
@@ -22,28 +23,16 @@ module.exports.create = async (req, res) => {
     await project.save();
     res.json({ message: 'Successfully Created Project!...' });
 }
-module.exports.getProjectByUser = async (req, res) => {
-    const project = await Project.findById(req.user._id);
-    if (!project) {
+
+module.exports.getProjectByEmployee = async (req, res) => {
+    const project = await Project.find({ employeeId: req.body.employeeId });
+    if (project.length < 1) {
         return res.status(400).json({ message: "Project Not Found!" });
     }
     res.json(project);
 };
-// module.exports.SearchExpert = async (req, res) => {
-//     if (req.body.country) {
-//         const expert = await Expert.find({ $or: [{ "introduction.first_name": req.body.first_name }, { "introduction.last_name": req.body.last_name }, { "introduction.location_name": { $regex: req.body.country, $options: 'i' } }] });
-//         if (expert.length < 1) {
-//             return res.status(400).json({ message: "Expert Not Found!" })
-//         }
-//         return res.json(expert);
-//     }
-//     const expert = await Expert.find({ $or: [{ "introduction.first_name": req.body.first_name }, { "introduction.last_name": req.body.last_name }] });
-//     if (expert.length < 1) {
-//         return res.status(400).json({ message: "Expert Not Found!" })
-//     }
-//     res.json(expert);
 
-// }
+
 
 module.exports.update = async (req, res) => {
     const project = await Project.findOneAndUpdate({
