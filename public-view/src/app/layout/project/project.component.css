@@ -34,3 +34,8 @@ select.form-control:not([size]):not([multiple]) {
 .ur-detail-wrap.top-lay .textarea {
   height: 70px;
 }
+
+.custom-control {
+  margin-top: 15px;
+  margin-left: 10px;
+}
