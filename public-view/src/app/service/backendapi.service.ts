@@ -34,4 +34,24 @@ export class BackendapiService {
     const url = `${environment.baseUrl}/project/`;
     return this.http.put(url, id);
   }
+  //create client
+  Createclient(data): Observable<any> {
+    const url = `${environment.baseUrl}/client/create`;
+    return this.http.post(url, data);
+  }
+  //get Client
+  getAllclient(): Observable<any> {
+    const url = `${environment.baseUrl}/client/all`;
+    return this.http.get(url);
+  }
+  //update Client
+  putclient(data): Observable<any> {
+    const url = `${environment.baseUrl}/client/update`;
+    return this.http.put(url, data);
+  }
+  //charge Client
+  chargeclient(data): Observable<any> {
+    const url = `${environment.baseUrl}/client/charge`;
+    return this.http.post(url, data);
+  }
 }

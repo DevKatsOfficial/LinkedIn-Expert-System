@@ -78,7 +78,7 @@
             />
           </div>
         </div>
-        <div class="col-md-6 col-sm-6">
+        <!-- <div class="col-md-6 col-sm-6">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-globe"></i></span>
             <input
@@ -89,19 +89,17 @@
               placeholder="Date Created"
             />
           </div>
-        </div>
+        </div> -->
         <div class="col-md-6 col-sm-6">
           <!-- <div class="input-group">
             <input type="text" class="form-control" placeholder="Client Name" />
           </div> -->
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-globe"></i></span>
-            <select class="form-control">
-              <option>Client Name</option>
-              <option>Full Time</option>
-              <option>Part Time</option>
-              <option>Freelancer</option>
-              <option>Internship</option>
+            <select class="form-control" (change)="selectChangeHandler($event)">
+              <option *ngFor="let cn of clientsName" [value]="cn._id">{{
+                cn.clientCompany
+              }}</option>
             </select>
           </div>
         </div>
@@ -110,6 +108,9 @@
             type="checkbox"
             class="custom-control-input"
             id="projectstatus"
+            checked="false"
+            name="projectstatus"
+            ngModel
           />
           <label class="custom-control-label" for="projectstatus"
             >Project Status</label
@@ -144,7 +145,6 @@
               <td>{{ cc.name }}</td>
               <td>{{ cc.email }}</td>
             </tr>
-           
           </tbody>
         </table>
 

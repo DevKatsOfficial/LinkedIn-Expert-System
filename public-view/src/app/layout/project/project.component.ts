@@ -3,7 +3,8 @@ import {
   ViewEncapsulation,
   OnInit,
   EventEmitter,
-  Output
+  Output,
+  NgModule
 } from "@angular/core";
 import { BackendapiService } from "../../service/backendapi.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -24,8 +25,14 @@ export class ProjectComponent implements OnInit {
     private modalService: NgbModal
   ) {}
   clientContacts: any = [];
+  clientId;
+  selectChangeHandler(event: any) {
+    //update the ui
+    this.clientId = event.target.value;
+  }
   createProfile(data) {
     data.clientContacts = this.clientContacts;
+    data.clientId = this.clientId;
     console.log(data);
     this.backend.createProject(data).subscribe(res => {
       if (res) {
@@ -33,7 +40,9 @@ export class ProjectComponent implements OnInit {
       }
     });
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.getClient();
+  }
   createContact(content) {
     this.modalService.open(content, {
       backdropClass: "light-blue-backdrop",
@@ -44,5 +53,13 @@ export class ProjectComponent implements OnInit {
   saveInfocontact(data) {
     console.log(data);
     this.clientContacts.push(data);
+  }
+  clientsName: any = [];
+  getClient() {
+    this.backend.getAllclient().subscribe(res => {
+      // console.log(res);
+      this.clientsName = res;
+      console.log(this.clientsName);
+    });
   }
 }
