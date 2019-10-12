@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {}
 
   registerUser(data) {
+    console.log(data);
     this.authService.register(data).subscribe(res => {
       if (res) {
         alert(res);

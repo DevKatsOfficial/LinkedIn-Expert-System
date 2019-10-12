@@ -3,10 +3,10 @@
   <div class="container">
     <div class="row bottom-mrg extra-mrg">
       <form
-        class="form-row"
         id="projectinfo"
         #f="ngForm"
         (ngSubmit)="createProfile(f.value)"
+        class="form-row"
       >
         <h2 class="detail-title col-md-12">Project Information</h2>
 
@@ -15,8 +15,8 @@
             <span class="input-group-addon"><i class="fa fa-flag"></i></span>
             <input
               type="text"
-              name="projectName"
               ngModel
+              name="projectName"
               class="form-control"
               placeholder="Project Name"
             />
@@ -29,8 +29,8 @@
             <input
               type="text"
               class="form-control"
-              name="projectNumber"
               ngModel
+              name="projectNumber"
               placeholder="Project Number"
             />
           </div>
@@ -44,8 +44,8 @@
             <input
               type="text"
               class="form-control"
-              name="projectCode"
               ngModel
+              name="projectCode"
               placeholder="Project Code "
             />
           </div>
@@ -59,8 +59,8 @@
             <input
               type="text"
               class="form-control"
-              name="projectOwner"
               ngModel
+              name="projectOwner"
               placeholder="Project Owner"
             />
           </div>
@@ -72,8 +72,8 @@
             <input
               type="text"
               class="form-control"
-              name="projectteam"
               ngModel
+              name="projectteam"
               placeholder="Project Team"
             />
           </div>
@@ -124,7 +124,13 @@
         </div>
         <h2 class="detail-title col-md-12">Client Contact</h2>
         <div class="mb-3">
-          <button class="btn btn-primary">Create Contact</button>
+          <button
+            class="btn btn-primary"
+            (click)="createContact(content)"
+            type="button"
+          >
+            Create Contact
+          </button>
         </div>
         <table class="table table-bordered table-hover">
           <thead class="thead-dark">
@@ -134,18 +140,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Mark</td>
-              <td>test@mail.com</td>
+            <tr *ngFor="let cc of clientContacts">
+              <td>{{ cc.name }}</td>
+              <td>{{ cc.email }}</td>
             </tr>
-            <tr>
-              <td>Jacob</td>
-              <td>test@mail.com</td>
-            </tr>
+           
           </tbody>
         </table>
 
-        <button class="btn btn-primary small-btn btn-block">Submit</button>
+        <button
+          class="btn btn-primary small-btn btn-block"
+          type="submit"
+          value="submit1"
+        >
+          Submit
+        </button>
       </form>
     </div>
 
@@ -305,3 +314,56 @@
 </section>
 
 <!-- Basic Full Detail Form End -->
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="p-3" #frm="ngForm" (ngSubmit)="saveInfocontact(frm.value)">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          ngModel
+          name="name"
+          id="name"
+          aria-describedby="namehelp"
+          placeholder="Enter Name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          ngModel
+          name="email"
+          placeholder="Enter Email"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">
+        Submit
+      </button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.close('Close click')"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>
