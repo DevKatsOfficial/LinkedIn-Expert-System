@@ -2,10 +2,7 @@ const Joi = require("joi");
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "users"
-    },
+
     projectName: {
         type: String,
         required: true
@@ -34,9 +31,9 @@ const schema = new mongoose.Schema({
         email: { type: String, required: true },
         name: { type: String, required: true }
     }],
-    clientName: {
-        type: String,
-        required: true
+    clientId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'clients'
     },
     description: {
         type: String
@@ -44,6 +41,14 @@ const schema = new mongoose.Schema({
     projectStatus: {
         type: Boolean,
         required: true
+    },
+    createdAt: {
+        type: Date,
+        default: new Date
+    },
+    employeeId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'employees'
     }
 
 });
