@@ -20,6 +20,9 @@ router.post('/login',
 router.get('/:userId',
     userController.getUser)
 
+router.get('/employee/all',
+    userController.getAllEmployees)
+
 router.delete('/:userId',
     userController.getUser)
 
