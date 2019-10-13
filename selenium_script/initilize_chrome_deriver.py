@@ -29,10 +29,10 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 def initialize_chrome():
     """This method is used to initialize chrome driver"""
-    # chrome_options = Options()
-    # # chrome_options.add_argument('--headless')
-    # chrome_options.add_argument('--no-sandbox')
-    # chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options = Options()
+    # chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
     driver_path = os.path.abspath("") + '/selenium_script/chromedriver2'
     config.config_logger.debug(driver_path)
     # driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
