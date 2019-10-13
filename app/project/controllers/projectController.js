@@ -25,43 +25,58 @@ module.exports.create = async (req, res) => {
 };
 
 module.exports.getProjectByEmployee = async (req, res) => {
-  const project = await Project.find({ employeeId: req.body.employeeId });
+  const project = await Project.find(
+    { employeeId: req.body.employeeId } || { employeeId: req.user._id }
+  );
   if (project.length < 1) {
     return res.status(400).json({ message: "Project Not Found!" });
   }
   res.json(project);
 };
 
-module.exports.getAllProject = async (req, res) => {
-  const project = await Project.find({ projectStatus: true })
-    .populate("employeeId", "-password")
-    .populate("clientId");
-  if (project.length < 1) {
+module.exports.getAllProjects = async (req, res) => {
+  const projects = await Project.find();
+  if (projects.length < 1) {
     return res.status(400).json({ message: "Project Not Found!" });
   }
-  res.status(200).json(project);
+  res.json(projects);
 };
 
-module.exports.update = async (req, res) => {
+module.exports.updateEmployee = async (req, res) => {
   const project = await Project.findOneAndUpdate(
     {
       _id: req.body.projectId
-      // , userId: req.body.userId
     },
     {
       $set: {
-        name: req.body.name,
-        date: req.body.date,
-        number: req.body.number,
-        owner: req.body.owner,
-        team: req.body.team,
-        clientName: req.body.clientName,
-        description: req.body.description
+        employeeId: req.body.employeeId
       }
     }
   );
   if (!project) {
     return res.status(400).json({ message: "Project Not Found!" });
   }
-  res.json({ message: "Successfully updated!..." });
+  res.status(200).json({ message: "Successfully Changed Employee!..." });
 };
+
+// module.exports.update = async (req, res) => {
+//     const project = await Project.findOneAndUpdate({
+//         _id: req.body.projectId
+//         // , userId: req.body.userId
+//     },
+//         {
+//             $set: {
+//                 name: req.body.name,
+//                 date: req.body.date,
+//                 number: req.body.number,
+//                 owner: req.body.owner,
+//                 team: req.body.team,
+//                 clientName: req.body.clientName,
+//                 description: req.body.description
+//             }
+//         });
+//     if (!project) {
+//         return res.status(400).json({ message: "Project Not Found!" });
+//     }
+//     res.json({ message: "Successfully updated!..." });
+// };

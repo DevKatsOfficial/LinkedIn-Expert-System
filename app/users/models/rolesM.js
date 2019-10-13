@@ -12,8 +12,7 @@ const Role = mongoose.model("roles", schema);
 
 function validate(role) {
   const schema = {
-    role: Joi.string().required(),
-    createCategoryPage: Joi.boolean()
+    role: Joi.string().required()
   };
   return Joi.validate(role, schema);
 }

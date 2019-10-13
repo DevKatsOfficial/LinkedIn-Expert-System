@@ -6,6 +6,7 @@ router.post('/create',
     expertController.create)
 
 router.get("/:expertId", expertController.getExpert);
+router.post("/get/project", expertController.getProjectByExpert);
 
 router.post("/search", expertController.SearchExpert);
 
@@ -18,5 +19,6 @@ router.post("/create/countries", expertController.createCountries);
 router.post("/create/states", expertController.createStates);
 
 router.post("/create/cities", expertController.createCities);
+
 
 module.exports = router;

@@ -5,9 +5,10 @@ const projectController = require("../controllers/projectController");
 router.post("/create", projectController.create);
 
 router.get("/all", projectController.getAllProject);
+router.get("/", projectController.getProjectByEmployee);
 
 // router.post("/search", projectController.Searchproject);
 
-router.put("/", projectController.update);
+router.put("/", projectController.updateEmployee);
 
 module.exports = router;
