@@ -38,23 +38,21 @@ const schema = new mongoose.Schema({
 
 
 const User = mongoose.model('users', schema);
-
-
-
-function validate(user) {
-    const schema = {
-        name: Joi.string().optional(),
-        email: Joi.string().email().required(),
-        password: Joi.string().required(),
-        lev: Joi.objectId(),
-        phone: Joi.string().required(),
-        linkedInUrl: Joi.string().required(),
-        projectNumber: Joi.string().required()
-    };
-    return Joi.validate(user, schema);
-}
-
-
-
-module.exports.validate = validate;
 module.exports.User = User;
+
+
+
+// function validate(user) {
+//     const schema = {
+//         name: Joi.string().optional(),
+//         email: Joi.string().email().required(),
+//         password: Joi.string().required(),
+//         lev: Joi.objectId(),
+//         phone: Joi.string().required(),
+//         linkedInUrl: Joi.string().required(),
+//         projectNumber: Joi.string().required()
+//     };
+//     return Joi.validate(user, schema);
+// }
+// module.exports.validate = validate;
+

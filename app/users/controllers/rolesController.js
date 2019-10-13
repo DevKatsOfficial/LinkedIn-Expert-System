@@ -8,8 +8,7 @@ module.exports.createRole = async (req, res) => {
         return;
     }
     const role = await Role.create({
-        role: req.body.role,
-        createCategoryPage: req.body.createCategoryPage
+        role: req.body.role
     });
     role.save();
     res.json({ message: 'succeed', id: role._id });

@@ -4,7 +4,7 @@ const projectController = require("../controllers/projectController");
 
 router.post('/create', projectController.create)
 
-router.get("/", projectController.getProjectByUser);
+router.get("/", projectController.getProjectByEmployee);
 
 // router.post("/search", projectController.Searchproject);
 
