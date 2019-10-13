@@ -23,17 +23,18 @@ import config
 from parse_html.linkedin_user_profile import (parse_and_save_expert_profile, insert_and_update_expert_data,
                                               is_user_summary_updated, update_scrap_date_in_expert_model)
 from utilities.extract_data import get_attr_value_from_html_soup, xpath_soup
-
+from webdriver_manager.chrome import ChromeDriverManager
 
 def initialize_chrome():
     """This method is used to initialize chrome driver"""
-    chrome_options = Options()
-    # chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-shm-usage')
-    driver_path = os.path.abspath("") + 'selenium_script/chromedriver2'
-    driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
-    # driver = webdriver.Chrome(executable_path=driver_path)
+    # chrome_options = Options()
+    # # chrome_options.add_argument('--headless')
+    # chrome_options.add_argument('--no-sandbox')
+    # chrome_options.add_argument('--disable-dev-shm-usage')
+    # driver_path = os.path.abspath("") + 'selenium_script/chromedriver2'
+    # driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
+    # # driver = webdriver.Chrome(executable_path=driver_path)
+    driver = webdriver.Chrome(ChromeDriverManager().install())
     return driver
 
 
