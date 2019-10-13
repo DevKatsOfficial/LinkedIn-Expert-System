@@ -1,5 +1,5 @@
 const { Project } = require("../models/projectM");
-
+const { Claim } = require('../../expert/models/claimM');
 module.exports.create = async (req, res) => {
     // const result = validate(req.body);
     // if (result.error) {
@@ -51,6 +51,17 @@ module.exports.updateEmployee = async (req, res) => {
             }
         });
     if (!project) {
+        return res.status(400).json({ message: "Project Not Found!" });
+    }
+    const claim = await Claim.findOneAndUpdate({
+        projectId: req.body.projectId
+    },
+        {
+            $set: {
+                employeeId: req.body.employeeId
+            }
+        });
+    if (!claim) {
         return res.status(400).json({ message: "Project Not Found!" });
     }
     res.status(200).json({ message: "Successfully Changed Employee!..." });
