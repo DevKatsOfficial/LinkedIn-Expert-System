@@ -44,4 +44,5 @@ export class ProfileDetailsComponent implements OnInit {
       }
     });
   }
+  currentJustify = "fill";
 }

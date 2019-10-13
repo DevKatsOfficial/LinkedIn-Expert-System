@@ -13,5 +13,6 @@ router.post("/login", loginController.login);
 router.get("/:userId", userController.getUser);
 
 router.delete("/:userId", userController.getUser);
+router.get("/employee/all", userController.getAllEmployees);
 
 module.exports = router;

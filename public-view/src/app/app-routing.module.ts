@@ -5,12 +5,14 @@ import { AnonymousGuard } from "./core/services/anonymous.guard";
 
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
+
 const routes: Routes = [
   {
     path: "",
     loadChildren: "./layout/layout.module#LayoutModule",
     canActivate: [AuthGuard]
   },
+
   { path: "login", component: LoginComponent, canActivate: [AnonymousGuard] },
   {
     path: "register",

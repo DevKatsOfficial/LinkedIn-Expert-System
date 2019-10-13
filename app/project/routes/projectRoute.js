@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const projectController = require("../controllers/projectController");
 
-router.post('/create', projectController.create)
+router.post("/create", projectController.create);
 
-router.get("/", projectController.getProjectByUser);
+router.get("/all", projectController.getAllProject);
 
 // router.post("/search", projectController.Searchproject);
 

@@ -1,3 +1,4 @@
+import { CreateProjectComponent } from "./create-project/create-project.component";
 import { AllCallsComponent } from "./all-calls/all-calls.component";
 import { ClientComponent } from "./client/client.component";
 import { NgModule, ViewChildren } from "@angular/core";
@@ -16,7 +17,8 @@ const routes: Routes = [
       { path: "profile-details/:id", component: ProfileDetailsComponent },
       { path: "project", component: ProjectComponent },
       { path: "client", component: ClientComponent },
-      { path: "calls", component: AllCallsComponent }
+      { path: "calls", component: AllCallsComponent },
+      { path: "create-project", component: CreateProjectComponent }
     ]
   }
 ];
