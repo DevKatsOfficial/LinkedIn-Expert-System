@@ -3,6 +3,7 @@ const { CountriesRegion } = require("../models/regionCountriesM");
 const { Countries } = require("../models/countriesM");
 const { States } = require("../models/statesM");
 const { Cities } = require("../models/citiesM");
+const { Claim } = require("../models/claimM");
 
 module.exports.createRegion = async (req, res) => {
   for (let i = 0; i < req.body.regions.length; i++) {
@@ -78,6 +79,16 @@ module.exports.create = async (req, res) => {
   });
   await expert.save();
   res.json({ message: "Successfully Saved!..." });
+};
+
+module.exports.getProjectByExpert = async (req, res) => {
+  const project = await Claim.find({
+    experts: { $elemMatch: { expertId: req.body.expertId } }
+  });
+  if (project.length < 1) {
+    return res.status(200).json({ message: "Projects Not Found By Expert!" });
+  }
+  res.json(project);
 };
 
 module.exports.getExpert = async (req, res) => {
