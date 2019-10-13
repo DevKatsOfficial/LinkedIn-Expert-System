@@ -10,6 +10,8 @@ from selenium.common.exceptions import TimeoutException
 from utilities.email_utils import send_capcha_email, not_able_to_login_email
 
 sys.path.append(os.path.abspath("."))
+sys.path.append(os.path.join(os.path.abspath("."), 'chromedriver'))
+sys.path.append(os.path.join(os.path.abspath("."), 'chromedriver2'))
 
 from bs4 import BeautifulSoup
 from func_timeout import func_timeout, FunctionTimedOut
@@ -31,10 +33,11 @@ def initialize_chrome():
     # # chrome_options.add_argument('--headless')
     # chrome_options.add_argument('--no-sandbox')
     # chrome_options.add_argument('--disable-dev-shm-usage')
-    # driver_path = os.path.abspath("") + 'selenium_script/chromedriver2'
+    driver_path = os.path.abspath("") + '/selenium_script/chromedriver2'
+    config.config_logger.debug(driver_path)
     # driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
-    # # driver = webdriver.Chrome(executable_path=driver_path)
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver = webdriver.Chrome(executable_path=driver_path)
+    # driver = webdriver.Chrome(ChromeDriverManager().install())
     return driver
 
 
