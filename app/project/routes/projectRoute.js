@@ -8,6 +8,6 @@ router.get("/", projectController.getProjectByEmployee);
 
 // router.post("/search", projectController.Searchproject);
 
-router.put("/", projectController.update);
+router.put("/", projectController.updateEmployee);
 
 module.exports = router;
