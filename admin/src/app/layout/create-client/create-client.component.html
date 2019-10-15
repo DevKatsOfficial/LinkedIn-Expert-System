@@ -1,0 +1,145 @@
+<label class="row">
+  <form
+    class="col-md-12"
+    id="ClientForm"
+    #f="ngForm"
+    (ngSubmit)="createCleint(f.value)"
+  >
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="inputEmail4">Client Company</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cn"
+          name="clientCompany"
+          ngModel
+          placeholder="Client Company"
+        />
+      </div>
+      <h2 class="detail-title">Billing Detail</h2>
+      <div class="form-row col-md-12">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="prepaid"
+            id="payasyougo"
+            value="option1"
+            checked
+          />
+          <label class="form-check-label" for="payasyougo">
+            Pay as You go
+          </label>
+        </div>
+        <div class="form-check ml-4">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="prepaid"
+            id="prepaid2"
+            value="option2"
+          />
+          <label class="form-check-label" for="prepaid2">
+            Prepaid
+          </label>
+        </div>
+      </div>
+      <div class="form-row col-md-6">
+        <!-- <div class="form-group col-md-12">
+          <label for="CreditPurchase">Credit Purchase</label>
+          <input
+            type="text"
+            class="form-control"
+            id="CreditPurchase"
+           
+            placeholder="Credit Purchase"
+          />
+        </div> -->
+        <div class="form-group col-md-12">
+          <label for="Creditremainig">Credit Remaining</label>
+          <input
+            type="text"
+            class="form-control"
+            id="Creditremainig"
+            name="creditRemaining"
+            ngModel
+            placeholder="Credit Remaining"
+          />
+        </div>
+        <div class="form-group col-md-12">
+          <label for="Creditremainig">Price Rule</label>
+          <input
+            type="text"
+            class="form-control"
+            id="priceRule"
+            name="pricingRules"
+            ngModel
+            placeholder="Price Rule"
+          />
+        </div>
+        <div class="form-group col-md-12">
+          <label for="Creditremainig">Invoice Contact</label>
+          <input
+            type="text"
+            class="form-control"
+            id="Invoicecontact"
+            name="InvoiceContacts"
+            ngModel
+            placeholder="Invoice Contact"
+          />
+        </div>
+      </div>
+      <div class="form-row col-md-6">
+        <div class="form-group col-md-12">
+          <label for="inputState">Billing Currency</label>
+          <select id="inputState" class="form-control">
+            <option selected>$</option>
+            <option>...</option>
+          </select>
+        </div>
+        <div class="form-group col-md-12">
+          <label for="priceperhour">Price /Hours</label>
+          <input
+            type="text"
+            class="form-control"
+            id="priceperhour"
+            name="pricePerhourCall"
+            ngModel
+            placeholder="Price Per Hours"
+          />
+        </div>
+        <label for="Entityprice" class="ml-4">VAT</label>
+        <div class="form-group ml-4">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="prepaid" />
+            <label class="form-check-label" for="prepaid">
+              1
+            </label>
+          </div>
+        </div>
+        <div class="form-group ml-4">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="prepaid" />
+            <label class="form-check-label" for="prepaid">
+              1.2
+            </label>
+          </div>
+        </div>
+        <div class="form-group col-md-12">
+          <label for="Entityprice">Entity To Invoice</label>
+          <input
+            type="text"
+            class="form-control"
+            id="Entityprice"
+            name="entityToInvoice"
+            ngModel
+            placeholder="Entity To Invoice"
+          />
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Generate Invoice</button>
+  </form>
+</label>

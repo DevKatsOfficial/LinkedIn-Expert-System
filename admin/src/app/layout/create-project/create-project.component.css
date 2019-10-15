@@ -1,0 +1,13 @@
+.input-group {
+  margin-bottom: 20px;
+}
+.table thead th,
+.table td {
+  text-align: center;
+}
+
+.table .thead-dark th {
+  color: #000;
+  background: #ddd;
+  border: 1px solid #ddd;
+}

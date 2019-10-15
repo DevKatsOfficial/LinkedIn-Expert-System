@@ -1,0 +1,220 @@
+<div class="row">
+  <form
+    id="projectinfo"
+    #f="ngForm"
+    (ngSubmit)="createProfile(f.value)"
+    class="form-row"
+  >
+    <h2 class="detail-title col-md-12">Project Information</h2>
+
+    <div class="col-md-6 col-sm-6">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-flag"></i></span>
+        <input
+          type="text"
+          ngModel
+          name="projectName"
+          class="form-control"
+          placeholder="Project Name"
+        />
+      </div>
+    </div>
+
+    <div class="col-md-6 col-sm-6">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+        <input
+          type="text"
+          class="form-control"
+          ngModel
+          name="projectNumber"
+          placeholder="Project Number"
+        />
+      </div>
+    </div>
+
+    <div class="col-md-6 col-sm-6">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+        <input
+          type="text"
+          class="form-control"
+          ngModel
+          name="projectCode"
+          placeholder="Project Code "
+        />
+      </div>
+    </div>
+
+    <div class="col-md-6 col-sm-6">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+        <input
+          type="text"
+          class="form-control"
+          ngModel
+          name="projectOwner"
+          placeholder="Project Owner"
+        />
+      </div>
+    </div>
+
+    <div class="col-md-6 col-sm-6">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+        <input
+          type="text"
+          class="form-control"
+          ngModel
+          name="projectteam"
+          placeholder="Project Team"
+        />
+      </div>
+    </div>
+    <!-- <div class="col-md-6 col-sm-6">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+                <input
+                  type="text"
+                  class="form-control"
+                  ngModel
+                  name=""
+                  placeholder="Date Created"
+                />
+              </div>
+            </div> -->
+    <div class="col-md-6 col-sm-6">
+      <!-- <div class="input-group">
+                <input type="text" class="form-control" placeholder="Client Name" />
+              </div> -->
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+        <select class="form-control" (change)="selectClientHandler($event)">
+          <option *ngFor="let cn of clientsName" [value]="cn._id">{{
+            cn.clientCompany
+          }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-12 col-sm-12">
+      <!-- <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Client Name" />
+                      </div> -->
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+        <select class="form-control" (change)="selectemployeeHandler($event)">
+          <option *ngFor="let emp of employees" [value]="emp._id">{{
+            emp.name
+          }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="custom-control custom-switch">
+      <input
+        type="checkbox"
+        class="custom-control-input"
+        id="projectstatus"
+        checked="false"
+        name="projectStatus"
+        ngModel
+      />
+      <label class="custom-control-label" for="projectstatus"
+        >Project Status</label
+      >
+    </div>
+
+    <div class="col-md-12 col-sm-12">
+      <textarea
+        name="description"
+        ngModel
+        class="form-control textarea"
+        placeholder="Project Decription"
+      ></textarea>
+    </div>
+    <h2 class="detail-title col-md-12">Client Contact</h2>
+    <div class="mb-3">
+      <button
+        class="btn btn-primary"
+        (click)="createContact(content)"
+        type="button"
+      >
+        Create Contact
+      </button>
+    </div>
+    <table class="table table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cc of clientContacts">
+          <td>{{ cc.name }}</td>
+          <td>{{ cc.email }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button
+      class="btn btn-primary small-btn btn-block"
+      type="submit"
+      value="submit1"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="p-3" #frm="ngForm" (ngSubmit)="saveInfocontact(frm.value)">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          ngModel
+          name="name"
+          id="name"
+          aria-describedby="namehelp"
+          placeholder="Enter Name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          ngModel
+          name="email"
+          placeholder="Enter Email"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">
+        Submit
+      </button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.close('Close click')"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>

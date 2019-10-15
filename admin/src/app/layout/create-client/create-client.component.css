@@ -1,0 +1,12 @@
+h2.detail-title {
+  float: left;
+  width: 100%;
+  font-size: 18px;
+  background: #dfe7ef;
+  padding: 8px 20px;
+  margin-bottom: 16px;
+  line-height: 1.6;
+  border-radius: 2px;
+  color: #35434e;
+  border-left: 3px solid #0084ff;
+}
