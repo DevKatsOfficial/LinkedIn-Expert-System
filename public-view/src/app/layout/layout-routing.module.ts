@@ -1,3 +1,5 @@
+import { SearchComponent } from "./search/search.component";
+import { CustomProfileComponent } from "./custom-profile/custom-profile.component";
 import { CreateProjectComponent } from "./create-project/create-project.component";
 import { AllCallsComponent } from "./all-calls/all-calls.component";
 import { ClientComponent } from "./client/client.component";
@@ -15,10 +17,12 @@ const routes: Routes = [
       { path: "", component: HomeComponent },
       { path: "home", loadChildren: "./home/home.module#HomeModule" },
       { path: "profile-details/:id", component: ProfileDetailsComponent },
-      { path: "project", component: ProjectComponent },
+      { path: "project/:id", component: ProjectComponent },
       { path: "client", component: ClientComponent },
       { path: "calls", component: AllCallsComponent },
-      { path: "create-project", component: CreateProjectComponent }
+      { path: "create-project", component: CreateProjectComponent },
+      { path: "customprofile/:id", component: CustomProfileComponent },
+      { path: "search", component: SearchComponent }
     ]
   }
 ];

@@ -47,8 +47,8 @@ export class CreateProjectComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.getClient();
-    this.getEmployees();
+    // this.getClient();
+    // this.getEmployees();
   }
   createContact(content) {
     this.modalService.open(content, {

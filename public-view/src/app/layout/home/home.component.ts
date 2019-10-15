@@ -13,11 +13,16 @@ export class HomeComponent implements OnInit {
     private router: Router
   ) {}
   searchvalue: [];
-  ngOnInit() {}
-  searchExperts(data) {
-    this.backend.expertSearch(data).subscribe(res => {
-      this.searchvalue = res;
-      console.log(this.searchvalue);
+  ngOnInit() {
+    this.getprojectByEmployee();
+  }
+
+  employee: any = [];
+
+  getprojectByEmployee() {
+    this.backend.GetprojectEmployee().subscribe(res => {
+      console.log(res);
+      this.employee = res;
     });
   }
 }

@@ -7,7 +7,7 @@
           class="col-lg-5 col-md-12 col-sm-12 col-pad-0 bg-img align-self-center none-992"
         >
           <a href="#">
-            <img src="assets/img/logos/logo.png" class="logo" alt="logo" />
+            <img src="../../assets/img/logo.png" class="logo" alt="logo" />
           </a>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
@@ -82,7 +82,9 @@
                     name="projectNumber"
                     ngModel
                     class="input-text"
-                    placeholder="projectNumber"
+                    [(ngModel)]="subscribedParam"
+                    readonly
+                    placeholder="Project Number"
                   />
                 </div>
                 <div class="form-group">
@@ -115,7 +117,7 @@
                   </button>
                 </div>
               </form>
-              <p>Already a member? <a href="#">Login here</a></p>
+              <p>Already a member? <a routerLink="/login">Login here</a></p>
             </div>
           </div>
         </div>

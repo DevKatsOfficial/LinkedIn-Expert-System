@@ -84,7 +84,9 @@ module.exports.create = async (req, res) => {
 module.exports.getProjectByExpert = async (req, res) => {
   const project = await Claim.find({
     experts: { $elemMatch: { expertId: req.body.expertId } }
-  });
+  })
+    .populate("employeeId", "-password")
+    .populate("projectId");
   if (project.length < 1) {
     return res.status(200).json({ message: "Projects Not Found By Expert!" });
   }

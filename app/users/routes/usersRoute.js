@@ -5,6 +5,7 @@ const loginController = require("../controllers/loginController");
 const userController = require("../controllers/userControllers");
 
 router.post("/register", registerController.register);
+router.get("/register/:projectNumber", userController.verfiyProject);
 
 router.post("/register/employee", registerController.employeeRegister);
 

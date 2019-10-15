@@ -1,13 +1,16 @@
-import { Component, OnInit } from "@angular/core";
 import { BackendapiService } from "../../service/backendapi.service";
 import { Router, ActivatedRoute } from "@angular/router";
+import { Component, ViewEncapsulation, OnInit } from "@angular/core";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: "app-profile-details",
   templateUrl: "./profile-details.component.html",
-  styleUrls: ["./profile-details.component.css"]
+  styleUrls: ["./profile-details.component.css"],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProfileDetailsComponent implements OnInit {
+  closeResult: string;
   expert: {};
   experiences: [];
   educations: [];
@@ -20,10 +23,16 @@ export class ProfileDetailsComponent implements OnInit {
   constructor(
     private tem: BackendapiService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {}
-
+  snapshotParam;
+  subscribedParam;
   ngOnInit() {
+    this.snapshotParam = this.route.snapshot.paramMap.get("id");
+    this.route.paramMap.subscribe(params => {
+      this.subscribedParam = params.get("id");
+    });
     this.route.paramMap.subscribe(param => {
       if (param && param.keys.length > 0 && param.has("id")) {
         this.tem.getOne(param.get("id")).subscribe(res => {
@@ -42,7 +51,39 @@ export class ProfileDetailsComponent implements OnInit {
       } else {
         this.router.navigate(["/"]);
       }
+      this.getProjectByExperts();
     });
+  }
+  clamExpertPop(content) {
+    this.tem.GetprojectEmployee().subscribe(res => {
+      this.Getemployee = res;
+      console.log(res);
+    });
+    this.modalService.open(content, {
+      backdropClass: "light-blue-backdrop",
+      centered: true
+    });
+  }
+  Getemployee: any = [];
+
+  projectClaim(data) {
+    data.experts = [{ expertId: this.subscribedParam }];
+    console.log(data);
+    this.tem.ProjectClaim(data).subscribe(res => {
+      console.log(res);
+      if (res) {
+        this.getProjectByExperts();
+      }
+    });
+  }
+  Project: any = [];
+  getProjectByExperts() {
+    this.tem
+      .getProjectByExpert({ expertId: this.subscribedParam })
+      .subscribe(res => {
+        this.Project = res;
+        console.log(this.Project);
+      });
   }
   currentJustify = "fill";
 }

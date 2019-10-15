@@ -51,18 +51,18 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Started date</th>
-              <th scope="col">Client Name</th>
-              <th scope="col">Project Profile</th>
+              <th scope="col">Employee Name</th>
+              <th scope="col">Project Name</th>
+              <th scope="col">Project Number</th>
+              <th scope="col">Project Started</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+            <tr *ngFor="let pj of Project">
+              <th>{{ pj.employeeId.name }}</th>
+              <th>{{ pj.projectId.projectName }}</th>
+              <th>{{ pj.projectId.projectNumber }}</th>
+              <th>{{ pj.projectId.createdAt }}</th>
             </tr>
           </tbody>
         </table>
@@ -101,7 +101,13 @@
             />
           </div>
 
-          <button type="submit" class="btn btn-primary">Clam Expert</button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            (click)="clamExpertPop(content)"
+          >
+            Clam Expert
+          </button>
         </form>
       </div>
     </div>
@@ -221,3 +227,53 @@
   </div>
 </section>
 <!-- company full detail End -->
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body p-2">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Project Number</th>
+          <th scope="col">project Name</th>
+          <th scope="col">Clam Option</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ge of Getemployee">
+          <td>{{ ge.projectNumber }}</td>
+          <td>{{ ge.projectName }}</td>
+          <td>
+            <button
+              class="btn btn-primary"
+              (click)="
+                projectClaim({ projectId: ge._id, employeeId: ge.employeeId })
+              "
+            >
+              Clam
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.close('Close click')"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>

@@ -1,23 +1,25 @@
-const Joi = require('joi');
-const mongoose = require('mongoose');
+const Joi = require("joi");
+const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "users"
-    },
-    name: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: Date,
-        required: true
-    },
-    description: {
-        type: String
-    }
-
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users"
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String
+  },
+  projectNumber: {
+    type: String
+  }
 });
 
 // function validate(user) {
@@ -33,8 +35,7 @@ const schema = new mongoose.Schema({
 //     return Joi.validate(user, schema);
 // }
 
-
-const Invitation = mongoose.model('invitations', schema);
+const Invitation = mongoose.model("invitations", schema);
 
 // module.exports.validate = validate;
 module.exports.Invitation = Invitation;

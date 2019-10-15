@@ -5,6 +5,7 @@ import { AnonymousGuard } from "./core/services/anonymous.guard";
 
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
+import { NotFoundComponent } from "./not-found/not-found.component";
 
 const routes: Routes = [
   {
@@ -15,10 +16,12 @@ const routes: Routes = [
 
   { path: "login", component: LoginComponent, canActivate: [AnonymousGuard] },
   {
-    path: "register",
+    path: "register/:projectNumber",
     component: RegisterComponent,
     canActivate: [AnonymousGuard]
-  }
+  },
+  { path: "404", component: NotFoundComponent },
+  { path: "**", redirectTo: "/404" }
 ];
 
 @NgModule({

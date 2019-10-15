@@ -26,10 +26,10 @@ export class BackendapiService {
     const url = `${environment.baseUrl}/project/create`;
     return this.http.post(url, data);
   }
-  getProject(id: string): Observable<any> {
-    const url = `${environment.baseUrl}/project/`;
-    return this.http.get(url + id);
-  }
+  // getProject(id: string): Observable<any> {
+  //   const url = `${environment.baseUrl}/project/`;
+  //   return this.http.get(url + id);
+  // }
   putProject(id: string): Observable<any> {
     const url = `${environment.baseUrl}/project/`;
     return this.http.put(url, id);
@@ -49,6 +49,37 @@ export class BackendapiService {
   //charge Client
   chargeclient(data): Observable<any> {
     const url = `${environment.baseUrl}/client/charge`;
+    return this.http.post(url, data);
+  }
+  //Get project of employee
+  GetprojectEmployee(): Observable<any> {
+    const url = `${environment.baseUrl}/project/employee`;
+    return this.http.get(url);
+  }
+  ProjectClaim(data): Observable<any> {
+    const url = `${environment.baseUrl}/expert/claim`;
+    return this.http.post(url, data);
+  }
+  getProjectByExpert(data): Observable<any> {
+    const url = `${environment.baseUrl}/expert/get/project`;
+    return this.http.post(url, data);
+  }
+
+  getProjectss(id: string): Observable<any> {
+    const url = `${environment.baseUrl}/project/`;
+    return this.http.get(url + id);
+  }
+  getProjectByExperts(data): Observable<any> {
+    const url = `${environment.baseUrl}/expert/get/project`;
+    return this.http.post(url, data);
+  }
+
+  getExpertByProjects(data): Observable<any> {
+    const url = `${environment.baseUrl}/project/get/expert`;
+    return this.http.post(url, data);
+  }
+  inviteExpert(data): Observable<any> {
+    const url = `${environment.baseUrl}/invitation`;
     return this.http.post(url, data);
   }
 }

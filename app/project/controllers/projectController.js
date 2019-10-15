@@ -25,9 +25,9 @@ module.exports.create = async (req, res) => {
 };
 
 module.exports.getProjectByEmployee = async (req, res) => {
-  const project = await Project.find(
-    { employeeId: req.body.employeeId } || { employeeId: req.user._id }
-  );
+  const project = await Project.find({
+    employeeId: "5da0ef84d0eb9d13acce5c92"
+  });
   if (project.length < 1) {
     return res.status(400).json({ message: "Project Not Found!" });
   }
@@ -35,13 +35,39 @@ module.exports.getProjectByEmployee = async (req, res) => {
 };
 
 module.exports.getAllProjects = async (req, res) => {
-  const projects = await Project.find();
+  const projects = await Project.find()
+    .populate("clientId")
+    .populate("employeeId", "-password");
   if (projects.length < 1) {
     return res.status(400).json({ message: "Project Not Found!" });
   }
+  console.log(projects);
   res.json(projects);
 };
+module.exports.getExpertByProject = async (req, res) => {
+  console.log(req.body);
+  const claim = await Claim.findOne({ projectId: req.body.projectId }).populate(
+    "experts.expertId"
+  );
 
+  if (!claim) {
+    return res.status(400).json({ message: "Expert Not Found!" });
+  }
+  console.log(claim);
+  res.json(claim);
+};
+module.exports.getProject = async (req, res) => {
+  console.log(req.params);
+  const project = await Project.findOne({
+    _id: req.params.projectId
+  }).populate("clientId");
+
+  if (!project) {
+    return res.status(400).json({ message: "Project Not Found!" });
+  }
+  console.log(project);
+  res.json(project);
+};
 module.exports.updateEmployee = async (req, res) => {
   const project = await Project.findOneAndUpdate(
     {

@@ -4,11 +4,11 @@ const { Expert } = require("../../expert/models/expertM");
 const { Employee } = require("../models/employeeM");
 
 module.exports.register = async (req, res) => {
-  const result = validate(req.body);
-  if (result.error) {
-    res.status(400).json({ message: result.error.details[0].message });
-    return;
-  }
+  // const result = validate(req.body);
+  // if (result.error) {
+  //   res.status(400).json({ message: result.error.details[0].message });
+  //   return;
+  // }
 
   const user = await User.findOne({ email: req.body.email });
   if (user) {

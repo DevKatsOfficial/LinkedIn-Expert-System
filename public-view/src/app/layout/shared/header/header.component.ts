@@ -8,7 +8,8 @@ import {
   ViewEncapsulation
 } from "@angular/core";
 import { AuthService } from "src/app/core/services/auth.service";
-import { Router } from "@angular/router";
+import { Router, NavigationEnd } from "@angular/router";
+
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",
@@ -21,7 +22,8 @@ export class HeaderComponent implements OnInit {
   closeResult: string;
   constructor(
     private modalService: NgbModal,
-    private authService: AuthService
+    private authService: AuthService,
+    public router: Router
   ) {
     // this.mainFrom();
   }

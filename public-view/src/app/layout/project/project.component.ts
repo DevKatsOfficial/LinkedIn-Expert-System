@@ -45,8 +45,25 @@ export class ProjectComponent implements OnInit {
       }
     });
   }
+  project: any = [];
+  snapshotParam;
+  subscribedParam;
   ngOnInit() {
-    this.getClient();
+    this.snapshotParam = this.route.snapshot.paramMap.get("id");
+    this.route.paramMap.subscribe(params => {
+      this.subscribedParam = params.get("id");
+    });
+    this.route.paramMap.subscribe(param => {
+      if (param && param.keys.length > 0 && param.has("id")) {
+        this.backend.getProjectss(param.get("id")).subscribe(res => {
+          console.log(res);
+          this.project = res;
+        });
+      } else {
+        this.router.navigate(["/"]);
+      }
+      // this.getExpertByProject();
+    });
   }
   createContact(content) {
     this.modalService.open(content, {
@@ -60,11 +77,68 @@ export class ProjectComponent implements OnInit {
     this.clientContacts.push(data);
   }
   clientsName: any = [];
-  getClient() {
-    this.backend.getAllclient().subscribe(res => {
+  // getClient() {
+  //   this.backend.getAllclient().subscribe(res => {
+  //     // console.log(res);
+  //     this.clientsName = res;
+  //     console.log(this.clientsName);
+  //   });
+  // }
+  //for getExpertByProject
+  experts: any = [];
+  introduction: [];
+  CreateProfile(contents) {
+    this.modalService.open(contents, {
+      backdropClass: "light-blue-backdrop",
+      centered: true,
+      size: "lg"
+    });
+
+    this.backend
+      .getExpertByProjects({ projectId: this.subscribedParam })
+      .subscribe(res => {
+        this.experts = res.experts;
+        this.introduction = res.introduction;
+        console.log(this.experts);
+      });
+  }
+
+  getprojectByexpert(data) {
+    this.backend.getProjectByExpert(data).subscribe(res => {
       // console.log(res);
       this.clientsName = res;
       console.log(this.clientsName);
     });
   }
+  Project: any = [];
+  projectlist: any = [];
+  projectNumber;
+  selectprojectnumber(event: any) {
+    //update the ui
+
+    this.projectNumber = event.target.value;
+  }
+  InviteExpertPop(invite, data) {
+    this.modalService.open(invite, {
+      backdropClass: "light-blue-backdrop",
+      centered: true,
+      size: "lg"
+    });
+    this.backend.GetprojectEmployee().subscribe(res => {
+      this.projectlist = res;
+      console.log(this.projectlist);
+    });
+  }
+  invitionexpert(data) {
+    console.log(data);
+    this.backend.inviteExpert(data).subscribe(res => {
+      console.log(res);
+      if (res) {
+        alert(res);
+        this.router.navigate(["/"]);
+      }
+    });
+  }
+
+  getOneProject() {}
 }
