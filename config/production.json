@@ -1,0 +1,4 @@
+{
+  "dbConnection": "mongodb://18.224.215.7:27017/linkedin",
+  "mode": "Production"
+}

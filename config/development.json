@@ -1,0 +1,5 @@
+{
+  "dbConnection": "mongodb://localhost:27017/linkedIn-DB",
+  "mode": "Development",
+  "jwtSecretKey": "linkedin_jwtkey"
+}

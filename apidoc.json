@@ -1,0 +1,8 @@
+{
+    "name": "LinkedIn API documentation",
+    "version": "1.0.0",
+    "description": "The LinkedIn App",
+    "template": {
+        "forceLanguage": "en"
+    }
+}
