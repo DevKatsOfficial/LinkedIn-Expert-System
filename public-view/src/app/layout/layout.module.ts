@@ -13,7 +13,9 @@ import { ProjectComponent } from "./project/project.component";
 import { AllCallsComponent } from "./all-calls/all-calls.component";
 import { ClientComponent } from "./client/client.component";
 import { CreateProjectComponent } from "./create-project/create-project.component";
-
+import { CustomProfileComponent } from "./custom-profile/custom-profile.component";
+import { SearchComponent } from "./search/search.component";
+import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -24,8 +26,16 @@ import { CreateProjectComponent } from "./create-project/create-project.componen
     ProjectComponent,
     AllCallsComponent,
     ClientComponent,
-    CreateProjectComponent
+    CreateProjectComponent,
+    CustomProfileComponent,
+    SearchComponent
   ],
-  imports: [CommonModule, LayoutRoutingModule, FormsModule, NgbModule]
+  imports: [
+    CommonModule,
+    LayoutRoutingModule,
+    FormsModule,
+    NgbModule,
+    NgMultiSelectDropDownModule.forRoot()
+  ]
 })
 export class LayoutModule {}
