@@ -6,10 +6,17 @@ import {
   HttpErrorResponse
 } from "@angular/common/http";
 import { Observable } from "rxjs";
+
 @Injectable({
   providedIn: "root"
 })
 export class AdminserviceService {
+  httpOptions = {
+    headers: new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: "auth-token"
+    })
+  };
   constructor(private http: HttpClient) {}
   //project
   createProject(data): Observable<any> {
