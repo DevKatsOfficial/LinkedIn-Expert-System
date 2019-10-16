@@ -108,7 +108,10 @@ module.exports.SearchExpert = async (req, res) => {
         { "introduction.first_name": req.body.first_name },
         { "introduction.last_name": req.body.last_name },
         {
-          "introduction.location_name": { $regex: req.body.find, $options: "i" }
+          "introduction.location_name": {
+            $regex: req.body.country,
+            $options: "i"
+          }
         }
       ]
     });
@@ -129,7 +132,7 @@ module.exports.SearchExpert = async (req, res) => {
       },
       {
         currentEmployer: {
-          $elemMatch: { company_name: /req.body.currentCompany/ }
+          $elemMatch: { company_name: req.body.currentCompany }
         }
       }
     ]
