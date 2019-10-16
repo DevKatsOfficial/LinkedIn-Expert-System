@@ -11,7 +11,9 @@ module.exports.getUser = async (req, res) => {
   res.send(user);
 };
 module.exports.getAllEmployees = async (req, res) => {
-  const employees = await Employee.find().select("-password");
+  const employees = await Employee.find({ adminId: req.user._id }).select(
+    "-password"
+  );
 
   if (employees.length < 1) {
     return res.status(200).json({ message: "Employee not found" });

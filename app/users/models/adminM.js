@@ -20,16 +20,11 @@ const schema = new mongoose.Schema({
   lev: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "roles"
-  },
-  adminId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "admins",
-    required: true
   }
 });
 
-const Employee = mongoose.model("employees", schema);
-module.exports.Employee = Employee;
+const Admin = mongoose.model("admins", schema);
+module.exports.Admin = Admin;
 
 // function validate(user) {
 //     const schema = {
