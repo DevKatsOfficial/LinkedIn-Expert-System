@@ -1,0 +1,34 @@
+<div class="clearfix"></div>
+<section>
+  <div class="container">
+    <div class="row">
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Project Name</th>
+            <th scope="col">Project team</th>
+            <th scope="col">projectNumber</th>
+            <th scope="col">Project Code</th>
+            <th scope="col">View Project</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let emp of employee">
+            <td>{{ emp.projectName }}</td>
+            <td>{{ emp.projectNumber }}</td>
+            <td>{{ emp.projectteam }}</td>
+            <td>{{ emp.projectCode }}</td>
+            <td>
+              <a
+                href="#"
+                class="btn btn-primary"
+                [routerLink]="['/project', emp._id]"
+                >View</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
