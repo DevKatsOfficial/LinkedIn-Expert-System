@@ -41,7 +41,7 @@ export class AuthService {
 
   login(user: any): Observable<any> {
     if (user.email != "" && user.password != "") {
-      const url = `${environment.baseUrl}/user/login`;
+      const url = `${environment.baseUrl}/admin/login`;
       return this.http.post(url, user);
     }
   }
