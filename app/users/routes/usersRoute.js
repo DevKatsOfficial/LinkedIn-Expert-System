@@ -8,7 +8,12 @@ const authMiddleware = require("../../../middlewares/authMiddlewares");
 router.post("/register", registerController.register);
 router.get("/register/:projectNumber", userController.verfiyProject);
 
-router.post("/register/employee", registerController.employeeRegister);
+router.post(
+  "/register/employee",
+  authMiddleware.Auth,
+  authMiddleware.AdminAuth,
+  registerController.employeeRegister
+);
 router.post("/register/admin", registerController.adminRegister);
 
 router.post("/login", loginController.Employeelogin);

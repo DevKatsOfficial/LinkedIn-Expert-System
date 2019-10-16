@@ -11,6 +11,9 @@ module.exports.getUser = async (req, res) => {
   res.send(user);
 };
 module.exports.getAllEmployees = async (req, res) => {
+  // console.log(JSON.stringify(req.headers));
+  // console.log(req.body);
+
   const employees = await Employee.find({ adminId: req.user._id }).select(
     "-password"
   );
