@@ -1,9 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const invitationController = require("../controllers/invitationController");
-const authMiddleware = require('../../../middlewares/authMiddlewares');
+const authMiddleware = require("../../../middlewares/authMiddlewares");
 
-router.post('/', authMiddleware.Auth, invitationController.create)
+router.post(
+  "/",
+  // authMiddleware.Auth,
+  invitationController.create
+);
 
 // router.get("/", projectController.resendInvitation);
 

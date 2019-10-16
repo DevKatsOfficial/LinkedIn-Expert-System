@@ -10,8 +10,8 @@ router.get("/register/:projectNumber", userController.verfiyProject);
 
 router.post(
   "/register/employee",
-  authMiddleware.Auth,
-  authMiddleware.AdminAuth,
+  // authMiddleware.Auth,
+  // authMiddleware.AdminAuth,
   registerController.employeeRegister
 );
 router.post("/register/admin", registerController.adminRegister);
@@ -19,18 +19,22 @@ router.post("/register/admin", registerController.adminRegister);
 router.post("/login", loginController.Employeelogin);
 router.post("/admin/login", loginController.adminlogin);
 
-router.get("/:userId", authMiddleware.Auth, userController.getUser);
+router.get(
+  "/:userId",
+  // authMiddleware.Auth,
+  userController.getUser
+);
 
 router.delete(
   "/:userId",
-  authMiddleware.Auth,
-  authMiddleware.AdminAuth,
+  // authMiddleware.Auth,
+  // authMiddleware.AdminAuth,
   userController.deleteUser
 );
 router.get(
   "/employee/all",
-  authMiddleware.Auth,
-  authMiddleware.AdminAuth,
+  // authMiddleware.Auth,
+  // authMiddleware.AdminAuth,
   userController.getAllEmployees
 );
 

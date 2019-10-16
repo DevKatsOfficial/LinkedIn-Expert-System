@@ -52,8 +52,8 @@ module.exports.employeeRegister = async (req, res) => {
     name: req.body.name,
     email: req.body.email,
     password: await bcrypt.hash(req.body.password, salt),
-    lev: req.body.lev,
-    adminId: req.user._id
+    lev: req.body.lev
+    // adminId: req.user._id
   });
   const output = await register.save();
   res.json({ message: "Successfully registered Employee!..." });
