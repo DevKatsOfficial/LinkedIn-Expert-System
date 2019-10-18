@@ -16,7 +16,7 @@ module.exports.create = async (req, res) => {
     if (expert) {
       return res
         .status(200)
-        .json({ message: "Expert Already Claim in this Project !" });
+        .json({ message: "Expert Already Claimed in this Project !" });
     }
   }
 
@@ -28,12 +28,12 @@ module.exports.create = async (req, res) => {
 
   if (!project) {
     const claim = await Claim.create({
-      employeeId: req.body.employeeId,
+      employeeId: req.user._id,
       experts: req.body.experts,
       projectId: req.body.projectId
     });
     await claim.save();
     return res.json({ message: "Expert Claimed!..." });
   }
-  res.json({ message: "Expert Added" });
+  res.json({ message: "Expert Claimed" });
 };

@@ -4,7 +4,7 @@ const { Countries } = require("../models/countriesM");
 const { States } = require("../models/statesM");
 const { Cities } = require("../models/citiesM");
 const { Claim } = require("../models/claimM");
-
+const { CustomExpertProfile } = require("../models/customExpertProfileM");
 module.exports.createRegion = async (req, res) => {
   for (let i = 0; i < req.body.regions.length; i++) {
     const region = await CountriesRegion.create({
@@ -64,9 +64,9 @@ module.exports.create = async (req, res) => {
   //     res.status(400).json({ message: result.error.details[0].message });
   //     return;
   // }
-  const expert = await Expert.create({
-    userId: req.body.userId,
-    linkedin_url: req.body.linkedin_url,
+  const expert = await CustomExpertProfile.create({
+    employeeId: req.user._id,
+    projectId: req.body.projectId,
     introduction: req.body.introduction,
     summary: req.body.summary,
     experiences: req.body.experiences,
@@ -78,7 +78,19 @@ module.exports.create = async (req, res) => {
     publications: req.body.publications
   });
   await expert.save();
-  res.json({ message: "Successfully Saved!..." });
+  res.json({ message: "Successfully Created Custom Profile!..." });
+};
+module.exports.getCustomProfileOfExpertByProjectId = async (req, res) => {
+  const expert = await CustomExpertProfile.find({
+    projectId: req.body.projectId,
+    employeeId: req.user._id
+  });
+  if (expert.length < 1) {
+    return res
+      .status(200)
+      .json({ message: "Custom Expert Profile not found for this Project!" });
+  }
+  res.json(expert);
 };
 
 module.exports.getProjectByExpert = async (req, res) => {
@@ -102,45 +114,45 @@ module.exports.getExpert = async (req, res) => {
 };
 module.exports.SearchExpert = async (req, res) => {
   // const previousEmployee = await Experts.find
-  if (req.body.country) {
-    const expert = await Expert.find({
-      $or: [
-        { "introduction.first_name": req.body.first_name },
-        { "introduction.last_name": req.body.last_name },
-        {
-          "introduction.location_name": {
-            $regex: req.body.country,
-            $options: "i"
-          }
-        }
-      ]
-    });
-    if (expert.length < 1) {
-      return res.status(400).json({ message: "Expert Not Found!" });
-    }
-  }
-  const expert = await Expert.find({
-    $or: [
-      { "introduction.first_name": req.body.first_name },
-      { "introduction.last_name": req.body.last_name },
-      { "introduction.country": req.body.country },
-      { "introduction.region": req.body.region },
-      {
-        previousEmployees: {
-          $elemMatch: { company_name: req.body.previousCompany }
-        }
-      },
-      {
-        currentEmployer: {
-          $elemMatch: { company_name: req.body.currentCompany }
-        }
-      }
-    ]
-  });
-  if (expert.length < 1) {
-    return res.status(400).json({ message: "Expert Not Found!" });
-  }
-  res.json(expert);
+  // if (req.body.country) {
+  //   const expert = await Expert.find({
+  //     $or: [
+  //       { "introduction.first_name": req.body.first_name },
+  //       { "introduction.last_name": req.body.last_name },
+  //       {
+  //         "introduction.location_name": {
+  //           $regex: req.body.country,
+  //           $options: "i"
+  //         }
+  //       }
+  //     ]
+  //   });
+  //   if (expert.length < 1) {
+  //     return res.status(400).json({ message: "Expert Not Found!" });
+  //   }
+  // }
+  // const expert = await Expert.find({
+  //   $or: [
+  //     { "introduction.first_name": req.body.first_name },
+  //     { "introduction.last_name": req.body.last_name }
+  // { "introduction.country": req.body.country },
+  // { "introduction.region": req.body.region },
+  // {
+  //   previousEmployees: {
+  //     $elemMatch: { company_name: req.body.previousCompany }
+  //   }
+  // },
+  // {
+  //   currentEmployer: {
+  //     $elemMatch: { company_name: req.body.currentCompany }
+  //   }
+  // }
+  //   ]
+  // });
+  // if (expert.length < 1) {
+  //   return res.status(400).json({ message: "Expert Not Found!" });
+  // }
+  // res.json(expert);
 };
 
 module.exports.update = async (req, res) => {

@@ -1,38 +1,40 @@
-const Joi = require('joi');
-const mongoose = require('mongoose');
+const Joi = require("joi");
+const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
-    clientCompany: {
-        type: String
-    },
-    prepaid: {
-        type: Boolean
-    },
-    payAsYouGo: {
-        type: Boolean
-    },
-    creditRemaining: {
-        type: Number
-    },
-    billingCurrency: {
-        type: String
-    },
-    pricingRules: {
-        type: String
-    },
-    pricePerhourCall: {
-        type: Number
-    },
-    entityToInvoice: {
-        type: String
-    },
-    InvoiceContacts: [{
-        name: { type: String }
-    }],
-    vat: {
-        type: String
+  clientCompany: {
+    type: String
+  },
+  prepaid: {
+    type: Boolean
+  },
+  payAsYouGo: {
+    type: Boolean
+  },
+  creditRemaining: {
+    type: Number,
+    required: true
+  },
+  billingCurrency: {
+    type: String
+  },
+  pricingRules: {
+    type: String
+  },
+  pricePerhourCall: {
+    type: Number
+  },
+  entityToInvoice: {
+    type: String
+  },
+  InvoiceContacts: [
+    {
+      name: { type: String }
     }
-
+  ],
+  vat: {
+    type: String
+  }
 });
 
 // function validate(user) {
@@ -48,7 +50,6 @@ const schema = new mongoose.Schema({
 //     return Joi.validate(user, schema);
 // }
 
-
-const Client = mongoose.model('clients', schema);
+const Client = mongoose.model("clients", schema);
 
 module.exports.Client = Client;

@@ -20,12 +20,12 @@ const schema = new mongoose.Schema({
   lev: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "roles"
+  },
+  adminId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "admins",
+    required: true
   }
-  // adminId: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "admins",
-  //   required: true
-  // }
 });
 
 const Employee = mongoose.model("employees", schema);

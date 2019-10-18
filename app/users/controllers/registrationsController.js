@@ -47,13 +47,12 @@ module.exports.employeeRegister = async (req, res) => {
     return;
   }
   const salt = await bcrypt.genSalt(10);
-  // console.log(req.body);
   const register = await Employee.create({
     name: req.body.name,
     email: req.body.email,
     password: await bcrypt.hash(req.body.password, salt),
-    lev: req.body.lev
-    // adminId: req.user._id
+    lev: req.body.lev,
+    adminId: req.user._id
   });
   const output = await register.save();
   res.json({ message: "Successfully registered Employee!..." });

@@ -7,9 +7,9 @@ module.exports.create = async (req, res) => {
   //     res.status(400).json({ message: valid.error.details[0].message });
   //     return;
   // }
-  console.log(req.body);
+  // console.log(req.body);
   const invitation = await Invitation.create({
-    // userId: req.user._id,
+    employeeId: req.user._id,
     name: req.body.name,
     email: req.body.email,
     description: req.body.description,
@@ -20,5 +20,5 @@ module.exports.create = async (req, res) => {
     savedInvitation,
     `http://localhost:4200/register/${savedInvitation.projectNumber}`
   );
-  res.json({ message: "Successfully Created!" });
+  res.json({ message: "Successfully Send Invitation!" });
 };

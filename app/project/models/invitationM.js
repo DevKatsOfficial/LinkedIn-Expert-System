@@ -2,9 +2,9 @@ const Joi = require("joi");
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
-  userId: {
+  employeeId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "users"
+    ref: "employees"
   },
   name: {
     type: String,
@@ -18,7 +18,8 @@ const schema = new mongoose.Schema({
     type: String
   },
   projectNumber: {
-    type: String
+    type: String,
+    required: true
   }
 });
 
