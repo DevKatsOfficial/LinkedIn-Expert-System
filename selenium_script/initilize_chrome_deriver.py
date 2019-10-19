@@ -47,6 +47,7 @@ def wait_until_home_page_loaded(driver):
         if 'linkedin.com/feed/' in driver.current_url:
             raise ValueError()
         config.config_logger.debug('Waiting for 5 minutes until capcha, email verification issues resolved.')
+        not_able_to_login_email(data=driver.page_source, _url=driver.current_url)
         time.sleep(60)
 
 
@@ -74,7 +75,7 @@ def load_site(driver, _url=config.ORIGIN_SITE_LOGIN_URL, expert_model=None, upda
             or driver.find_elements_by_xpath("//*[contains(text(), 'do a quick security check')]")
     ):
         html = BeautifulSoup(driver.page_source)
-        not_able_to_login_email(config.USERNAME, config.PASSWORD, data=driver.page_source, _url=driver.current_url)
+        not_able_to_login_email(data=driver.page_source, _url=driver.current_url)
         element = html.find(id='captcha-challenge')
         if element:
             config.config_logger.debug('Capcha come on server')
@@ -86,7 +87,7 @@ def load_site(driver, _url=config.ORIGIN_SITE_LOGIN_URL, expert_model=None, upda
             perform_login(driver, config.USERNAME, config.PASSWORD, retry_count=retry_count)
         else:
             config.config_logger.debug('Tried to login 2 times on server but not successfull')
-            not_able_to_login_email(config.USERNAME, config.PASSWORD, data=driver.page_source, _url=driver.current_url)
+            not_able_to_login_email(data=driver.page_source, _url=driver.current_url)
             wait_until_home_page_loaded(driver)
 
     if update_case:
@@ -493,7 +494,7 @@ def perform_login(driver, username=config.USERNAME, password=config.PASSWORD, re
             raise ValueError()
     except Exception:
         config.config_logger.exception('Exception During another login')
-        not_able_to_login_email(username, password, driver.page_source, _url=driver.current_url)
+        not_able_to_login_email(driver.page_source, _url=driver.current_url)
         if retry_count >= 5:
             raise config.StopLinkedinParsingError()
         else:
