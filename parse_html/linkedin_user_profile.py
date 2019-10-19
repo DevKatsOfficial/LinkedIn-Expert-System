@@ -87,7 +87,7 @@ def insert_and_update_expert_data(expert_model_id=None, user_profile_data=None, 
             "scrap_datetime": str(user_profile_data['scrap_datetime'])
         })
         user_profile_data = format_fields_and_remove_id_fields(user_profile_data)
-        response = requests.put(url='http://13.59.139.111:5000/api/expert',
+        response = requests.put(url='http://3.17.110.156:5000/api/expert',
                                 json=user_profile_data)
         response = response.json()
         config.config_logger.debug('For URL {}, API RESPONSE: \n {}'.format(linkedin_url, response))
