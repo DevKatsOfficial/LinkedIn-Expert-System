@@ -1497,6 +1497,27 @@ define({ "api": [
             "optional": false,
             "field": "region",
             "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "previousCompany",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "currentCompany",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "find",
+            "description": ""
           }
         ]
       },
