@@ -607,6 +607,68 @@ define({ "api": [
   {
     "group": "Expert",
     "type": "get",
+    "url": "/api/expert/all/countries",
+    "title": "Get All Countries",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "auth-token",
+            "description": "<p>JWT Token need to be assigned against this</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": " HTTP/1.1 200 OK\n[\n   {\n         \"_id\": \"5da0d63f817da31da86727ef\",\n         \"id\": 243,\n         \"sortname\": \"YE\",\n         \"name\": \"Yemen\",\n         \"phoneCode\": 967,\n         \"__v\": 0\n     },\n     {\n         \"_id\": \"5da0d63f817da31da86727f0\",\n         \"id\": 244,\n         \"sortname\": \"YU\",\n         \"name\": \"Yugoslavia\",\n         \"phoneCode\": 38,\n         \"__v\": 0\n     },\n     {\n         \"_id\": \"5da0d63f817da31da86727f1\",\n         \"id\": 245,\n         \"sortname\": \"ZM\",\n         \"name\": \"Zambia\",\n         \"phoneCode\": 260,\n         \"__v\": 0\n     },\n     {\n         \"_id\": \"5da0d63f817da31da86727f2\",\n         \"id\": 246,\n         \"sortname\": \"ZW\",\n         \"name\": \"Zimbabwe\",\n         \"phoneCode\": 26,\n         \"__v\": 0\n     }\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./app/expert/routes/expertRoute.js",
+    "groupTitle": "Expert",
+    "name": "GetApiExpertAllCountries"
+  },
+  {
+    "group": "Expert",
+    "type": "get",
+    "url": "/api/expert/all/regions",
+    "title": "Get All Regions",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "auth-token",
+            "description": "<p>JWT Token need to be assigned against this</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n  [   \n         {\n        \"_id\": \"5da0d47b817da31da86726f7\",\n        \"region\": \"middle east\",\n        \"country\": \"qatar\",\n        \"country_code\": \"qa\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"5da0d47b817da31da86726f8\",\n        \"region\": \"middle east\",\n        \"country\": \"jordan\",\n        \"country_code\": \"jo\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"5da0d47b817da31da86726f9\",\n        \"region\": \"middle east\",\n        \"country\": \"kuwait\",\n        \"country_code\": \"kw\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"5da0d47b817da31da86726fa\",\n        \"region\": \"middle east\",\n        \"country\": \"israel\",\n        \"country_code\": \"il\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"5da0d47b817da31da86726fb\",\n        \"region\": \"middle east\",\n        \"country\": \"united arab emirates\",\n        \"country_code\": \"ae\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"5da0d47b817da31da86726fc\",\n        \"region\": \"middle east\",\n        \"country\": \"saudi arabia\",\n        \"country_code\": \"sa\",\n        \"__v\": 0\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./app/expert/routes/expertRoute.js",
+    "groupTitle": "Expert",
+    "name": "GetApiExpertAllRegions"
+  },
+  {
+    "group": "Expert",
+    "type": "get",
     "url": "/api/expert/:expertId",
     "title": "Get Expert Profile",
     "header": {

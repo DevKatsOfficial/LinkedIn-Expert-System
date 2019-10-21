@@ -112,6 +112,22 @@ module.exports.getExpert = async (req, res) => {
   }
   res.json(expert);
 };
+
+module.exports.getAllCountries = async (req, res) => {
+  const countries = await Countries.find();
+  if (countries.length < 1) {
+    return res.status(400).json({ message: "Countries Not Found!" });
+  }
+  res.json(countries);
+};
+
+module.exports.getAllCountriesRegions = async (req, res) => {
+  const regions = await CountriesRegion.find();
+  if (regions.length < 1) {
+    return res.status(400).json({ message: "Regions Not Found!" });
+  }
+  res.json(regions);
+};
 module.exports.SearchExpert = async (req, res) => {
   if (req.body.find) {
     const expert = await Expert.find({

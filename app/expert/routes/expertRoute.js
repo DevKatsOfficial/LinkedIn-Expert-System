@@ -923,6 +923,109 @@ router.post(
 
 router.get("/:expertId", authMiddleware.Auth, expertController.getExpert);
 
+
+/**
+ * @apiGroup Expert
+ * @api {get} /api/expert/all/countries Get All Countries
+ * @apiHeader auth-token JWT Token need to be assigned against this
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *    [
+ *       {
+ *             "_id": "5da0d63f817da31da86727ef",
+ *             "id": 243,
+ *             "sortname": "YE",
+ *             "name": "Yemen",
+ *             "phoneCode": 967,
+ *             "__v": 0
+ *         },
+ *         {
+ *             "_id": "5da0d63f817da31da86727f0",
+ *             "id": 244,
+ *             "sortname": "YU",
+ *             "name": "Yugoslavia",
+ *             "phoneCode": 38,
+ *             "__v": 0
+ *         },
+ *         {
+ *             "_id": "5da0d63f817da31da86727f1",
+ *             "id": 245,
+ *             "sortname": "ZM",
+ *             "name": "Zambia",
+ *             "phoneCode": 260,
+ *             "__v": 0
+ *         },
+ *         {
+ *             "_id": "5da0d63f817da31da86727f2",
+ *             "id": 246,
+ *             "sortname": "ZW",
+ *             "name": "Zimbabwe",
+ *             "phoneCode": 26,
+ *             "__v": 0
+ *         }
+ *     ] 
+ */
+
+router.get("/all/countries",
+  authMiddleware.Auth,
+  expertController.getAllCountries);
+
+/**
+ * @apiGroup Expert
+ * @api {get} /api/expert/all/regions Get All Regions
+ * @apiHeader auth-token JWT Token need to be assigned against this
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *   [   
+ *          {
+ *         "_id": "5da0d47b817da31da86726f7",
+ *         "region": "middle east",
+ *         "country": "qatar",
+ *         "country_code": "qa",
+ *         "__v": 0
+ *     },
+ *     {
+ *         "_id": "5da0d47b817da31da86726f8",
+ *         "region": "middle east",
+ *         "country": "jordan",
+ *         "country_code": "jo",
+ *         "__v": 0
+ *     },
+ *     {
+ *         "_id": "5da0d47b817da31da86726f9",
+ *         "region": "middle east",
+ *         "country": "kuwait",
+ *         "country_code": "kw",
+ *         "__v": 0
+ *     },
+ *     {
+ *         "_id": "5da0d47b817da31da86726fa",
+ *         "region": "middle east",
+ *         "country": "israel",
+ *         "country_code": "il",
+ *         "__v": 0
+ *     },
+ *     {
+ *         "_id": "5da0d47b817da31da86726fb",
+ *         "region": "middle east",
+ *         "country": "united arab emirates",
+ *         "country_code": "ae",
+ *         "__v": 0
+ *     },
+ *     {
+ *         "_id": "5da0d47b817da31da86726fc",
+ *         "region": "middle east",
+ *         "country": "saudi arabia",
+ *         "country_code": "sa",
+ *         "__v": 0
+ *     }
+ * ]
+ */
+
+router.get("/all/regions",
+  authMiddleware.Auth,
+  expertController.getAllCountriesRegions);
+
 /**
  * @apiGroup Expert
  * @api {post} /api/expert/get/project Get Projects By Expert
