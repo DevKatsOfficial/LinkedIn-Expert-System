@@ -1014,14 +1014,17 @@ router.post(
  * @apiSuccess {String} last_name
  * @apiSuccess {String} country
  * @apiSuccess {String} region
- * @apiSuccess {String} region
- * @apiSuccess {String} region
+ * @apiSuccess {String} previousCompany
+ * @apiSuccess {String} currentCompany
+ * @apiSuccess {String} find 
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *
  */
 
-router.post("/search", authMiddleware.Auth, expertController.SearchExpert);
+router.post("/search",
+  authMiddleware.Auth,
+  expertController.SearchExpert);
 
 router.put("/", expertController.update);
 

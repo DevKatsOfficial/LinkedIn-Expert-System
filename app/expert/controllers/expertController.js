@@ -113,46 +113,36 @@ module.exports.getExpert = async (req, res) => {
   res.json(expert);
 };
 module.exports.SearchExpert = async (req, res) => {
-  // const previousEmployee = await Experts.find
-  // if (req.body.country) {
-  //   const expert = await Expert.find({
-  //     $or: [
-  //       { "introduction.first_name": req.body.first_name },
-  //       { "introduction.last_name": req.body.last_name },
-  //       {
-  //         "introduction.location_name": {
-  //           $regex: req.body.country,
-  //           $options: "i"
-  //         }
-  //       }
-  //     ]
-  //   });
-  //   if (expert.length < 1) {
-  //     return res.status(400).json({ message: "Expert Not Found!" });
-  //   }
-  // }
-  // const expert = await Expert.find({
-  //   $or: [
-  //     { "introduction.first_name": req.body.first_name },
-  //     { "introduction.last_name": req.body.last_name }
-  // { "introduction.country": req.body.country },
-  // { "introduction.region": req.body.region },
-  // {
-  //   previousEmployees: {
-  //     $elemMatch: { company_name: req.body.previousCompany }
-  //   }
-  // },
-  // {
-  //   currentEmployer: {
-  //     $elemMatch: { company_name: req.body.currentCompany }
-  //   }
-  // }
-  //   ]
-  // });
-  // if (expert.length < 1) {
-  //   return res.status(400).json({ message: "Expert Not Found!" });
-  // }
-  // res.json(expert);
+  if (req.body.find) {
+    const expert = await Expert.find({
+      $or: [
+        { "introduction.first_name": req.body.first_name },
+        { "introduction.last_name": req.body.last_name },
+        { "introduction.country": req.body.country },
+        { "introduction.region": req.body.region },
+        { "introduction.headline": { $regex: req.body.find, $options: "i" } },
+        { previousEmployees: { $elemMatch: { company_name: req.body.previousCompany } } },
+        { currentEmployer: { $elemMatch: { company_name: req.body.currentCompany } } }
+      ]
+    });
+    if (expert.length < 1) {
+      return res.status(400).json({ message: "Expert Not Found!" });
+    }
+  }
+  const expert = await Expert.find({
+    $or: [
+      { "introduction.first_name": req.body.first_name },
+      { "introduction.last_name": req.body.last_name },
+      { "introduction.country": req.body.country },
+      { "introduction.region": req.body.region },
+      { previousEmployees: { $elemMatch: { company_name: req.body.previousCompany } } },
+      { currentEmployer: { $elemMatch: { company_name: req.body.currentCompany } } }
+    ]
+  });
+  if (expert.length < 1) {
+    return res.status(400).json({ message: "Expert Not Found!" });
+  }
+  res.json(expert);
 };
 
 module.exports.update = async (req, res) => {
