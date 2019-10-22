@@ -30,7 +30,7 @@ from utilities.extract_data import get_attr_value_from_html_soup, xpath_soup
 def initialize_chrome():
     """This method is used to initialize chrome driver"""
     chrome_options = Options()
-    chrome_options.add_argument('--headless')
+    # chrome_options.add_argument('--headless')
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_experimental_option("useAutomationExtension", False)
