@@ -525,7 +525,6 @@ router.post(
  * @apiParam {ObjectId} expertId required
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
- *    [
  *        {
  *            "introduction": {
  *                "first_name": "Ehsaan",
@@ -918,7 +917,6 @@ router.post(
  *            "previousEmployees": [],
  *            "__v": 0
  *        }
- *    ]
  */
 
 router.get("/:expertId", authMiddleware.Auth, expertController.getExpert);
