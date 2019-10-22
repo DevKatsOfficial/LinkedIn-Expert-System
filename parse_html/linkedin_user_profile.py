@@ -93,6 +93,7 @@ def insert_and_update_expert_data(expert_model_id=None, user_profile_data=None, 
         config.config_logger.debug('For URL {}, API RESPONSE: \n {}'.format(linkedin_url, response))
     except Exception:
         config.config_logger.exception('Error occurred wile inserting parsed data in db')
+        user_profile_data['userId'] = ObjectId(user_profile_data['userId'])
         experts_model.update({"_id": expert_model_id}, {"$set":user_profile_data})
 
 
