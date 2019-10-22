@@ -1,0 +1,279 @@
+<div class="clearfix"></div>
+<!-- Title Header End -->
+<section class="detail-desc top-mrgin">
+  <div class="container">
+    <div class="ur-detail-wrap top-lay">
+      <div class="ur-detail-box">
+        <div class="ur-thumb">
+          <img [src]="expert.introduction.picture" class="img-responsive" />
+        </div>
+        <div class="ur-caption">
+          <h4 class="ur-title">
+            {{ expert?.introduction.first_name }}
+            {{ expert.introduction.last_name }}
+          </h4>
+          <p class="ur-location">
+            <i class="ti-location-pin mrg-r-5"></i
+            >{{ expert.introduction.location_name }}
+          </p>
+          <span class="ur-designation">{{
+            expert?.introduction.headline
+          }}</span>
+          <div class="rateing">
+            <i class="fa fa-star filled"></i>
+            <i class="fa fa-star filled"></i>
+            <i class="fa fa-star filled"></i>
+            <i class="fa fa-star filled"></i>
+            <i class="fa fa-star"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="ur-detail-btn">
+        <a href="#" class="btn btn-warning mrg-bot-10 full-width"
+          ><i class="ti-thumb-up mrg-r-5"></i>Import</a
+        ><br />
+        <a href="#" class="btn btn-info full-width"
+          ><i class="ti-download mrg-r-5"></i>Download</a
+        >
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Candidate Detail End -->
+
+<!-- Candidate full detail Start -->
+<section class="full-detail-description full-detail">
+  <div class="container">
+    <h2 class="detail-title">Project</h2>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Employee Name</th>
+              <th scope="col">Project Name</th>
+              <th scope="col">Project Number</th>
+              <th scope="col">Project Started</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pj of Project">
+              <th>{{ pj.employeeId.name }}</th>
+              <th>{{ pj.projectId.projectName }}</th>
+              <th>{{ pj.projectId.projectNumber }}</th>
+              <th>{{ pj.projectId.createdAt }}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="additionalemail">Additional Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="additionalemail"
+                placeholder="Enter Email"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="phone">Additional Phone</label>
+              <input
+                type="password"
+                class="form-control"
+                id="phone"
+                placeholder="Enter Phone"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">Region</label>
+            <input
+              type="text"
+              class="form-control"
+              id="Region"
+              placeholder="Region"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            (click)="clamExpertPop(content)"
+          >
+            Clam Expert
+          </button>
+        </form>
+      </div>
+    </div>
+    <h2 class="detail-title">Linkedin Data</h2>
+    <ngb-tabset [justify]="currentJustify">
+      <ngb-tab>
+        <ng-template ngbTabTitle>summary</ng-template>
+        <ng-template ngbTabContent>
+          <div class="row-bottom">
+            <h2 class="detail-title">Summary</h2>
+            <p>{{ expert.summary.text }}</p>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>Education</ng-template>
+        <ng-template ngbTabContent>
+          <div class="row-bottom">
+            <h2 class="detail-title">Education</h2>
+            <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                                            labore et dolore magna aliqua.</p> -->
+            <ul class="trim-edu-list">
+              <li *ngFor="let edu of educations">
+                <div class="trim-edu">
+                  <h4 class="trim-edu-title">
+                    {{ edu.school_name }}<span class="title-est"></span>
+                  </h4>
+                  <strong
+                    >{{ edu.degree_name }} {{ edu.field_of_study }}</strong
+                  >
+                  <p *ngIf="edu.description">{{ edu.description }}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>Experience</ng-template>
+        <ng-template ngbTabContent>
+          <div class="row-bottom">
+            <h2 class="detail-title">Work & Experience</h2>
+            <ul class="trim-edu-list">
+              <li *ngFor="let exp of experiences">
+                <div class="trim-edu">
+                  <h4 class="trim-edu-title">
+                    {{ exp.company_name }}
+                    <span class="title-est">
+                      {{ exp.time_period.start.year }}
+                    </span>
+                  </h4>
+                  <strong>{{ exp.position_name }} </strong>
+                  <p></p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>Project</ng-template>
+        <ng-template ngbTabContent>
+          <!-- project -->
+
+          <div class="row-bottom">
+            <h2 class="detail-title">Project</h2>
+            <ul class="trim-edu-list">
+              <li *ngFor="let proj of projects">
+                <div class="trim-edu">
+                  <h4 class="trim-edu-title">
+                    {{ proj.name }}
+                    <span class="title-est">
+                      {{ proj.time_period.start.month }} -{{
+                        proj.time_period.end.month
+                      }}
+                    </span>
+                  </h4>
+                  <!-- <strong>{{exp.position_name}} </strong> -->
+                  <p></p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>Publications</ng-template>
+        <ng-template ngbTabContent>
+          <div class="row-bottom">
+            <h2 class="detail-title">Publications</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <div class="item-click" *ngFor="let pub of publications">
+              <article>
+                <div class="brows-job-list">
+                  <div class="col-md-12 col-sm-6">
+                    <div class="item-fl-box">
+                      <div class="brows-job-position">
+                        <h3>{{ pub.name }}</h3>
+                        <p>
+                          <span class="job-type bg-trans-warning cl-warning">{{
+                            pub.publisher
+                          }}</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</section>
+<!-- company full detail End -->
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body p-2">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Project Number</th>
+          <th scope="col">project Name</th>
+          <th scope="col">Clam Option</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ge of Getemployee">
+          <td>{{ ge.projectNumber }}</td>
+          <td>{{ ge.projectName }}</td>
+          <td>
+            <button
+              class="btn btn-primary"
+              (click)="
+                projectClaim({ projectId: ge._id, employeeId: ge.employeeId })
+              "
+            >
+              Clam
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.close('Close click')"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>

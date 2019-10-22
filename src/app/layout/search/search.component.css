@@ -1,0 +1,65 @@
+.input-label {
+  padding-top: 15px;
+  float: left;
+}
+
+.bottom-search-form {
+  background: none;
+    border: 1px solid #c3c3c3;
+    border-radius: 5px;
+    padding: 0;
+    margin: 15px;
+}
+
+.bottom-search-form form {
+  padding: 15px;
+}
+
+.bottom-search-form input, .bottom-search-form select {
+  background: none;
+  border: 1px solid #c3c3c3;
+}
+
+.search-expert-title {
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.search-expert-title-closed {
+  background: #1c27332b;
+}
+
+.bottom-search-form button.btn.btn-primary {
+  width: auto;
+}
+
+.search-submit {
+  text-align: right;
+}
+
+.export-title-show {
+  float: right;
+  font-size: 10px;
+  background: chartreuse;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.export-title-hide {
+  float: right;
+  font-size: 10px;
+  background: red;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.brows-job-category {
+  margin: 15px;
+}
+
+.red {
+  color: red;
+}
+

@@ -6,17 +6,25 @@ import {
   HttpErrorResponse
 } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { LocalStorageService } from "../core/services/local-storage.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class BackendapiService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private localStorage: LocalStorageService) {}
 
-  expertSearch(data): Observable<any> {
-    console.log(data);
+  getAllCountries(): Observable<any> {
+    const url = `${environment.baseUrl}/expert/all/countries`;
+    return this.http.get(url, this.getHeaders());
+  }
+  getAllRegions(): Observable<any> {
+    const url = `${environment.baseUrl}/expert/all/regions`;
+    return this.http.get(url, this.getHeaders());
+  }
+  expertSearch(data: any): Observable<any> {
     const url = `${environment.baseUrl}/expert/search`;
-    return this.http.post(url, data);
+    return this.http.post(url, this.removeEmpltyKey(data), this.getHeaders());
   }
   getOne(id: string): Observable<any> {
     const url = `${environment.baseUrl}/expert/`;
@@ -81,5 +89,18 @@ export class BackendapiService {
   inviteExpert(data): Observable<any> {
     const url = `${environment.baseUrl}/invitation`;
     return this.http.post(url, data);
+  }
+  removeEmpltyKey(obj: any): any {
+    for (var propName in obj) {
+      if (!obj[propName]) {
+        delete obj[propName];
+      }
+    }
+    return obj;
+  }
+  getHeaders(): any {
+    return {
+      headers: {'auth-token': this.localStorage.token}
+    }
   }
 }

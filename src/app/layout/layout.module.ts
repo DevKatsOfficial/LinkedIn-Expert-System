@@ -15,6 +15,8 @@ import { ClientComponent } from "./client/client.component";
 import { CreateProjectComponent } from "./create-project/create-project.component";
 import { CustomProfileComponent } from "./custom-profile/custom-profile.component";
 import { SearchComponent } from "./search/search.component";
+import { ExpertShortProfileComponent } from "./expert-short-profile/expert-short-profile.component";
+import { LoadingComponent } from "./loading/loading.component";
 import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
     ClientComponent,
     CreateProjectComponent,
     CustomProfileComponent,
-    SearchComponent
+    SearchComponent,
+    ExpertShortProfileComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,

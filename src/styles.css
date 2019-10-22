@@ -498,7 +498,7 @@ html body .normal-height{
 }
 html body .height-10{
 	height:10px;
-}	
+}
 html body .height-20{
 	height:20px;
 }
@@ -686,7 +686,7 @@ html body .width-300{
 /*---------- Global Settings: Line Height ---------*/
 html body .line-height-10{
 	line-height:10px;
-}	
+}
 html body .line-height-12{
 	line-height:12px;
 }
@@ -1436,7 +1436,7 @@ border-radius:2px;
 color:#ffffff;
 }
 
-/*---------------------------------------- 
+/*----------------------------------------
 Search Filter Style
 --------------------------------------------*/
 .search-filter {
@@ -1451,7 +1451,7 @@ margin-top: 12px;
 }
 .search-filter .input-group{
 height:46px;
-}	
+}
 .search-filter .form-control{
 border-radius:2px;
 height:46px;
@@ -1636,7 +1636,7 @@ line-height:1.3;
 letter-spacing:3px;
 }
 .banner h1 span{
-color:#0084ff;	
+color:#0084ff;
 }
 .banner p {
 color: #ffffff;
@@ -1647,7 +1647,7 @@ text-transform:capitalize;
 line-height: 1.9;
 }
 .banner .no-padd{
-padding:0 5px;	
+padding:0 5px;
 }
 /*-----------------------------------
 Search form style
@@ -1958,7 +1958,7 @@ line-height:1.3;
 letter-spacing:3px;
 }
 .banner h1 span{
-color:#0084ff;	
+color:#0084ff;
 }
 .banner p {
 color: #ffffff;
@@ -1969,7 +1969,7 @@ text-transform:capitalize;
 line-height: 1.9;
 }
 .banner.home-5 .no-padd{
-padding:0px;	
+padding:0px;
 }
 .banner.home-5 .video-box {
     width: 80px;
@@ -1994,7 +1994,7 @@ padding:0px;
     color: #0084ff;
 }
 /*-------------------------------------------
-	Slide Banner 
+	Slide Banner
 --------------------------------------------*/
 .slide-banner {
     background-size: cover !Important;
@@ -2335,7 +2335,7 @@ margin-bottom: 4px;
 font-size: 16px;
 position:relative;
 padding-bottom:15px;
-text-transform: uppercase;	
+text-transform: uppercase;
 }
 .work-process-caption h4:before{
 content:"";
@@ -2350,7 +2350,7 @@ background:#0084ff;
 .work-process-caption p{
 color: #707c88;
 line-height: 1.8;
-font-weight: 400;	
+font-weight: 400;
 }
 
 
@@ -2628,7 +2628,7 @@ font-weight: 600;
 .inverse-bg .app-content a.btn.call-btn.gps{
 	background:#ffffff;
 	border: 1px solid #ffffff;
-	color:#0084ff;	
+	color:#0084ff;
 }
 .inverse-bg .app-content a.btn.call-btn:hover,
 .inverse-bg .app-content a.btn.call-btn:focus{
@@ -2684,7 +2684,7 @@ padding:1.5em 0em 2em 0em;
 .lg-menu{
 border-bottom:1px solid #344456;
 padding:1em 0 1.5em 0;
-margin:0;	
+margin:0;
 }
 .light-footer .lg-menu {
     border-bottom: 1px solid #e5ebf1;
@@ -2692,7 +2692,7 @@ margin:0;
 .lg-menu ul{
 margin:0;
 padding:0;
-float:right;	
+float:right;
 }
 .lg-menu ul li{
 display:inline-block;
@@ -2805,7 +2805,7 @@ background:#0084ff;
 border-radius:2px;
 color:#ffffff;
 padding:10px 40px;
-border-color:#10c110;	
+border-color:#10c110;
 }
 .footer-form .btn-primary:hover, .footer-form .btn-primary:focus{
 border-color:#10c110;
@@ -2822,7 +2822,7 @@ Footer Copyright Style
 -----------------------------------------------*/
 .row.copyright{
 padding:1.4em 0 0 0;
-background:#111922;	
+background:#111922;
 text-align:center;
 margin:0;
 }
@@ -3729,7 +3729,7 @@ color:#636d75;
 }
 
 /* ==========================================================================
-Job, Resume and Company Detail Page Style 
+Job, Resume and Company Detail Page Style
 ==========================================================================*/
 .detail-desc-caption h4{
 color:#35434E;
@@ -3981,7 +3981,7 @@ button.add-field {
     height: 14px;
     line-height: 14px;
     vertical-align: text-top;
-   
+
     background-position: 14px 14px;
     background-repeat: no-repeat;
 }
@@ -4319,7 +4319,7 @@ line-height:1.8;
 }
 #accordion3 .panel-heading > .panel-title{
     position: relative;
-	
+
 }
 #accordion3 .panel-heading > .panel-title > a{
 	padding:20px;
@@ -5192,7 +5192,7 @@ margin: 0 0 10px 15px;
 .job-types input[type=checkbox], .job-types input[type=radio]{
 top:3.33333px;
 }
-@-webkit-keyframes 
+@-webkit-keyframes
 click-wave { 0% {
  width: 40px;
  height: 40px;
@@ -5207,7 +5207,7 @@ click-wave { 0% {
  opacity: 0.0;
 }
 }
-@-moz-keyframes 
+@-moz-keyframes
 click-wave { 0% {
  width: 40px;
  height: 40px;
@@ -5222,7 +5222,7 @@ click-wave { 0% {
  opacity: 0.0;
 }
 }
-@-o-keyframes 
+@-o-keyframes
 click-wave { 0% {
  width: 40px;
  height: 40px;
@@ -5237,7 +5237,7 @@ click-wave { 0% {
  opacity: 0.0;
 }
 }
-@keyframes 
+@keyframes
 click-wave { 0% {
  width: 40px;
  height: 40px;
@@ -5277,16 +5277,16 @@ click-wave { 0% {
 
 }
 .check-option.full-time{
-background:#03a504;	
+background:#03a504;
 }
 .check-option.part-time{
-background:#f6931e;	
+background:#f6931e;
 }
 .check-option.freelancer{
-background:#26a9e1;	
+background:#26a9e1;
 }
 .check-option.internship{
-background:#d20001;	
+background:#d20001;
 }
 
 .check-option.full-time:checked { background:#03a504; }
@@ -5316,16 +5316,16 @@ background:#d20001;
   border-radius:50%;
 }
 .check-option.full-time:checked::after{
-background:#03a504;	
+background:#03a504;
 }
 .check-option.part-time:checked::after{
-background:#f6931e;	
+background:#f6931e;
 }
 .check-option.freelancer:checked::after{
-background:#26a9e1;	
+background:#26a9e1;
 }
 .check-option.internship:checked::after{
-background:#d20001;	
+background:#d20001;
 }
 .check-option.radio { border-radius: 50%; }
 
@@ -5820,7 +5820,7 @@ border-right: 1px solid #ddd;
 .deatil-tab-employ .nav-tabs>li>a:focus, .deatil-tab-employ .nav-tabs>li>a:hover{
 background: rgba(7, 177, 7,0.15);
 border-color: #0084ff;
-color: #0084ff;		
+color: #0084ff;
 }
 span.info-bar {
     padding: 3px 5px;
@@ -6260,7 +6260,7 @@ div.datedropper.my-style.picker-lkd .pick-submit {
     font-size: 16px;
     font-weight: 500;
     border-radius: 0;
-	background: #f2f3f5;        
+	background: #f2f3f5;
 }
 .btn.btn-candidate-two {
     border-radius: 2px;
@@ -6562,7 +6562,7 @@ span.process-num {
     padding:150px 0 50px;
 	text-align:left;
 	background:#f5f6f7;
-    border-bottom:2px solid #0084ff;	
+    border-bottom:2px solid #0084ff;
 }
 .left-side-container {
     display: table;
@@ -6833,7 +6833,7 @@ ul.language li img{
     margin-right: 5px;
     cursor: default;
 }
-/*--------------------------------------------------- 
+/*---------------------------------------------------
 	Default Sidebar
 -----------------------------------------------*/
 .sidebar-wrapper{
@@ -7338,7 +7338,7 @@ margin-bottom:25px;
 .services h1{
 font-size:4em;
 margin-bottom:35px;
-}	
+}
 
 .sec-features-caption{
 max-width:90%;
@@ -7466,7 +7466,7 @@ padding: 8px 9px 22px 9px;
 body nav.navbar.bootsnav ul.nav > li > a.signin {
 padding: 8px 30px;
 margin-left: 5px;
-}	
+}
 .inner-header-title h1 {
 font-size: 80px;
 }
@@ -7573,7 +7573,7 @@ font-size: 19px;
 	}
 	.brows-job-list {
 		display: table;
-	}	
+	}
 }
 
 @media screen and (max-width: 992px) {
@@ -8334,4 +8334,10 @@ input[type="radio"] {
 /** Login 6 end **/
 
 
+.margin-top-10 {
+  margin-top: 10px;
+}
 
+.margin-bottom-10 {
+  margin-bottom: 10px;
+}

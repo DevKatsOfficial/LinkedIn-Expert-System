@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   loginUser(data) {
     console.log(data);
     this.authService.login(data).subscribe(res => {
+      console.log(res);
       if (res.token) {
         this.localStorageService.token = res.token;
         this.router.navigate(["/"]);

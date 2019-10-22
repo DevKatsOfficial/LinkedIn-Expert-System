@@ -1,263 +1,69 @@
-<div class="clearfix"></div>
+<loading *ngIf="loader"></loading>
 <section class="bottom-search-form">
-    <div class="container">
+  <h4 class="search-expert-title" (click)="searchBtn = !searchBtn" [class.search-expert-title-closed]="!searchBtn">
+    Search Expert
+    <span class="export-title-show" *ngIf="!searchBtn">show</span>
+    <span class="export-title-hide" *ngIf="searchBtn">hide</span>
+  </h4>
+    <form class="bt-form" id="registerform" #f="ngForm" (ngSubmit)="searchExperts(f.value)" *ngIf="searchBtn">
         <div class="row">
-            <form class="bt-form" id="registerform" #f="ngForm" (ngSubmit)="searchExperts(f.value)">
-                <div class="row">
-                    <div class="col-md-4 col-sm-6">
-                        <input type="text" class="form-control" ngModel name="first_name" placeholder="First Name" />
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <input type="text" class="form-control" id="companies" ngModel name="last_name"
-                            placeholder="Last Name" />
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <input type="text" class="form-control" id="location" ngModel name="country"
-                            placeholder="Search Free Words" />
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <input type="text" class="form-control" id="cempl" placeholder="Current Employer" />
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <input type="text" class="form-control" id="preemp" placeholder="Previous Employer" />
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <input type="text" class="form-control" id="projectasign" placeholder="Project Assign To" />
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <select id="choose-city" class="form-control">
-                            <option>List of countries</option>
-                            <option>Chandigarh</option>
-                            <option>London</option>
-                            <option>England</option>
-                            <option>Pratapcity</option>
-                            <option>Ukrain</option>
-                            <option>Wilangana</option>
-                        </select>
-                    </div>
+            <div class="col-md-6 col-sm-6">
+                <label class="col-md-4 col-sm-12 input-label">Frist Name</label>
+                <input type="text" class="form-control col-md-8 col-sm-12" ngModel name="first_name" placeholder="First Name" />
+            </div>
 
-                    <div class="col-md-4 col-sm-6">
-                        <select class="form-control">
-                            <option>By Region</option>
-                            <option>Information Technology</option>
-                            <option>Mechanical</option>
-                            <option>Hardware</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <button type="submit" class="btn btn-primary">Search Expert</button>
-                    </div>
-                </div>
-            </form>
+            <div class="col-md-6 col-sm-6">
+                <label class="col-md-4 col-sm-12 input-label">Last Name</label>
+                <input type="text" class="form-control col-md-8 col-sm-12" ngModel name="last_name" placeholder="Last Name" />
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <label class="col-md-4 col-sm-12 input-label">Current Employee</label>
+                <input type="text" class="form-control col-md-8 col-sm-12" ngModel name="current_employee" placeholder="Current Employee" />
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <label class="col-md-4 col-sm-12 input-label">Previous Employee</label>
+                <input type="text" class="form-control col-md-8 col-sm-12" ngModel name="previous_employee" placeholder="Previous Employee" />
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <label class="col-md-4 col-sm-12 input-label">Country</label>
+                <select class="form-control col-md-8 col-sm-12" ngModel name="country">
+                    <option value="">List of Countries</option>
+                    <option *ngFor="let country of countries" value={{country.sortname}}>{{country.name}}</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <label class="col-md-4 col-sm-12 input-label">Region</label>
+                <select class="form-control col-md-8 col-sm-12" ngModel name="region">
+                    <option value="">List of Continent</option>
+                    <option *ngFor="let region of regions" value={{region.region}}>{{region.country}}: {{region.region}}</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <label class="col-md-4 col-sm-12 input-label">Projects Assigned to</label>
+                <input type="text" class="form-control col-md-8 col-sm-12" ngModel name="project_assigned_to" placeholder="Free word search" />
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <label class="col-md-4 col-sm-12 input-label">Keywords</label>
+                <input type="text" class="form-control col-md-8 col-sm-12" ngModel name="keywords" placeholder="keywords" />
+            </div>
+
         </div>
-    </div>
+
+        <div class="search-submit"><button type="submit" class="btn btn-primary">Search Expert</button></div>
+    </form>
 </section>
 
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="main-heading">
-                <h2>Browse Experts by <span>category</span></h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
-                <div class="category-box" data-aos="fade-up">
-                    <div class="category-desc">
-                        <div class="category-icon">
-                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                            <i class="fa fa-bar-chart abs-icon" aria-hidden="true"></i>
-                        </div>
-                        <div class="category-detail category-desc-text">
-                            <h4><a href="#">Accounting & Finance</a></h4>
-                            <p>122 Jobs</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="category-box" data-aos="fade-up">
-                    <div class="category-desc">
-                        <div class="category-icon">
-                            <i class="fa fa-wrench" aria-hidden="true"></i>
-                            <i class="fa fa-wrench abs-icon" aria-hidden="true"></i>
-                        </div>
-                        <div class="category-detail category-desc-text">
-                            <h4><a href="#">Automotive Jobs</a></h4>
-                            <p>155 Jobs</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="category-box" data-aos="fade-up">
-                    <div class="category-desc">
-                        <div class="category-icon">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                            <i class="fa fa-heart abs-icon" aria-hidden="true"></i>
-                        </div>
-                        <div class="category-detail category-desc-text">
-                            <h4><a href="#">Business</a></h4>
-                            <p>300 Jobs</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="category-box" data-aos="fade-up">
-                    <div class="category-desc">
-                        <div class="category-icon">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                            <i class="fa fa-heart abs-icon" aria-hidden="true"></i>
-                        </div>
-                        <div class="category-detail category-desc-text">
-                            <h4><a href="#">Education Training</a></h4>
-                            <p>80 Jobs</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="category-box" data-aos="fade-up">
-                    <div class="category-desc">
-                        <div class="category-icon">
-                            <i class="icon-heart" aria-hidden="true"></i><i class="icon-heart abs-icon"
-                                aria-hidden="true"></i>
-                        </div>
-                        <div class="category-detail category-desc-text">
-                            <h4><a href="#">Healthcare</a></h4>
-                            <p>120 Jobs</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="category-box" data-aos="fade-up">
-                    <div class="category-desc">
-                        <div class="category-icon">
-                            <i class="icon-wine" aria-hidden="true"></i><i class="icon-wine abs-icon"
-                                aria-hidden="true"></i>
-                        </div>
-                        <div class="category-detail category-desc-text">
-                            <h4><a href="#">Restaurant & Food</a></h4>
-                            <p>78 Jobs</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="category-box" data-aos="fade-up">
-                    <div class="category-desc">
-                        <div class="category-icon">
-                            <i class="icon-map" aria-hidden="true"></i><i class="icon-map abs-icon"
-                                aria-hidden="true"></i>
-                        </div>
-                        <div class="category-detail category-desc-text">
-                            <h4><a href="#">Transportation</a></h4>
-                            <p>90 Jobs</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="category-box" data-aos="fade-up">
-                    <div class="category-desc">
-                        <div class="category-icon">
-                            <i class="icon-desktop" aria-hidden="true"></i><i class="icon-desktop abs-icon"
-                                aria-hidden="true"></i>
-                        </div>
-                        <div class="category-detail category-desc-text">
-                            <h4><a href="#">Telecommunications</a></h4>
-                            <p>210 Jobs</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<div class="brows-job-category" *ngIf="!!searchvalue.length">
+  <h4>Experts Found ({{searchvalue.length}})</h4>
+  <expert-short-profile *ngFor="let value of searchvalue" [expertData]="value"></expert-short-profile>
+</div>
 
-<section class="video-sec dark" id="video" style="background-image:url(assets/img/banner-10.jpg);">
-    <div class="container">
-        <div class="row">
-            <div class="main-heading">
-                <p>Best For Your Projects</p>
-                <h2>Watch Our <span>video</span></h2>
-            </div>
-        </div>
-        <div class="video-part">
-            <a href="#" data-toggle="modal" data-target="#my-video" class="video-btn"><i class="fa fa-play"></i></a>
-        </div>
-    </div>
-</section>
-
-<section class="brows-job-category">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 *ngFor="let search of searchvalue">
-                    we have found {{ search.lenght }} Expert
-                </h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <!-- Single Job List -->
-                <div class="item-click">
-                    <article>
-                        <div class="brows-job-list" *ngFor="let search of searchvalue">
-                            <div class="col-md-6 col-sm-6">
-                                <div class="item-fl-box">
-                                    <div class="brows-job-company-img">
-                                        <a href="#"><img src="{{ search.introduction.picture }}" class="img-responsive"
-                                                alt="" /></a>
-                                    </div>
-                                    <div class="brows-job-position">
-                                        <h3>
-                                            <a href="#">{{ search.introduction.headline }}</a>
-                                        </h3>
-                                        <p>
-                                            <span>Autodesk</span><span class="brows-job-sallery"><i
-                                                    class="fa fa-money"></i>$750 - 800</span>
-                                            <span class="job-type cl-success bg-trans-success">Full Time</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-4">
-                                <div class="brows-job-location">
-                                    <p>
-                                        <i class="fa fa-map-marker"></i>{{ search.introduction.location_name }}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-2 col-sm-2">
-                                <div class="brows-job-link">
-                                    <a href="#" class="btn btn-default"
-                                        [routerLink]="['/profile-details', search._id]">View Profile</a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-              
-            </div>
-        </div>
-        <div class="row">
-            <ul class="pagination d-flex ">
-                <li>
-                    <a href="#"><i class="ti-arrow-left"></i></a>
-                </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li>
-                    <a href="#"><i class="ti-arrow-right"></i></a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</section>
-<div class="clearfix"></div>
+<div class="brows-job-category" *ngIf="noExperts">
+    <h4 class="red">No Expert Found</h4>
+</div>
