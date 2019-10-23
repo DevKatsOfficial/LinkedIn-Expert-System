@@ -31,7 +31,7 @@
                 <label class="col-md-4 col-sm-12 input-label">Country</label>
                 <select class="form-control col-md-8 col-sm-12" ngModel name="country">
                     <option value="">List of Countries</option>
-                    <option *ngFor="let country of countries" value={{country.sortname}}>{{country.name}}</option>
+                    <option *ngFor="let country of countries" value={{country}}>{{country}}</option>
                 </select>
             </div>
 
@@ -39,7 +39,7 @@
                 <label class="col-md-4 col-sm-12 input-label">Region</label>
                 <select class="form-control col-md-8 col-sm-12" ngModel name="region">
                     <option value="">List of Continent</option>
-                    <option *ngFor="let region of regions" value={{region.region}}>{{region.country}}: {{region.region}}</option>
+                    <option *ngFor="let region of regions" value={{region}}>{{region}}</option>
                 </select>
             </div>
 
@@ -61,7 +61,7 @@
 
 <div class="brows-job-category" *ngIf="!!searchvalue.length">
   <h4>Experts Found ({{searchvalue.length}})</h4>
-  <expert-short-profile *ngFor="let value of searchvalue" [expertData]="value"></expert-short-profile>
+  <expert-short-profile *ngFor="let value of searchvalue" [expertData]="value" isShort="1"></expert-short-profile>
 </div>
 
 <div class="brows-job-category" *ngIf="noExperts">

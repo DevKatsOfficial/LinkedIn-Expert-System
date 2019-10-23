@@ -26,6 +26,10 @@ export class BackendapiService {
     const url = `${environment.baseUrl}/expert/search`;
     return this.http.post(url, this.removeEmpltyKey(data), this.getHeaders());
   }
+  expertDetail(id: any): Observable<any> {
+    const url = `${environment.baseUrl}/expert/` + id;
+    return this.http.get(url, this.getHeaders());
+  }
   getOne(id: string): Observable<any> {
     const url = `${environment.baseUrl}/expert/`;
     return this.http.get<any>(url + id);
@@ -62,7 +66,7 @@ export class BackendapiService {
   //Get project of employee
   GetprojectEmployee(): Observable<any> {
     const url = `${environment.baseUrl}/project/employee`;
-    return this.http.get(url);
+    return this.http.get(url, this.getHeaders());
   }
   ProjectClaim(data): Observable<any> {
     const url = `${environment.baseUrl}/expert/claim`;

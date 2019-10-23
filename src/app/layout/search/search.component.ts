@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
   getAllCountries(): void {
     this.loader = true;
     this.backend.getAllCountries().subscribe(res => {
-      this.countries = res;
+      this.countries = this.filterCountries(res);
       this.getAllRegions();
     },err => {
       this.loader = false;
@@ -39,7 +39,7 @@ export class SearchComponent implements OnInit {
   getAllRegions(): void {
     this.backend.getAllRegions().subscribe(res => {
       this.loader = false;
-      this.regions = res;
+      this.regions = this.filterRegion(res);
     },err => {
       this.loader = false;
       alert("Error in server");
@@ -50,8 +50,12 @@ export class SearchComponent implements OnInit {
     this.loader = true;
     this.searchvalue = [];
     this.backend.expertSearch(data).subscribe(res => {
-      this.loader = this.searchBtn = this.noExperts =false;
+      this.loader = this.searchBtn = this.noExperts = false;
       this.searchvalue = res;
+      if(res.length === 0){
+        alert("No Expert Found");
+        this.noExperts = true
+      }
     },err => {
       this.loader = false;
       switch(err.status){
@@ -60,5 +64,25 @@ export class SearchComponent implements OnInit {
         default: alert("Error in server");
       }
     });
+  }
+
+  filterCountries(data: any){
+    let countries: any = [];
+    for(let i=0; i<data.length; i++){
+      countries.push(data[i].name);
+    }
+    return countries;
+  }
+
+  filterRegion(data: any){
+    let region: any = [];
+    for(let i=0; i<data.length; i++){
+      region.push(data[i].region);
+    }
+    return region.filter(this.onlyUnique);
+  }
+
+  onlyUnique(value: any, index: any, self: any) {
+    return self.indexOf(value) === index;
   }
 }

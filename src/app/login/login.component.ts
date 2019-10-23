@@ -10,6 +10,7 @@ import { LocalStorageService } from "../core/services/local-storage.service";
   styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
+  private loader: boolean = true;
   constructor(
     private authService: AuthService,
     private localStorageService: LocalStorageService,
