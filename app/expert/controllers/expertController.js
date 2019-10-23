@@ -5,6 +5,7 @@ const { States } = require("../models/statesM");
 const { Cities } = require("../models/citiesM");
 const { Claim } = require("../models/claimM");
 const { CustomExpertProfile } = require("../models/customExpertProfileM");
+const mongoose = require('mongoose')
 module.exports.createRegion = async (req, res) => {
   for (let i = 0; i < req.body.regions.length; i++) {
     const region = await CountriesRegion.create({
@@ -128,37 +129,70 @@ module.exports.getAllCountriesRegions = async (req, res) => {
   }
   res.json(regions);
 };
+
+module.exports.createTextIndex = async (req, res) => {
+  const indexes = await Expert.createIndexes({ "introduction.first_name": "text", "introduction.last_name": "text", "introduction.country": "text", "introduction.region": "text", "introduction.headline": "text", "previousEmployees.company_name": "text", "currentEmployer.company_name": "text" });
+  // db.getCollection('experts').createIndex({ introduction:{first_name: "text"},introduction:{last_name: "text"},introduction:{country: "text"},introduction:{region: "text"},introduction:{headline: "text"},previousEmployees:{company_name: "text"}, currentEmployer:{company_name: "text"}}) 
+  res.json(indexes);
+};
+
 module.exports.SearchExpert = async (req, res) => {
+  let search = ""
+  if (req.body.first_name) {
+    search += req.body.first_name + " "
+  }
+  if (req.body.last_name) {
+    search += req.body.last_name + " "
+  }
+  if (req.body.country) {
+    search += req.body.country + " "
+  }
+  if (req.body.region) {
+    search += req.body.region + " "
+  }
   if (req.body.find) {
-    const expert = await Expert.find({
-      $or: [
-        { "introduction.first_name": req.body.first_name },
-        { "introduction.last_name": req.body.last_name },
-        { "introduction.country": req.body.country },
-        { "introduction.region": req.body.region },
-        { "introduction.headline": { $regex: req.body.find, $options: "i" } },
-        { previousEmployees: { $elemMatch: { company_name: req.body.previousCompany } } },
-        { currentEmployer: { $elemMatch: { company_name: req.body.currentCompany } } }
-      ]
-    });
-    if (expert.length < 1) {
-      return res.status(400).json({ message: "Expert Not Found!" });
-    }
+    search += req.body.find + " "
   }
-  const expert = await Expert.find({
-    $or: [
-      { "introduction.first_name": req.body.first_name },
-      { "introduction.last_name": req.body.last_name },
-      { "introduction.country": req.body.country },
-      { "introduction.region": req.body.region },
-      { previousEmployees: { $elemMatch: { company_name: req.body.previousCompany } } },
-      { currentEmployer: { $elemMatch: { company_name: req.body.currentCompany } } }
-    ]
-  });
-  if (expert.length < 1) {
-    return res.status(400).json({ message: "Expert Not Found!" });
+  if (req.body.previousCompany) {
+    search += req.body.previousCompany + " "
   }
-  res.json(expert);
+  if (req.body.currentCompany) {
+    search += req.body.currentCompany + " "
+  }
+
+  const expert = await Expert.find({ $text: { $search: search } }, { score: { $meta: "textScore" } }).sort({ score: { $meta: "textScore" } });
+  res.status(200).json(expert);
+
+  // if (req.body.find) {
+  //   const expert = await Expert.find({
+  //     $or: [
+  //       { "introduction.first_name": req.body.first_name },
+  //       { "introduction.last_name": req.body.last_name },
+  //       { "introduction.country": req.body.country },
+  //       { "introduction.region": req.body.region },
+  //       { "introduction.headline": { $regex: req.body.find, $options: "i" } },
+  //       { previousEmployees: { $elemMatch: { company_name: req.body.previousCompany } } },
+  //       { currentEmployer: { $elemMatch: { company_name: req.body.currentCompany } } }
+  //     ]
+  //   });
+  //   if (expert.length < 1) {
+  //     return res.status(400).json({ message: "Expert Not Found!" });
+  //   }
+  // }
+  // const expert = await Expert.find({
+  //   $or: [
+  //     { "introduction.first_name": req.body.first_name },
+  //     { "introduction.last_name": req.body.last_name },
+  //     { "introduction.country": req.body.country },
+  //     { "introduction.region": req.body.region },
+  //     { previousEmployees: { $elemMatch: { company_name: req.body.previousCompany } } },
+  //     { currentEmployer: { $elemMatch: { company_name: req.body.currentCompany } } }
+  //   ]
+  // });
+  // if (expert.length < 1) {
+  //   return res.status(400).json({ message: "Expert Not Found!" });
+  // }
+
 };
 
 module.exports.update = async (req, res) => {
@@ -209,6 +243,8 @@ module.exports.update = async (req, res) => {
       currentEmployer.push(employess[i]);
     }
   }
+  console.log(req.body.userId);
+
   const expert = await Expert.findOneAndUpdate(
     { userId: req.body.userId },
     {

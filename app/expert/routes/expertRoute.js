@@ -1127,6 +1127,9 @@ router.post("/search",
   authMiddleware.Auth,
   expertController.SearchExpert);
 
+// router.post("/createIndex",
+//   expertController.createTextIndex);
+
 router.put("/", expertController.update);
 
 router.post(
