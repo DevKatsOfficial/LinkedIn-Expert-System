@@ -68,6 +68,9 @@ module.exports.create = async (req, res) => {
   const expert = await CustomExpertProfile.create({
     employeeId: req.user._id,
     projectId: req.body.projectId,
+    email: req.body.email,
+    phone: req.body.phone,
+    projectNumber: req.body.projectNumber,
     introduction: req.body.introduction,
     summary: req.body.summary,
     experiences: req.body.experiences,
@@ -243,7 +246,7 @@ module.exports.update = async (req, res) => {
       currentEmployer.push(employess[i]);
     }
   }
-  console.log(req.body.userId);
+  // console.log(req.body.userId);
 
   const expert = await Expert.findOneAndUpdate(
     { userId: req.body.userId },

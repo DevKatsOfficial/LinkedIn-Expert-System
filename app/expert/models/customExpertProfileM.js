@@ -12,6 +12,29 @@ const schema = new mongoose.Schema({
     ref: "projects",
     required: true
   },
+  email: {
+    type: String,
+    unique: true,
+    trim: true,
+    lowercase: true,
+    required: true
+  },
+  phone: {
+    type: String
+  },
+  additionalEmails: [{
+    type: String,
+    unique: true,
+    trim: true,
+    lowercase: true
+  }],
+  additionalPhone: [{ type: String }],
+  pricePerHour: {
+    type: Number
+  },
+  projectNumber: {
+    type: String
+  },
   introduction: {
     last_name: String,
     public_identifier: String,

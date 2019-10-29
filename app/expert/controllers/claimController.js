@@ -22,10 +22,7 @@ module.exports.create = async (req, res) => {
 
   const project = await Claim.findOneAndUpdate(
     { projectId: req.body.projectId },
-
-    { $push: { experts: req.body.experts } }
-  );
-
+    { $push: { experts: req.body.experts } });
   if (!project) {
     const claim = await Claim.create({
       employeeId: req.user._id,

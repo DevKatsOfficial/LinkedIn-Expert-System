@@ -6,6 +6,28 @@ const schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "users"
     },
+    email: {
+        type: String,
+        unique: true,
+        trim: true,
+        lowercase: true
+    },
+    phone: {
+        type: String
+    },
+    additionalEmails: [{
+        type: String,
+        unique: true,
+        trim: true,
+        lowercase: true
+    }],
+    additionalPhone: [{ type: String }],
+    pricePerHour: {
+        type: Number
+    },
+    projectNumber: {
+        type: String
+    },
     linkedin_url: {
         type: String
     },
