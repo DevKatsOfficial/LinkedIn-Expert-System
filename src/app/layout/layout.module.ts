@@ -16,8 +16,11 @@ import { CreateProjectComponent } from "./create-project/create-project.componen
 import { CustomProfileComponent } from "./custom-profile/custom-profile.component";
 import { SearchComponent } from "./search/search.component";
 import { ExpertShortProfileComponent } from "./expert-short-profile/expert-short-profile.component";
+import { LinkedinProfileComponent } from "./linkedin-profile/linkedin-profile.component";
 import { LoadingComponent } from "./loading/loading.component";
 import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
+import { UiSwitchModule } from 'ngx-toggle-switch';
+
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -32,6 +35,7 @@ import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
     CustomProfileComponent,
     SearchComponent,
     ExpertShortProfileComponent,
+    LinkedinProfileComponent,
     LoadingComponent
   ],
   imports: [
@@ -39,6 +43,7 @@ import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
     LayoutRoutingModule,
     FormsModule,
     NgbModule,
+    UiSwitchModule,
     NgMultiSelectDropDownModule.forRoot()
   ]
 })

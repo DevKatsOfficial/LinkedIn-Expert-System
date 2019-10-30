@@ -30,6 +30,14 @@ export class BackendapiService {
     const url = `${environment.baseUrl}/expert/` + id;
     return this.http.get(url, this.getHeaders());
   }
+  projectsByExpert(id: any): Observable<any> {
+    const url = `${environment.baseUrl}/expert/get/project`;
+    return this.http.post(url, {expertId: id}, this.getHeaders());
+  }
+  projectsByEmployee(): Observable<any> {
+    const url = `${environment.baseUrl}/project/employee`;
+    return this.http.get(url, this.getHeaders());
+  }
   getOne(id: string): Observable<any> {
     const url = `${environment.baseUrl}/expert/`;
     return this.http.get<any>(url + id);

@@ -11,6 +11,7 @@ import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LoadingComponent } from "../app/layout/loading/loading.component";
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, RegisterComponent, NotFoundComponent],
@@ -20,7 +21,8 @@ import { LoadingComponent } from "../app/layout/loading/loading.component";
     FormsModule,
     HttpClientModule,
     BrowserModule,
-    RouterModule.forRoot([])
+    RouterModule.forRoot([]),
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

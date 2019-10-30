@@ -1,0 +1,111 @@
+<div>
+  <h4 class="linkedin-detail-area">LinkedIn Data</h4>
+  <ngb-tabset #t="ngbTabset">
+    <!-- Professional Summary -->
+    <ngb-tab id="tab-professional-summary" title="Professional Summary">
+      <ng-template ngbTabContent>
+        <table border="1" *ngIf="!!expertData.experiences.length">
+          <tr><th>Position</th><th>Company</th><th>Duration</th></tr>
+          <tr *ngFor="let exp of expertData.experiences">
+            <td> {{ !!exp.position_name? exp.position_name:'' }}</td>
+            <td> {{ !!exp.company_name? exp.company_name: '' }}</td>
+            <td> {{ getDuration(exp.time_period) }}</td>
+          </tr>
+        </table>
+        <div *ngIf="!expertData.experiences.length" class="nofound">No Professional Summary Found</div>
+      </ng-template>
+    </ngb-tab>
+
+    <!-- Projects -->
+    <ngb-tab id="tab-projects" title="Projects">
+      <ng-template ngbTabContent>
+        <table border="1" *ngIf="!!expertData.projects.length">
+          <tr><th>No.</th><th>Name</th><th>Start</th><th>End</th></tr>
+          <tr *ngFor="let project of expertData.projects; let i= index">
+              <td>{{ i+1 }}</td>
+              <td>{{ project?.name }}</td>
+              <td>{{ project?.time_period?.start?.month }}</td>
+              <td>{{ project?.time_period?.end?.month }}</td>
+            </tr>
+        </table>
+        <div *ngIf="!expertData.experiences.length" class="nofound">No Professional Summary Found</div>
+      </ng-template>
+    </ngb-tab>
+
+    <!-- Education -->
+    <ngb-tab id="tab-education" title="Education">
+      <ng-template ngbTabContent>
+        <table border="1" *ngIf="!!expertData.educations.length">
+          <tr><th>Degree</th><th>Grade</th><th>Field</th><th>Institue</th><th>Duration</th></tr>
+          <tr *ngFor="let edu of expertData.educations">
+            <td> {{ !!edu.degree_name? edu.degree_name:'' }}</td>
+            <td> {{ !!edu.degree_grade? edu.degree_grade: '' }}</td>
+            <td> {{ !!edu.field_of_study? edu.field_of_study: '' }}</td>
+            <td> {{ !!edu.school_name? edu.school_name: '' }}</td>
+            <td> {{ getDuration(edu.time_period) }}</td>
+          </tr>
+        </table>
+        <div *ngIf="!expertData.educations.length" class="nofound">No Education Record Found</div>
+      </ng-template>
+    </ngb-tab>
+
+    <!-- Certification -->
+    <ngb-tab id="tab-certification" title="Certification">
+      <ng-template ngbTabContent>
+          <table border="1" *ngIf="!!expertData.certifications.length">
+            <tr><th>Name</th><th>Institute</th></tr>
+            <tr *ngFor="let cert of expertData.certifications">
+              <td> {{ !!cert.certification_name? cert.certification_name:'' }}</td>
+              <td> {{ !!cert.institute_name? cert.institute_name: '' }}</td>
+            </tr>
+          </table>
+          <div *ngIf="!expertData.certifications.length" class="nofound">No Certifications Record Found</div>
+      </ng-template>
+    </ngb-tab>
+
+    <!-- Skills -->
+    <ngb-tab id="tab-skills" title="Skills">
+      <ng-template ngbTabContent>
+          <ol class="row" *ngIf="!!expertData.skills.length">
+            <li class="col-md-4" *ngFor="let skill of expertData.skills"> {{ skill.name }}  </li>
+          </ol>
+          <div *ngIf="!expertData.skills.length" class="nofound">No Skills Record Found</div>
+      </ng-template>
+    </ngb-tab>
+
+    <!-- Publications -->
+    <ngb-tab id="tab-publications" title="Publications">
+      <ng-template ngbTabContent>
+          <table border="1" *ngIf="!!expertData.publications.length">
+            <tr><th>Name</th><th>Publisher</th><th>Url</th><th>Date</th></tr>
+            <tr *ngFor="let pub of expertData.publications">
+              <td> {{ !!pub.name? pub.name: '' }}</td>
+              <td> {{ !!pub.publisher? pub.publisher: '' }}</td>
+              <td> {{ !!pub.url? pub.url: '' }}</td>
+              <td> {{ !!pub.publish_date? pub.publish_date: '' }}</td>
+            </tr>
+          </table>
+          <div *ngIf="!expertData.publications.length" class="nofound">No Publications Record Found</div>
+      </ng-template>
+    </ngb-tab>
+
+    <!-- Volunteer Experiences -->
+    <ngb-tab id="tab-volunteer-experiences" title="Volunteer Experiences">
+      <ng-template ngbTabContent>
+        <table border="1" *ngIf="!!expertData.volunteer_experiences.length">
+          <tr><th>Organization</th><th>Cause</th><th>Role</th><th>Duration</th></tr>
+          <tr *ngFor="let exp of expertData.volunteer_experiences">
+            <td> {{ !!exp.organization_name? exp.organization_name: '' }}</td>
+            <td> {{ !!exp.cause? exp.cause: '' }}</td>
+            <td> {{ !!exp.role? exp.role:'' }}</td>
+            <td> {{ getDuration(exp.time_period) }}</td>
+          </tr>
+        </table>
+        <div *ngIf="!expertData.volunteer_experiences.length" class="nofound">No Volunteer Experience Record Found</div>
+      </ng-template>
+    </ngb-tab>
+
+  </ngb-tabset>
+
+
+</div>

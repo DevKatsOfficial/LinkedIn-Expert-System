@@ -1,47 +1,40 @@
-.input-group i {
-  padding: 15px;
-}
-select.form-control:not([size]):not([multiple]) {
-  height: calc(3.25rem + 2px);
-}
-.item-click select.form-control:not([size]):not([multiple]),
-.ur-detail-wrap select.form-control:not([size]):not([multiple]) {
-  height: calc(3rem + 2px);
-}
-.table thead th,
-.table td {
+.project-information{
   text-align: center;
+  background: #cdcdcd;
+  padding: 5px;
+  border: 1px solid #afaeae;
 }
 
-.table .thead-dark th {
-  color: #000;
-  background: #fbfdff;
-  border: 1px solid #ddd;
-}
-.full-card {
-  padding-bottom: 0px;
-}
-.full-card p {
-  margin: 0px;
-}
-.ur-detail-wrap.top-lay {
-  transform: translateY(20px);
-  padding: 1em;
-}
-.ur-thumb img {
-  width: 132px;
-}
-.ur-detail-wrap.top-lay .textarea {
-  height: 70px;
+.project-form{
+  margin-bottom: 10px;
 }
 
-.custom-control {
+.input-label{
   margin-top: 15px;
-  margin-left: 10px;
 }
 
-.expert img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+table {
+  width: 100%;
+  border: 1px solid #cdcdcd;
+}
+
+table th, table td {
+  padding:3px;
+}
+
+.add-new-contact {
+  float: right;
+  background: #0084ff;
+  color: white;
+  padding: 5px;
+  font-weight: 100;
+  border-radius: 3px;
+}
+
+.client-contacts{
+  padding-right: 0;
+}
+
+.switch-btn {
+  padding-top: 5px;
 }

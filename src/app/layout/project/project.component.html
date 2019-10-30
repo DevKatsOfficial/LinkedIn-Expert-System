@@ -1,381 +1,68 @@
-<!-- Basic Full Detail Form Start -->
-<section class="full-detail mt-5">
-  <div class="container">
-    <h2 class="detail-title col-md-12">Project Information</h2>
-    <div class="row bottom-mrg extra-mrg">
-      <div class="ur-detail-wrap top-lay">
-        <div class="ur-detail-box">
-          <div class="ur-caption col-md-6">
-            <p class="ur-location">
-              <b>Project Number:</b> {{ project.projectNumber }}
-            </p>
-            <p class="ur-location">
-              <b>Project Name:</b>{{ project.projectName }}
-            </p>
-            <p class="ur-designation">
-              <b>Project Code:</b> {{ project.projectCode }}
-            </p>
-          </div>
-          <div class="ur-caption col-md-6">
-            <p class="ur-location" *ngIf="project.clientId">
-              <b>Client Name:</b>
-              {{ project.clientId.clientCompany }}
-            </p>
-            <p class="ur-location">
-              <b>Project Owner:</b> {{ project.projectOwner }}
-            </p>
-            <p class="ur-designation">
-              <b>Project Brief:</b> {{ project.description }}
-            </p>
+<div class="col-md-12">
+  <div class="col-md-12">
+    <h4 class="project-information">Project Information</h4>
+    <form class="col-md-12 row project-form">
+
+      <div class="col-md-6 col-sm-12 row">
+          <label class="col-md-3 col-sm-12 input-label">Project Number</label>
+          <input type="text" class="form-control col-md-9 col-sm-12" ngModel name="project_number" placeholder="Project Number"/>
+      </div>
+      <div class="col-md-6 col-sm-12 row">
+          <label class="col-md-3 col-sm-12 input-label">Client Name</label>
+          <input type="text" class="form-control col-md-9 col-sm-12" ngModel name="client_name" placeholder="Client Name"/>
+      </div>
+      <div class="col-md-6 col-sm-12 row">
+          <label class="col-md-3 col-sm-12 input-label">Project Name</label>
+          <input type="text" class="form-control col-md-9 col-sm-12" ngModel name="project_name" placeholder="Project Name"/>
+      </div>
+      <div class="col-md-6 col-sm-12 row">
+          <label class="col-md-3 col-sm-12 input-label">Project Owner</label>
+          <input type="text" class="form-control col-md-9 col-sm-12" ngModel name="project_owner" placeholder="Project Owner"/>
+      </div>
+      <div class="col-md-6 col-sm-12 row">
+          <label class="col-md-3 col-sm-12 input-label">Project Code</label>
+          <input type="text" class="form-control col-md-9 col-sm-12" ngModel name="project_code" placeholder="Project Code"/>
+      </div>
+      <div class="col-md-6 col-sm-12 row">
+          <label class="col-md-3 col-sm-12 input-label">Project Team</label>
+          <input type="text" class="form-control col-md-9 col-sm-12" ngModel name="project_team" placeholder="Project Team"/>
+      </div>
+      <div class="col-md-6 col-sm-12 row padding-right-0">
+        <div class="col-md-12 col-sm-12 row client-contacts">
+          <label class="col-md-12 col-sm-12 input-label padding-right-0">Client Contacts
+            <a href="#" class="add-new-contact">Add new contact</a>
+          </label>
+          <div class="col-md-12 col-sm-12 padding-right-0">
+            <table border="1">
+              <tr><th>Name</th><th>Email</th></tr>
+              <tr><td>a</td><td>a@a.com</td></tr>
+              <tr><td>b</td><td>b@b.com</td></tr>
+            </table>
           </div>
         </div>
       </div>
-    </div>
 
-    <h2 class="detail-title col-md-12">Expert Assign To this Project</h2>
-    <div class="row bottom-mrg extra-mrg">
-      <div class="ur-detail-wrap top-lay">
-        <div class="ur-detail-box">
-          <div class="ur-thumb">
-            <img src="assets/img/profile.jpg" class="img-responsive" alt="" />
-          </div>
-          <div class="ur-caption col-md-3">
-            <h4 class="ur-title"><b>Name:</b> Hanzala Mehmood</h4>
-            <p class="ur-location"><b>Email:</b> Hanzala@gmail.com</p>
-            <p class="ur-designation"><b>Phone:</b> +923008540960</p>
-          </div>
-          <div class="col-md-7">
-            <form class="form-row">
-              <div class="input-group col-md-12">
-                <select class="form-control">
-                  <option>Silverlight Owner</option>
-                  <option>$</option>
-                  <option>Rs</option>
-                </select>
-              </div>
+      <div class="col-md-6 col-sm-12 row padding-right-0">
 
-              <div class="input-group col-md-6">
-                <input type="text" class="form-control" placeholder="/ Hr" />
-              </div>
-              <div class="input-group col-md-6">
-                <select class="form-control">
-                  <option>Rate</option>
-                  <option>$</option>
-                  <option>Rs</option>
-                </select>
-              </div>
-              <div class="col-md-12 col-sm-12">
-                <textarea
-                  class="form-control textarea"
-                  placeholder="Project Decription"
-                ></textarea>
-              </div>
-            </form>
-          </div>
+        <div class="col-md-12 col-sm-12 row padding-right-0">
+          <label class="col-md-3 col-sm-12 input-label">Project Brief</label>
+          <textarea rows="7" class="form-control col-md-9 col-sm-12" ngModel name="project_brief" placeholder="Project Brief"></textarea>
+        </div>
+        <div class="col-md-12 col-sm-12 row padding-right-0">
+            <label class="col-md-3 col-sm-12 input-label">Date Created</label>
+            <input type="text" class="form-control col-md-9 col-sm-12" ngModel name="project_team" placeholder="Date Created"/>
+        </div>
+        <div class="col-md-12 col-sm-12 row padding-right-0">
+            <label class="col-md-3 col-sm-12 input-label">Project Status</label>
+            <div class="col-md-9 col-sm-12 switch-btn"><ui-switch></ui-switch></div>
+            <!-- <div class="col-md-9 col-sm-12"><ui-switch [(ngModel)]="enable"></ui-switch></div> -->
         </div>
 
-        <div class="ur-detail-btn">
-          <a
-            href="javascript:void(0)"
-            data-toggle="modal"
-            data-target="#apply-job"
-            class="btn btn-warning mrg-bot-10 full-width"
-            ><i class="ti-star mrg-r-5"></i>Profile</a
-          ><br />
-          <a href="#" class="btn btn-info full-width"
-            ><i class="ti-linkedin mrg-r-5"></i> Linkedin</a
-          >
-        </div>
       </div>
-    </div>
-    <div class="row">
-      <h2 class="detail-title col-md-12">Project</h2>
-      <div class="mb-3">
-        <button class="btn btn-primary">Book Call</button>
-      </div>
-      <div class="col-md-12">
-        <table class="table table-bordered table-hover">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">Project title</th>
-              <th scope="col">Started Date</th>
-              <th scope="col">Client Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="row mb-3">
-      <div class="col-md-4">
-        <a
-          href="javascript:void(0)"
-          class="btn btn-primary"
-          (click)="CreateProfile(contents)"
-          >Create Profile</a
-        >
-      </div>
-      <div class="offset-md-5"></div>
-      <div class="col-md-3">
-        <a
-          href="javascript:void(0)"
-          class="btn btn-danger mr-1"
-          (click)="InviteExpertPop(invite)"
-          >Email Export</a
-        >
-        <a
-          href="javascript:void(0)"
-          class="btn btn-primary"
-          (click)="getprojectByexpert()"
-          >Export PDF</a
-        >
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 col-sm-12">
-        <div class="sidebar-wrapper">
-          <div class="sidebar-box-header bb-1">
-            <h4>Expert Call Booked</h4>
-          </div>
 
-          <div class="item-click">
-            <article>
-              <div class="brows-job-list">
-                <div class="col-md-4 col-sm-4">
-                  <div class="item-fl-box">
-                    <div class="brows-job-position">
-                      <h3>
-                        <a href="#">Expert:Jone</a>
-                      </h3>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-8 col-sm-8">
-                  <form class="form-row">
-                    <div class="input-group col-md-6">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Rate Comments"
-                      />
-                    </div>
-                    <div class="input-group col-md-3">
-                      <select class="form-control"
-                        ><option>Rate</option
-                        ><option>$</option
-                        ><option>Rs</option></select
-                      >
-                    </div>
-                    <div class="input-group col-md-3">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="/ Hr"
-                      />
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- Basic Full Detail Form End -->
 
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Modal title</h4>
-    <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form class="p-3" #frm="ngForm" (ngSubmit)="saveInfocontact(frm.value)">
-      <div class="form-group">
-        <label for="exampleInputEmail1">Name</label>
-        <input
-          type="text"
-          class="form-control"
-          ngModel
-          name="name"
-          id="name"
-          aria-describedby="namehelp"
-          placeholder="Enter Name"
-        />
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          ngModel
-          name="email"
-          placeholder="Enter Email"
-        />
-      </div>
-      <button type="submit" class="btn btn-primary">
-        Submit
-      </button>
+
     </form>
   </div>
-  <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-light"
-      (click)="modal.close('Close click')"
-    >
-      Close
-    </button>
-  </div>
-</ng-template>
-
-<ng-template #contents let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Create Custom Profile</h4>
-    <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body p-3">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">picture</th>
-          <th scope="col">Create custom profile</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let expe of experts">
-          <td>
-            {{ expe.expertId.introduction.first_name }}
-            {{ expe.expertId.introduction.last_name }}
-          </td>
-          <td>
-            <div class="expert">
-              <img src="{{ expe.expertId.introduction.picture }}" />
-            </div>
-          </td>
-          <td>
-            <button
-              type="submit"
-              class="btn btn-primary btn-sm"
-              data-dismiss="modal"
-              [routerLink]="['/customprofile', expe.expertId._id]"
-            >
-              create custom profile
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-light"
-      (click)="modal.close('Close click')"
-    >
-      Close
-    </button>
-  </div>
-</ng-template>
-
-<ng-template #invite let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Invite Expert</h4>
-    <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body p-3">
-    <form id="registerform" #f="ngForm" (ngSubmit)="invitionexpert(f.value)">
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="email">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            name="email"
-            ngModel
-            placeholder="Email"
-          />
-        </div>
-        <div class="form-group col-md-6">
-          <label for="expertname">Expert Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="expertname"
-            name="name"
-            ngModel
-            placeholder="Expert Name "
-          />
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          <label for="inputState">Project Number</label>
-          <select
-            id="inputState"
-            class="form-control"
-            name="projectNumber"
-            ngModel
-            (change)="selectprojectnumber($event)"
-          >
-            <option *ngFor="let cn of projectlist" [value]="cn.projectNumber">{{
-              cn.projectNumber
-            }}</option>
-          </select>
-        </div>
-      </div>
-
-      <button type="submit" class="btn btn-primary">Invite Expert</button>
-      <button
-        type="button"
-        class="btn btn-light ml-3"
-        (click)="modal.close('Close click')"
-      >
-        Close
-      </button>
-    </form>
-  </div>
-</ng-template>
+</div>

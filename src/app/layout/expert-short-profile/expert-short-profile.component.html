@@ -8,38 +8,75 @@
 
   </div>
 
-  <div class="col-md-4 col-sm-6">
+  <div class="col-md-6 col-sm-12">
+    <div class="col-md-12 col-sm-12 row margin-top-10">
+      <div class="col-md-6 col-sm-12 info-label padding-0">Telephone</div>
+      <div class="col-md-6 col-sm-12 padding-0">{{ expertData.telephone? expertData.telephone: '' }}</div>
+    </div>
     <div class="col-md-12 col-sm-12 row margin-top-10">
       <div class="col-md-6 col-sm-12 info-label padding-0">Current Position</div>
       <div class="col-md-6 col-sm-12 padding-0" *ngIf="!!expertData.experiences?.length">{{ expertData.experiences[0]?.position_name }}</div>
+    </div>
+    <div class="col-md-12 col-sm-12 row">
+      <div class="col-md-6 col-sm-12 info-label padding-0">Previous Positions</div>
+      <div class="col-md-6 col-sm-12 previous-positions padding-0">
+        <ol class="previous-exp-list">
+          <li *ngFor="let record of checkArray(expertData.experiences) | slice:1; let i = index">
+            {{ record.position_name? record.position_name: '' }} in <b>{{ record.company_name? record.company_name: '' }}</b>
+          </li>
+        </ol>
+      </div>
     </div>
 
     <div class="col-md-12 col-sm-12 row margin-top-10 margin-bottom-10">
       <div class="col-md-12 col-sm-12 info-label padding-0">Rating Comments</div>
       <div class="col-md-12 col-sm-12 previous-positions">
-          <div *ngIf="expertData?.summary?.text?.length > 1">{{ expertData?.summary?.text }} </div>
+          <div *ngIf="expertData?.summary?.text?.length > 1">{{ expertData?.additional_info?.text }} </div>
           <div *ngIf="expertData?.summary?.text == null">No comments found</div>
       </div>
     </div>
   </div>
 
-  <div class="col-md-6 col-sm-12">
+  <div class="col-md-4 col-sm-12">
     <div class="col-md-12 col-sm-12 row margin-top-10">
-      <div class="col-md-6 col-sm-12 info-label">Previous Positions</div>
-      <div class="col-md-6 col-sm-12 previous-positions padding-0">
-        <p *ngFor="let record of expertData.experiences | slice:1; let i = index">{{ i+1 }}. {{ record.position_name }}</p>
+      <div class="col-md-6 col-sm-12 info-label padding-0">Email</div>
+      <div class="col-md-6 col-sm-12 padding-0">{{ expertData.email? expertData.email: '' }}</div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 row margin-top-10">
+      <div class="col-md-4 col-sm-12 info-label padding-0">Location</div>
+      <div class="col-md-8 col-sm-12 padding-0">{{ expertData?.introduction?.location_name }}</div>
+    </div>
+    <div class="col-md-12 col-sm-12 row margin-top-10">
+      <div class="col-md-4 col-sm-12 info-label padding-0">Default Rate</div>
+      <div class="col-md-8 col-sm-12 padding-0">{{ expertData.default_rate? expertData.default_rate: "" }}</div>
+    </div>
+    <div class="col-md-12 col-sm-12 row margin-top-10" >
+      <div class="col-md-12 col-sm-12 info-label padding-0">Projects</div>
+      <div class="col-md-12 col-sm-12 projects padding-0" *ngIf="isShort == 1">
+        <div *ngIf="!expertData.projects?.length">No projects found</div>
+        <table border="1" *ngIf="expertData.projects?.length">
+          <tr><th>No.</th><th>Name</th><th>Start</th><th>End</th></tr>
+          <tr *ngFor="let project of expertData.projects; let i= index">
+            <td>{{ i+1 }}</td>
+            <td>{{ project?.name }}</td>
+            <td>{{ project?.time_period?.start?.month }}</td>
+            <td>{{ project?.time_period?.end?.month }}</td>
+          </tr>
+        </table>
       </div>
-    </div>
-    <div class="col-md-12 col-sm-12 row margin-top-10">
-      <div class="col-md-6 col-sm-12 info-label">Location</div>
-      <div class="col-md-6 col-sm-12 padding-0">{{ expertData?.introduction?.location_name }}</div>
-    </div>
-    <div class="col-md-12 col-sm-12 row margin-top-10" *ngIf="expertData.projects?.length">
-      <div class="col-md-12 col-sm-12 info-label">Projects</div>
-      <div class="col-md-12 col-sm-12 projects">
-        <table border="1">
-          <tr><th>Name</th><th>Start</th><th>End</th></tr>
-          <tr *ngFor="let project of expertData.projects"><td>{{ project?.name }}</td><td>{{ project?.time_period?.start?.month }}</td><td>{{ project?.time_period?.end?.month }}</td></tr>
+      <div class="col-md-12 col-sm-12 projects padding-0" *ngIf="!isShort">
+        <div *ngIf="!projectList && !projectList.length">No project assigned to this expert</div>
+        <table border="1" *ngIf="!!projectList && !!projectList.length">
+          <tr><th>No.</th><th>Name</th><th>Owner</th><th>Team</th><th>Status</th><th>Action</th></tr>
+          <tr *ngFor="let project of projectList; let i= index">
+            <td>{{ i+1 }}</td>
+            <td>{{ project?.projectId?.projectName }}</td>
+            <td>{{ project?.projectId?.projectOwner }}</td>
+            <td>{{ project?.projectId?.projectteam }}</td>
+            <td>{{ project?.projectId?.projectStatus }}</td>
+            <td><a href="javascript:void(0)">View</a></td>
+          </tr>
         </table>
       </div>
     </div>

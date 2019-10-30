@@ -1,6 +1,67 @@
 <loading *ngIf="loader"></loading>
-<div class="brows-job-category" >
+<div class="brows-job-category col-md-12">
   <h2 class="text-center">Expert Profile Detail</h2>
-  <expert-short-profile [expertData]="expertProfile" *ngIf="!!expertProfile"></expert-short-profile>
-  <div *ngIf="!expertProfile">Error In Expert Profile Detail</div>
+
+  <!-- Modal -->
+  <div class="popup-modal" *ngIf="modalOpen">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" (click)="updateModal(false)">&times;</button>
+          <h4 class="modal-title">Please Select Project</h4>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="!!employeeProjects && !!employeeProjects.length">
+            <ol>
+              <li *ngFor="let project of employeeProjects; let i= index">
+                <label><input class="checkbox" type="checkbox" [checked]="claimProject.projectId === project._id" (click)="onClickProject(project._id)"/>{{ project?.projectName }}</label>
+
+              </li>
+            </ol>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="updateModal(false)">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="submitClaim()">Claim</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div *ngIf="!!expertProfileError" class="error">Error In Expert Profile Detail</div>
+  <div *ngIf="!!expertProfile">
+    <expert-short-profile [expertData]="expertProfile" [projectList]="projectList"></expert-short-profile>
+    <form id="claimForm" #f="ngForm" (ngSubmit)="claimForm(f.value)">
+      <div class="claim-expert-area row">
+        <div class="col-md-4 col-sm-4 padding-0">
+            <label class="col-md-6 col-sm-12 input-label">Additional Email</label>
+            <input type="text" class="form-control col-md-6 col-sm-12" ngModel name="additional_email" placeholder="Additional Email"/>
+        </div>
+        <div class="col-md-4 col-sm-4 padding-0">
+            <label class="col-md-6 col-sm-12 input-label">Additional Telephone</label>
+            <input type="text" class="form-control col-md-6 col-sm-12" ngModel name="additional_telephone" placeholder="Additional Telephone"/>
+        </div>
+        <div class="col-md-4 col-sm-4 padding-0">
+            <label class="col-md-6 col-sm-12 input-label">Region</label>
+            <div class="col-md-6 col-sm-12 input-label">Region</div>
+        </div>
+        <div class="col-md-4 col-sm-4 padding-0">
+            <label class="col-md-6 col-sm-12 input-label">Signed Up By</label>
+            <div class="col-md-6 col-sm-12 input-label">Employee</div>
+        </div>
+        <div class="col-md-6 col-sm-4 padding-0">
+            <label class="col-md-6 col-sm-12 input-label">Become Silverlight Expert</label>
+            <div class="col-md-6 col-sm-12 input-label">March 20, 2017</div>
+        </div>
+        <div class="col-md-2 col-sm-4 text-right">
+            <button type="submit" class="btn btn-info"><i class="fa fa-check"></i>&nbsp;Claim Expert</button>
+        </div>
+      </div>
+    </form>
+    <linkedin-profile [expertData]="expertProfile"></linkedin-profile>
+  </div>
 </div>
